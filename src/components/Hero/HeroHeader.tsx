@@ -1,7 +1,13 @@
+/**
+ * HeroHeader component displays the main title and subtitle of the hero section.
+ * It uses semantic HTML with proper heading hierarchy and maintains responsive design.
+ */
 import React from 'react';
 
 interface HeroHeaderProps {
+  /** The main title text for the hero section */
   title: string;
+  /** The subtitle text providing additional context */
   subtitle: string;
 }
 
@@ -16,4 +22,4 @@ export const HeroHeader: React.FC<HeroHeaderProps> = ({ title, subtitle }) => {
       </p>
     </header>
   );
-};  
+};

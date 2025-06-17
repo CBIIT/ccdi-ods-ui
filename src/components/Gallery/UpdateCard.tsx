@@ -5,6 +5,7 @@ interface UpdateCardProps {
   title: string;
   description: string;
   readMoreColor: string;
+  link?: string;
   hasBorder?: boolean;
   className?: string;
 }
@@ -14,6 +15,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   title,
   description,
   readMoreColor,
+  link = "#",
   hasBorder = false,
   className = "",
 }) => {
@@ -41,13 +43,14 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         >
           {description}
         </div>
-        <div
+        <a
+          href={link}
           className={`text-sm text-${readMoreColor} font-medium text-right uppercase underline z-10 mr-5 ${
             title.includes("New Release") ? "" : "-mt-7"
           } max-md:mr-2.5`}
         >
           Read More
-        </div>
+        </a>
       </div>
     </div>
   );
