@@ -1,12 +1,58 @@
 import Link from 'next/link';
+import matter from 'gray-matter';
 
 interface GithubContent {
   name: string;
   path: string;
   sha: string;
+  // Add download_url for raw content
+  download_url: string;
 }
 
-async function fetchGithubPosts(slug: string) {
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+}
+
+async function fetchPostMetadata(url: string): Promise<string | undefined> {
+  const response = await fetch(url);
+  if (!response.ok) return undefined;
+  
+  const content = await response.text();
+  const { data } = matter(content);
+  return data.title;
+}
+
+export async function generateStaticParams() {
+  // Fetch all possible paths from GitHub at build time
+  const response = await fetch(
+    'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages',
+    {
+      headers: {
+        'Accept': 'application/vnd.github.v3+json',
+      }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch directory structure');
+  }
+
+  const data: GithubContent[] = await response.json();
+  
+  // Generate paths for both directories and files
+  const paths = data.map(item => ({
+    slug: [item.name]
+  }));
+
+  return paths;
+}
+
+
+async function fetchGithubPosts(slug: string): Promise<Post[]> {
+
   const response = await fetch(
     `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${slug}`,
     {
@@ -22,13 +68,24 @@ async function fetchGithubPosts(slug: string) {
   }
 
   const data: GithubContent[] = await response.json();
-  return data
-    .filter(file => file.name.endsWith('.md'))
-    .map(file => ({
-      id: file.sha,
-      title: file.name.replace('.md', ''),
-      slug: file.path.replace('pages/', '').replace('.md', '')
-    }));
+  const mdFiles = data.filter(file => file.name.endsWith('.md'));
+  
+  // Fetch metadata for all files in parallel
+  const posts = await Promise.all(
+    mdFiles.map(async (file) => {
+      const metadataTitle = file.download_url ? 
+        await fetchPostMetadata(file.download_url) : 
+        undefined;
+      
+      return {
+        id: file.sha,
+        title: metadataTitle || file.name.replace('.md', ''),
+        slug: file.path.replace('pages/', '').replace('.md', '')
+      };
+    })
+  );
+
+  return posts;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

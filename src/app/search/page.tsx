@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
+import matter from 'gray-matter';
 
 // ==========================
 // Interfaces
@@ -18,7 +19,10 @@ interface GithubPost {
   name: string;
   path: string;
   type: string;
-  content?: string; // Added content property
+  content?: string;
+  metadata?: {
+    title?: string;
+  };
 }
 
 interface PostWithCollection extends GithubPost {
@@ -75,10 +79,12 @@ async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
         }
       );
       if (postResonse.ok) {
-        const content = await postResonse.text();
+        const rawContent = await postResonse.text();
+        const { data: metadata, content } = matter(rawContent);
         const post: GithubPost = {
           ...item,
           content,
+          metadata: metadata as { title?: string },
         };
         posts.push(post);
       }
@@ -191,7 +197,7 @@ function SearchContent() {
                       href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
                       className="text-blue-600 hover:text-blue-800"
                     >
-                      {post.name.replace('.md', '').replace(/-/g, ' ')}
+                      {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                     </Link>
                   </li>
                 ))}
