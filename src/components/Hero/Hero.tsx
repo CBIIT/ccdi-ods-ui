@@ -1,10 +1,16 @@
+"use client";
 import React from 'react';
 import { HeroHeader } from './HeroHeader';
 import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
 import heroImage from '../../../assets/hero.png';
+import { useHeroConfig } from './HeroController';
 
 const Hero: React.FC = () => {
+  const config = useHeroConfig();
+
+  if (!config) return null;
+
   return (
     <section className="text-center">
       <div className="bg-white w-full max-md:max-w-full max-md:pb-[100px]">
@@ -18,29 +24,21 @@ const Hero: React.FC = () => {
             {/* Left Side: Header and Mission */}
             <div className="w-1/2 flex flex-col items-start text-left max-md:w-full">
               <HeroHeader 
-                title="Discover the NCI Data Sharing Lifecycle"
-                subtitle="NCI's Data Sharing Approach Starts and Ends with the Patient in Mind"
+                title={config.title}
+                subtitle={config.subtitle}
               />
-              <HeroMission 
-                title="NCI Office of Data Sharing (ODS) Mission:"
-                description={
-                  <>
-                    To direct a comprehensive data sharing vision and strategy for
-                    NCI which advocates for the proper{" "}
-                    <span style={{ color: "rgba(255,0,0,1)" }}>
-                      (something something)
-                    </span>{" "}
-                    broad and equitable data sharing and the needs of the cancer
-                    research and patience communities.
-                  </>
-                }
-              />
+              <div className="mt-5 w-full">
+                <HeroMission 
+                  title={config.mission.title}
+                  description={config.mission.description}
+                />
+              </div>
             </div>
             {/* Right Side: Hero Image */}
             <div className="w-1/2 flex justify-center items-center max-md:w-full">
               <HeroImage 
                 src={heroImage.src}
-                alt="NCI Data Sharing Lifecycle diagram"
+                alt={config.image.alt}
                 className="w-full max-w-[400px] mx-auto my-8"
               />
             </div>
