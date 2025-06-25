@@ -5,7 +5,7 @@ export const DataSharingGuidance: React.FC = () => {
   const linkList = [
     {
       title: "Data Sharing Guidance",
-      textColor: "#7B3D7D",
+      titleTextColor: "#7B3D7D",
       links: [
         { text: "NIH Scientific Data Sharing Guidance", href: "/nih-guidance" },
         { text: "Data Sharing Basics", href: "/data-sharing-basics" },
@@ -17,7 +17,7 @@ export const DataSharingGuidance: React.FC = () => {
     },
     {
       title: "Data Sharing Process",
-      textColor: "#00756A",
+      titleTextColor: "#00756A",
       links: [
         { text: "Submit Non-NIH Funded Study to dbGaP", href: "/submit-dbgap" },
         { text: "Accessing Scientific Data for Re-Use", href: "/accessing-re-use" },
@@ -42,7 +42,7 @@ export const DataSharingGuidance: React.FC = () => {
             <div className="mb-2 w-full">
               <h2
                 className="text-[32px] font-semibold mb-2 max-md:text-[28px] max-sm:text-2xl"
-                style={{ color: section.textColor }}
+                style={{ color: section.titleTextColor }}
               >
                 {section.title}
               </h2>
