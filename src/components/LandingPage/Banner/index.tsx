@@ -1,20 +1,16 @@
 import React from "react";
 import HeroCard from "./Card";
 import ContactLink from "./ContactLink";
+import banner1 from "../../../../assets/landing/banner_1.svg";
+import banner2 from "../../../../assets/landing/banner_2.svg";
+import banner3 from "../../../../assets/landing/banner_3.svg";
 
-const heroCards = [
-  {
-    imageSrc: "https://cdn.builder.io/api/v1/image/assets/4ccc52d59fb54340b43b3652db0442b6/1ca83a25a30597f6af82dd800925958c47b1a540?placeholderIfAbsent=true",
-    description: "Advise on programs that define impactful data and resources",
-  },
-  {
-    imageSrc: "https://cdn.builder.io/api/v1/image/assets/4ccc52d59fb54340b43b3652db0442b6/c5ebc61329056fc225979f14fc23306f1c00dc1d?placeholderIfAbsent=true",
-    description: "Implement guidance that promote broad access and use of data",
-  },
-  {
-    imageSrc: "https://cdn.builder.io/api/v1/image/assets/4ccc52d59fb54340b43b3652db0442b6/508050019b34ef9d3b387d9ce5a476f04365c72d?placeholderIfAbsent=true",
-    description: "Offer tools and processes that help ensure data are Findable, Accessable, Interoperable, and Resuable (FAIR).",
-  },
+const banners = [banner1, banner2, banner3];
+
+const textFrame = [
+  "Advise on programs that define impactful data and resources",
+  "Implement guidance that promote broad access and use of data",
+  "Offer tools and processes that help ensure data are Findable, Accessable, Interoperable, and Resuable (FAIR)."
 ];
 
 const Banner: React.FC = () => {
@@ -31,11 +27,11 @@ const Banner: React.FC = () => {
       </h2>
       
       <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[49px] max-md:max-w-full max-md:mt-10">
-        {heroCards.map((card, idx) => (
+        {textFrame.map((card, idx) => (
           <HeroCard
             key={idx}
-            imageSrc={card.imageSrc}
-            description={card.description}
+            imageSrc={banners[idx].src}
+            description={textFrame[idx]}
             imageWidth="w-[74px]"
             imageAspect="aspect-[0.8]"
           />
