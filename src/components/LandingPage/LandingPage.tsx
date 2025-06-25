@@ -12,7 +12,7 @@ export function LandingPage() {
       <Banner />
       <Gallery />
       <DataSharingGuidance />
-      <DataSharingProcess />
+      {/* <DataSharingProcess /> */}
       <DataSharingResources />
     </>
   );
