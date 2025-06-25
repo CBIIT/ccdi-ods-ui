@@ -4,52 +4,52 @@ import { GuidanceLink } from "./GuidanceLink";
 export const DataSharingGuidance: React.FC = () => {
   const linkList = [
     {
-      text: "NIH Scientific Data Sharing Guidance",
-      href: "#nih-guidance",
+      title: "Data Sharing Guidance",
+      links: [
+        { text: "NIH Scientific Data Sharing Guidance", href: "/nih-guidance" },
+        { text: "Data Sharing Basics", href: "/data-sharing-basics" },
+        { text: "NCI Scientific Data Sharing Guidance", href: "/nci-guidance" },
+        { text: "NCI Requirements for GDS Policy", href: "/nci-requirements" },
+        { text: "Cancer Moonshot (PADS) Guidance", href: "/cancer-moonshot" },
+        { text: "Tips for Writing a DMS Plan", href: "/dms-plan-tips" },
+      ],
     },
     {
-      text: "NCI Scientific Data Sharing Guidance",
-      href: "#nci-guidance",
-    },
-    {
-      text: "Cancer Moonshot (PADS) Guidance",
-      href: "#cancer-moonshot",
-    },
-    {
-      text: "Data Sharing Basics",
-      href: "#data-sharing-basics",
-    },
-    {
-      text: "NCI Requirements for GDS Policy",
-      href: "#nci-requirements",
-    },
-    {
-      text: "Tips for Writing a DMS Plan",
-      href: "#dms-plan-tips",
+      title: "Data Sharing Process",
+      links: [
+        { text: "Submit Non-NIH Funded Study to dbGaP", href: "/submit-dbgap" },
+        { text: "Accessing Scientific Data for Re-Use", href: "/accessing-re-use" },
+      ],
     },
   ];
 
-  // Split the linkList into rows of 2 items each
-  const rows = [];
-  for (let i = 0; i < linkList.length; i += 2) {
-    rows.push(linkList.slice(i, i + 2));
-  }
+  // Helper to split links into chunks of 2
+  const chunkLinks = (links: { text: string; href: string }[]) => {
+    const chunks = [];
+    for (let i = 0; i < links.length; i += 2) {
+      chunks.push(links.slice(i, i + 2));
+    }
+    return chunks;
+  };
 
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" >
-      <h2 className="text-[32px] font-semibold text-[#7B3D7D] mb-[38px] max-md:text-[28px] max-sm:text-2xl">
-        Data Sharing Guidance
-      </h2>
-      <div className="flex flex-col gap-5 ml-2.5 mb-4">
-        {rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex gap-5 w-full">
-            {row.map((link, colIndex) => (
-              <div key={colIndex} className="w-1/2">
-                <GuidanceLink text={link.text} href={link.href} />
+      <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
+        {linkList.map((section, sectionIdx) => (
+          <div key={sectionIdx} className="mb-2 w-full">
+            <h2 className="text-[32px] font-semibold text-[#7B3D7D] mb-2 max-md:text-[28px] max-sm:text-2xl">
+              {section.title}
+            </h2>
+            {chunkLinks(section.links).map((row, rowIdx) => (
+              <div key={rowIdx} className="flex gap-5 w-full mb-2">
+                {row.map((link, colIdx) => (
+                  <div key={colIdx} className="w-1/2">
+                    <GuidanceLink text={link.text} href={link.href} />
+                  </div>
+                ))}
+                {row.length < 2 && <div className="w-1/2" />} {/* Empty space if only 1 item */}
               </div>
             ))}
-            {/* If the last row has only one item, add an empty div to keep widths consistent */}
-            {row.length < 2 && <div className="w-1/2" />}
           </div>
         ))}
       </div>
