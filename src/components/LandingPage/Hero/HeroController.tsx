@@ -13,7 +13,7 @@ export interface HeroConfig {
   };
 }
 
-const HERO_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/content.json';
+const HERO_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
 
 export function useHeroConfig() {
   const [config, setConfig] = useState<HeroConfig | null>(null);

@@ -4,21 +4,28 @@ import latest_doctor_and_patient from "../../../../assets/landing/latest_doctor_
 import latest_nails_net from "../../../../assets/landing/latest_nails_net.png";
 import latest_blue_wheel from "../../../../assets/landing/latest_blue_wheel.png";
 
+// Map image string to imported image
+const imageMap: Record<string, string> = {
+  "latest_doctor_and_patient.png": latest_doctor_and_patient.src,
+  "latest_nails_net.png": latest_nails_net.src,
+  "latest_blue_wheel.png": latest_blue_wheel.src,
+};
+
 const updates = [
   {
-    image: latest_doctor_and_patient,
+    image: "latest_doctor_and_patient.png",
     title: "New Release from CCDC\nLorem Ipsum Dolor Sit Amet Con",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor adipisicing elit, sed do eiusmod tempor incididunt ut labore et do. ",
     readMoreColor: "[rgba(118,231,221,1)]",
   },
   {
-    image: latest_nails_net,
+    image: "latest_nails_net.png",
     title: "New Release from CCDC\nLorem Ipsum Dolor Sit Amet Con",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor adipisicing elit, sed do eiusmod tempor incididunt ut labore et do. ",
     readMoreColor: "[rgba(118,231,221,1)]",
   },
   {
-    image: latest_blue_wheel,
+    image: "latest_blue_wheel.png",
     title: "New Release from CCDC\nLorem Ipsum Dolor Sit Amet Con",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor adipisicing elit, sed do eiusmod tempor incididunt ut labore et do. ",
     readMoreColor: "[rgba(118,231,221,1)]",
@@ -44,7 +51,7 @@ const Gallery: React.FC = () => {
                     <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">
                         <UpdateCard
-                          image={update.image.src}
+                          image={imageMap[update.image]}
                           title={update.title}
                           description={update.description}
                           readMoreColor={update.readMoreColor}
