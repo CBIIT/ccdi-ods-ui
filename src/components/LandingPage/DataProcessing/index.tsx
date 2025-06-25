@@ -4,7 +4,7 @@ import ProcessItem from "./ProcessItem";
 export const DataSharingProcess: React.FC = () => {
   const processList = [
     "Submit Non-NIH Funded Study to dbGaP",
-    "Accessing Scientific Data for Re-Use"
+    "Accessing Scientific Data for Re-Use",
   ];
 
   return (
