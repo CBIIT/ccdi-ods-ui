@@ -5,6 +5,7 @@ export const DataSharingGuidance: React.FC = () => {
   const linkList = [
     {
       title: "Data Sharing Guidance",
+      textColor: "#7B3D7D",
       links: [
         { text: "NIH Scientific Data Sharing Guidance", href: "/nih-guidance" },
         { text: "Data Sharing Basics", href: "/data-sharing-basics" },
@@ -16,6 +17,7 @@ export const DataSharingGuidance: React.FC = () => {
     },
     {
       title: "Data Sharing Process",
+      textColor: "#00756A",
       links: [
         { text: "Submit Non-NIH Funded Study to dbGaP", href: "/submit-dbgap" },
         { text: "Accessing Scientific Data for Re-Use", href: "/accessing-re-use" },
@@ -37,7 +39,10 @@ export const DataSharingGuidance: React.FC = () => {
       <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
         {linkList.map((section, sectionIdx) => (
           <div key={sectionIdx} className="mb-2 w-full">
-            <h2 className="text-[32px] font-semibold text-[#7B3D7D] mb-2 max-md:text-[28px] max-sm:text-2xl">
+            <h2
+              className="text-[32px] font-semibold mb-2 max-md:text-[28px] max-sm:text-2xl"
+              style={{ color: section.textColor }}
+            >
               {section.title}
             </h2>
             {chunkLinks(section.links).map((row, rowIdx) => (
