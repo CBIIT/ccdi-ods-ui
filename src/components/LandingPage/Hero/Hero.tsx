@@ -3,7 +3,7 @@ import React from 'react';
 import { HeroHeader } from './HeroHeader';
 import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
-import heroImage from '../../../../assets/hero.png';
+import heroImage from '../../../../assets/landing/hero.png';
 import { useHeroConfig } from './HeroController';
 
 const Hero: React.FC = () => {
