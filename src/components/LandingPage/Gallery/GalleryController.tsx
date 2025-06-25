@@ -5,6 +5,7 @@ export interface GalleryUpdate {
   title: string;
   description: string;
   link: string;
+  readMoreColor?: string;
 }
 
 export interface GalleryConfig {
@@ -18,7 +19,7 @@ export interface GalleryConfig {
 
 const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
 
-export function useHeroConfig() {
+export function useGalleryConfig() {
   const [config, setConfig] = useState<GalleryConfig | null>(null);
 
   useEffect(() => {

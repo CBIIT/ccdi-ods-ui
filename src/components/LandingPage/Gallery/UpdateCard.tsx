@@ -4,7 +4,7 @@ interface UpdateCardProps {
   image: string;
   title: string;
   description: string;
-  readMoreColor: string;
+  readMoreColor?: string;
   hasBorder?: boolean;
   className?: string;
 }
