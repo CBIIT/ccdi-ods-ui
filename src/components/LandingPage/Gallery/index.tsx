@@ -46,6 +46,40 @@ const Gallery: React.FC = () => {
                   </div>
                 ))}
               </div>
+              {/* Button below the cards */}
+              <div className="flex justify-end mt-8 w-full">
+                <a
+                  href={config.newsletterButtonLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-transparent border-none shadow-none px-0 py-0 rounded-none transition text-[14px] font-bold leading-4 uppercase relative flex flex-col items-end"
+                  style={{
+                    color: "#3E8283",
+                    fontFamily: "Lato, sans-serif",
+                    fontStyle: "normal",
+                    letterSpacing: "0.7px",
+                    textAlign: "right",
+                  }}
+                >
+                  <span className="relative inline-block">
+                    {config.newsletterButtonText}
+                    <span
+                      style={{
+                        display: "block",
+                        height: "2px",
+                        width: "100%",
+                        background: "#3E8283",
+                        position: "absolute",
+                        right: 0,
+                        left: 0,
+                        bottom: "-14px",
+                        borderRadius: "1px",
+                      }}
+                    />
+                  </span>
+                </a>
+                {/* End button */}
+              </div>
             </div>
           </div>
         </div>
