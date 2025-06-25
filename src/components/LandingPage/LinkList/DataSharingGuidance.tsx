@@ -1,29 +1,13 @@
+"use client";
 import React from "react";
 import { GuidanceLink } from "./GuidanceLink";
+import { useLinkListConfig } from "./LinklistController";
 
 export const DataSharingGuidance: React.FC = () => {
-  const linkList = [
-    {
-      title: "Data Sharing Guidance",
-      titleTextColor: "#7B3D7D",
-      links: [
-        { text: "NIH Scientific Data Sharing Guidance", href: "/nih-guidance" },
-        { text: "Data Sharing Basics", href: "/data-sharing-basics" },
-        { text: "NCI Scientific Data Sharing Guidance", href: "/nci-guidance" },
-        { text: "NCI Requirements for GDS Policy", href: "/nci-requirements" },
-        { text: "Cancer Moonshot (PADS) Guidance", href: "/cancer-moonshot" },
-        { text: "Tips for Writing a DMS Plan", href: "/dms-plan-tips" },
-      ],
-    },
-    {
-      title: "Data Sharing Process",
-      titleTextColor: "#00756A",
-      links: [
-        { text: "Submit Non-NIH Funded Study to dbGaP", href: "/submit-dbgap" },
-        { text: "Accessing Scientific Data for Re-Use", href: "/accessing-re-use" },
-      ],
-    },
-  ];
+  const config = useLinkListConfig();
+
+  // Fix: config may be null or not an array if fetch fails or API shape changes
+  if (!Array.isArray(config) || config.length === 0) return null;
 
   // Helper to split links into chunks of 2
   const chunkLinks = (links: { text: string; href: string }[]) => {
@@ -37,7 +21,7 @@ export const DataSharingGuidance: React.FC = () => {
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" >
       <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
-        {linkList.map((section, sectionIdx) => (
+        {config.map((section, sectionIdx) => (
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2
@@ -57,7 +41,7 @@ export const DataSharingGuidance: React.FC = () => {
                 </div>
               ))}
             </div>
-            {sectionIdx < linkList.length - 1 && (
+            {sectionIdx < config.length - 1 && (
               <div className="w-full h-px bg-[#D8D8D8] mt-[38px]" />
             )}
           </React.Fragment>
