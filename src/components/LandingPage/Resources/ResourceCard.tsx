@@ -15,7 +15,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
 }) => {
   return (
     <div className="flex gap-[22px] items-start max-sm:flex-col">
-      <div className="w-[133px] h-[124px] text-white text-[25px] tracking-[1px] box-border bg-[#0E9374] px-2.5 py-[35px] rounded-[20px] max-sm:w-[100px] max-sm:h-[100px] max-sm:text-xl">
+      <div className="w-[133px] h-[124px] text-white text-[25px] tracking-[1px] box-border bg-[#0E9374] px-2.5 py-[35px] rounded-[20px] max-sm:w-[100px] max-sm:h-[100px] max-sm:text-xl flex items-center justify-center">
         {abbreviation}
       </div>
       <div className="flex-1">
