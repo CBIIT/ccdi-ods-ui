@@ -12,7 +12,7 @@ export interface BannerConfig {
 
 const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
 
-export function useHeroConfig() {
+export function useBannerConfig() {
   const [config, setConfig] = useState<BannerConfig | null>(null);
 
   useEffect(() => {
