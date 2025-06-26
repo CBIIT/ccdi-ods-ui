@@ -6,8 +6,8 @@ import { useLinkListConfig } from "./LinklistController";
 export const DataSharingGuidance: React.FC = () => {
   const config = useLinkListConfig();
 
-  // Fix: config may be null or not an array if fetch fails or API shape changes
-  if (!Array.isArray(config) || config.length === 0) return null;
+  // Fix: Guard against config being null or links being empty
+  if (!config?.links?.length) return null;
 
   // Helper to split links into chunks of 2
   const chunkLinks = (links: { text: string; link: string }[]) => {
