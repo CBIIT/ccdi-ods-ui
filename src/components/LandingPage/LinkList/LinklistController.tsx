@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export interface LinkListItem {
   text: string;
-  href: string;
+  link: string;
 }
 
 export interface LinkListConfig {

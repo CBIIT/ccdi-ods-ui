@@ -10,7 +10,7 @@ export const DataSharingGuidance: React.FC = () => {
   if (!Array.isArray(config) || config.length === 0) return null;
 
   // Helper to split links into chunks of 2
-  const chunkLinks = (links: { text: string; href: string }[]) => {
+  const chunkLinks = (links: { text: string; link: string }[]) => {
     const chunks = [];
     for (let i = 0; i < links.length; i += 2) {
       chunks.push(links.slice(i, i + 2));
@@ -34,7 +34,7 @@ export const DataSharingGuidance: React.FC = () => {
                 <div key={rowIdx} className="flex gap-5 w-full mb-2">
                   {row.map((link, colIdx) => (
                     <div key={colIdx} className="w-1/2">
-                      <GuidanceLink text={link.text} href={link.href} />
+                      <GuidanceLink text={link.text} href={link.link} />
                     </div>
                   ))}
                   {row.length < 2 && <div className="w-1/2" />}
