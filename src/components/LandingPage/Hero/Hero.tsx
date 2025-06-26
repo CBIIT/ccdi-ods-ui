@@ -8,7 +8,6 @@ import { useHeroConfig } from './HeroController';
 
 const Hero: React.FC = () => {
   const config = useHeroConfig();
-console.log('config.image.src:', config?.image?.src);
   if (!config) return null;
 
   return (
