@@ -3,12 +3,12 @@ import React from 'react';
 import { HeroHeader } from './HeroHeader';
 import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
-import heroImage from '../../../../assets/landing/hero.png';
+// import heroImage from '/hero.png';
 import { useHeroConfig } from './HeroController';
 
 const Hero: React.FC = () => {
   const config = useHeroConfig();
-
+console.log('config.image.src:', config?.image?.src);
   if (!config) return null;
 
   return (
@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
             {/* Right Side: Hero Image */}
             <div className="w-1/2 flex justify-center items-center max-md:w-full">
               <HeroImage 
-                src={heroImage.src}
+                src={config.image.src}
                 alt={config.image.alt}
                 className="w-full max-w-[400px] mx-auto my-8"
               />

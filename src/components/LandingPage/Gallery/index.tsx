@@ -2,16 +2,6 @@
 import React from "react";
 import UpdateCard from "./UpdateCard";
 import { useGalleryConfig } from "./GalleryController";
-import latest_doctor_and_patient from "../../../../assets/landing/latest_doctor_and_patient.png";
-import latest_nails_net from "../../../../assets/landing/latest_nails_net.png";
-import latest_blue_wheel from "../../../../assets/landing/latest_blue_wheel.png";
-
-// Map image string to imported image
-const imageMap: Record<string, string> = {
-  "latest_doctor_and_patient.png": latest_doctor_and_patient.src,
-  "latest_nails_net.png": latest_nails_net.src,
-  "latest_blue_wheel.png": latest_blue_wheel.src,
-};
 
 const Gallery: React.FC = () => {
   const config = useGalleryConfig();
@@ -36,7 +26,7 @@ const Gallery: React.FC = () => {
                     <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">
                         <UpdateCard
-                          image={imageMap[update.image]}
+                          image={update.image}
                           title={update.title}
                           description={update.description}
                           readMoreColor={update.readMoreColor}
