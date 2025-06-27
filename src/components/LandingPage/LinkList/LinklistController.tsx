@@ -5,10 +5,14 @@ export interface LinkListItem {
   link: string;
 }
 
-export interface LinkListConfig {
+export interface LinkListArrayConfig {
   title: string;
   titleTextColor: string;
   links: LinkListItem[];
+}
+
+export interface LinkListConfig {
+  linkList: LinkListArrayConfig[];
 }
 
 const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
