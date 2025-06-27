@@ -2,7 +2,6 @@ import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
 import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
-import { DataSharingProcess } from "./DataProcessing";
 import { DataSharingResources } from "./Resources";
 
 export function LandingPage() {
@@ -12,7 +11,6 @@ export function LandingPage() {
       <Banner />
       <Gallery />
       <DataSharingGuidance />
-      {/* <DataSharingProcess /> */}
       <DataSharingResources />
     </>
   );

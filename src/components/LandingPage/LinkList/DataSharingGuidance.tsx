@@ -7,7 +7,7 @@ export const DataSharingGuidance: React.FC = () => {
   const config = useLinkListConfig();
 
   // Fix: Guard against config being null or links being empty
-  if (!config?.links?.length) return null;
+  if (!config?.linkList?.length) return null;
 
   // Helper to split links into chunks of 2
   const chunkLinks = (links: { text: string; link: string }[]) => {
@@ -21,7 +21,7 @@ export const DataSharingGuidance: React.FC = () => {
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" >
       <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
-        {config.map((section, sectionIdx) => (
+        {config.linkList.map((section, sectionIdx) => (
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2
@@ -41,7 +41,7 @@ export const DataSharingGuidance: React.FC = () => {
                 </div>
               ))}
             </div>
-            {sectionIdx < config.length - 1 && (
+            {sectionIdx < config.linkList.length - 1 && (
               <div className="w-full h-px bg-[#D8D8D8] mt-[38px]" />
             )}
           </React.Fragment>
