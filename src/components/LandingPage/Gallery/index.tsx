@@ -41,7 +41,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
               <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-                {config.updates.map((update: { image: string; title: string; description: string; readMoreColor: string | undefined; }, idx: React.Key | null | undefined) => (
+                {config.updates.map((update: GalleryUpdate, idx: number) => (
                   <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
                     <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">
