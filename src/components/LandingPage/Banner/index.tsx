@@ -39,7 +39,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
       </h2>
       
       <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[49px] max-md:max-w-full max-md:mt-10">
-        {config.textFrame.map((desc: any, idx: number) => (
+        {config.textFrame.map((desc: string, idx: number) => (
           <HeroCard
             key={idx}
             imageSrc={banners[idx]?.src}
