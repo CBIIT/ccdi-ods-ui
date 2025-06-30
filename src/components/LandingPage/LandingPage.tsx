@@ -34,7 +34,7 @@ export function LandingPage() {
   return (
     <>
       <Hero data={landingData} />
-      <Banner />
+      <Banner data={landingData} />
       <Gallery />
       <DataSharingGuidance />
       <DataSharingResources />

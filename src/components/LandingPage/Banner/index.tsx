@@ -5,12 +5,15 @@ import ContactLink from "./ContactLink";
 import banner1 from "../../../../assets/landing/banner_1.svg";
 import banner2 from "../../../../assets/landing/banner_2.svg";
 import banner3 from "../../../../assets/landing/banner_3.svg";
-import { useBannerConfig } from "./BannerController";
+
+interface BannerProps {
+  data: any;
+}
 
 const banners = [banner1, banner2, banner3];
 
-const Banner: React.FC = () => {
-  const config = useBannerConfig();
+const Banner: React.FC<BannerProps> = ({ data }) => {
+  const config = data?.banner;
 
   if (!config) {
     return null; // or a loading spinner/message
@@ -29,7 +32,7 @@ const Banner: React.FC = () => {
       </h2>
       
       <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[49px] max-md:max-w-full max-md:mt-10">
-        {config.textFrame.map((desc, idx) => (
+        {config.textFrame.map((desc: any, idx: number) => (
           <HeroCard
             key={idx}
             imageSrc={banners[idx]?.src}
