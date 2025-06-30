@@ -1,10 +1,36 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import UpdateCard from "./UpdateCard";
-import { useGalleryConfig } from "./GalleryController";
 
-const Gallery: React.FC = () => {
-  const config = useGalleryConfig();
+export interface GalleryUpdate {
+  image: string;
+  title: string;
+  description: string;
+  link: string;
+  readMoreColor?: string;
+}
+
+export interface GalleryConfig {
+  title: string;
+  viewLatestButtonText: string;
+  viewLatestButtonLink: string;
+  newsletterButtonText: string;
+  newsletterButtonLink: string;
+  updates: GalleryUpdate[];
+}
+
+interface GalleryProps {
+  data: any;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ data }) => {
+  const [config, setConfig] = useState<GalleryConfig | null>(null);
+  
+    useEffect(() => {
+      if (data && data.gallery) {
+        setConfig(data.gallery);
+      }
+    }, [data]);
   
     if (!config) return null;
   

@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { HeroHeader } from './HeroHeader';
 import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
@@ -24,7 +24,7 @@ export interface HeroConfig {
 const Hero: React.FC<HeroProps> = ({ data }) => {
   const [config, setConfig] = useState<HeroConfig | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data && data.hero) {
       setConfig(data.hero);
     }

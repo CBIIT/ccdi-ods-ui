@@ -1,10 +1,20 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HeroCard from "./Card";
 import ContactLink from "./ContactLink";
 import banner1 from "../../../../assets/landing/banner_1.svg";
 import banner2 from "../../../../assets/landing/banner_2.svg";
 import banner3 from "../../../../assets/landing/banner_3.svg";
+
+export interface BannerConfig {
+  supportTitle: string;
+  questionText: string;
+  homepageButton: {
+    text: string;
+    link: string;
+  };
+  textFrame: string[];
+}
 
 interface BannerProps {
   data: any;
@@ -13,11 +23,15 @@ interface BannerProps {
 const banners = [banner1, banner2, banner3];
 
 const Banner: React.FC<BannerProps> = ({ data }) => {
-  const config = data?.banner;
-
-  if (!config) {
-    return null; // or a loading spinner/message
-  }
+  const [config, setConfig] = useState<BannerConfig | null>(null);
+    
+      useEffect(() => {
+        if (data && data.banner) {
+          setConfig(data.banner);
+        }
+      }, [data]);
+    
+      if (!config) return null;
 
   return (
     <section 
