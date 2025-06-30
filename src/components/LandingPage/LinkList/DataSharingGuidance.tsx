@@ -1,12 +1,29 @@
 "use client";
 import React from "react";
 import { GuidanceLink } from "./GuidanceLink";
-import { useLinkListConfig } from "./LinklistController";
 
-export const DataSharingGuidance: React.FC = () => {
-  const config = useLinkListConfig();
+export interface LinkListItem {
+  text: string;
+  link: string;
+}
 
-  // Fix: Guard against config being null or links being empty
+export interface LinkListArrayConfig {
+  title: string;
+  titleTextColor: string;
+  links: LinkListItem[];
+}
+
+export interface LinkListConfig {
+  linkList: LinkListArrayConfig[];
+}
+
+interface DataSharingGuidanceProps {
+  data: any;
+}
+
+export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }) => {
+  const config = data?.dataSharingGuidance;
+
   if (!config?.linkList?.length) return null;
 
   // Helper to split links into chunks of 2
@@ -21,7 +38,7 @@ export const DataSharingGuidance: React.FC = () => {
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" >
       <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
-        {config.linkList.map((section, sectionIdx) => (
+        {config.linkList.map((section: any, sectionIdx: number) => (
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2

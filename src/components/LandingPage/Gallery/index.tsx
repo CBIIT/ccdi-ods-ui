@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UpdateCard from "./UpdateCard";
 
 export interface GalleryUpdate {
@@ -24,15 +24,9 @@ interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ data }) => {
-  const [config, setConfig] = useState<GalleryConfig | null>(null);
+  const config = data?.gallery;
   
-    useEffect(() => {
-      if (data && data.gallery) {
-        setConfig(data.gallery);
-      }
-    }, [data]);
-  
-    if (!config) return null;
+  if (!config) return null;
   
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" aria-labelledby="latest-updates-heading">
@@ -47,7 +41,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
               <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-                {config.updates.map((update, idx) => (
+                {config.updates.map((update: { image: string; title: string; description: string; readMoreColor: string | undefined; }, idx: React.Key | null | undefined) => (
                   <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
                     <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import HeroCard from "./Card";
 import ContactLink from "./ContactLink";
 import banner1 from "../../../../assets/landing/banner_1.svg";
@@ -23,15 +23,8 @@ interface BannerProps {
 const banners = [banner1, banner2, banner3];
 
 const Banner: React.FC<BannerProps> = ({ data }) => {
-  const [config, setConfig] = useState<BannerConfig | null>(null);
-    
-      useEffect(() => {
-        if (data && data.banner) {
-          setConfig(data.banner);
-        }
-      }, [data]);
-    
-      if (!config) return null;
+  const config = data?.banner;
+  if (!config) return null;
 
   return (
     <section 
