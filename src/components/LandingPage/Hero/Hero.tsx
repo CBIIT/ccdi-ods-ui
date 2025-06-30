@@ -1,13 +1,35 @@
 "use client";
-import React from 'react';
+import React, {useState} from 'react';
 import { HeroHeader } from './HeroHeader';
 import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
-// import heroImage from '/hero.png';
-import { useHeroConfig } from './HeroController';
 
-const Hero: React.FC = () => {
-  const config = useHeroConfig();
+interface HeroProps {
+  data: any;
+}
+
+export interface HeroConfig {
+  title: string;
+  subtitle: string;
+  mission: {
+    title: string;
+    description: string;
+  };
+  image: {
+    src: string;
+    alt: string;
+  };
+}
+
+const Hero: React.FC<HeroProps> = ({ data }) => {
+  const [config, setConfig] = useState<HeroConfig | null>(null);
+
+  React.useEffect(() => {
+    if (data && data.hero) {
+      setConfig(data.hero);
+    }
+  }, [data]);
+
   if (!config) return null;
 
   return (
