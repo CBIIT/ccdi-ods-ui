@@ -15,12 +15,19 @@ export function LandingPage() {
   useEffect(() => {
       async function fetchConfig() {
         const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}`;
-        const res = await fetch(fileUrl, {
-          headers: { 'Accept': 'application/vnd.github.v3.raw' },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setLandingData(data);
+        try {
+          const res = await fetch(fileUrl, {
+            headers: { 'Accept': 'application/vnd.github.v3.raw' },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setLandingData(data);
+          } else {
+            console.error(`Failed to fetch config: ${res.status} ${res.statusText}`);
+          }
+        } catch (error) {
+          console.error(`Error fetching config: ${error}`);
+        } finally {
           setLoading(false);
         }
       }
