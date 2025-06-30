@@ -18,7 +18,7 @@ export interface LinkListConfig {
 }
 
 interface DataSharingGuidanceProps {
-  data: any;
+  data: LinkListConfig;
 }
 
 export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }) => {
