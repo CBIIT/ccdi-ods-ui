@@ -1,12 +1,33 @@
 "use client";
 import React from "react";
 import UpdateCard from "./UpdateCard";
-import { useGalleryConfig } from "./GalleryController";
+import greenTriangle from '../../../../assets/landing/green_triangle.svg';
 
-const Gallery: React.FC = () => {
-  const config = useGalleryConfig();
+export interface GalleryUpdate {
+  image: string;
+  title: string;
+  description: string;
+  link: string;
+  readMoreColor?: string;
+}
+
+export interface GalleryConfig {
+  title: string;
+  viewLatestButtonText: string;
+  viewLatestButtonLink: string;
+  newsletterButtonText: string;
+  newsletterButtonLink: string;
+  updates: GalleryUpdate[];
+}
+
+interface GalleryProps {
+  data: GalleryConfig;
+}
+
+const Gallery: React.FC<GalleryProps> = ({ data }) => {
+  const config = data?.gallery;
   
-    if (!config) return null;
+  if (!config) return null;
   
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" aria-labelledby="latest-updates-heading">
@@ -21,9 +42,9 @@ const Gallery: React.FC = () => {
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
               <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-                {config.updates.map((update, idx) => (
+                {config.updates.map((update: GalleryUpdate, idx: number) => (
                   <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
-                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
+                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">
                         <UpdateCard
                           image={update.image}
@@ -53,6 +74,7 @@ const Gallery: React.FC = () => {
                 >
                   <span className="relative inline-block">
                     {config.newsletterButtonText}
+                    <img src={greenTriangle.src} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
                     <span
                       style={{
                         display: "block",

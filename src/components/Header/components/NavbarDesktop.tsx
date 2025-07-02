@@ -130,7 +130,7 @@ const NavBar = () => {
                             onKeyDown={onKeyPressHandler}
                             role="button"
                             tabIndex={0}
-                            className={`cursor-pointer text-[#585C65] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] 
+                            className={`cursor-pointer text-[#585C65] border-b-4 border-b-[#FFFFFF] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] 
                               ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#3A75BD]" : ""}`}
                             onClick={handleMenuClick}
                           >
