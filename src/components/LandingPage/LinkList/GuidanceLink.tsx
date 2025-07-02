@@ -12,10 +12,7 @@ export const GuidanceLink: React.FC<GuidanceLinkProps> = ({ text, href }) => {
         <div className="w-[11px] h-[11px] rounded-full bg-[#009485] mr-[30px]"></div>
         <a 
           href={href}
-          className="text-[#3F4244] font-['Poppins'] text-[20px] tracking-[0.02em] underline hover:text-[#009485]"
-          style={{ textDecorationColor: '#3F4244' }}
-          onMouseEnter={e => (e.currentTarget.style.textDecorationColor = '#009485')}
-          onMouseLeave={e => (e.currentTarget.style.textDecorationColor = '#3F4244')}
+          className="text-[#3F4244] font-['Poppins'] text-[20px] tracking-[0.02em] underline decoration-[#3F4244] hover:text-[#009485] hover:decoration-[#009485]"
         >
           {text}
         </a>
