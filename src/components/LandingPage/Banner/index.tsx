@@ -17,7 +17,9 @@ export interface BannerConfig {
 }
 
 interface BannerProps {
-  data: any;
+  data: {
+    banner: BannerConfig;
+  };
 }
 
 const banners = [banner1, banner2, banner3];
