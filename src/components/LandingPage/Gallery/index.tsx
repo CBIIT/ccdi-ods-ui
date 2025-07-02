@@ -21,7 +21,7 @@ export interface GalleryConfig {
 }
 
 interface GalleryProps {
-  data: any;
+  data: GalleryConfig;
 }
 
 const Gallery: React.FC<GalleryProps> = ({ data }) => {
