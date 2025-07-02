@@ -5,7 +5,7 @@ import { HeroImage } from './HeroImage';
 import { HeroMission } from './HeroMission';
 
 interface HeroProps {
-  data: any;
+  data: { hero: HeroConfig };
 }
 
 export interface HeroConfig {
