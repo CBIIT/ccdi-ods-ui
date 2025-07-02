@@ -8,8 +8,15 @@ import { DataSharingResources } from "./Resources";
 
 const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
 
+interface LandingConfig {
+  hero: { title: string; subtitle: string; imageUrl: string };
+  banner: { message: string; link: string };
+  gallery: { images: { src: string; alt: string }[] };
+  guidance: { title: string; description: string };
+}
+
 export function LandingPage() {
-  const [landingData, setLandingData] = useState(null);
+  const [landingData, setLandingData] = useState<LandingConfig | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
