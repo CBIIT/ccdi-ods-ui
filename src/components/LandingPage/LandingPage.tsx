@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from 'react';
 import { Hero } from './Hero';
 import Banner from './Banner';
