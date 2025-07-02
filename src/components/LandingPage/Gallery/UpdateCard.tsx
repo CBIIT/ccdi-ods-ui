@@ -23,7 +23,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         hasBorder ? "shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border border-[rgba(222,234,237,1)] border-solid p-2.5" : ""
       } ${className}`}
     >
-      <div className="bg-[rgba(217,217,217,1)] rounded-[0px_0px_0px_20px]">
+      <div className="rounded-[0px_0px_0px_20px]">
         <img
           src={image}
           alt={title}

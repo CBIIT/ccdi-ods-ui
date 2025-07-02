@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import UpdateCard from "./UpdateCard";
+import greenTriangle from '../../../../assets/landing/green_triangle.svg';
 
 export interface GalleryUpdate {
   image: string;
@@ -43,7 +44,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
               <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
                 {config.updates.map((update: GalleryUpdate, idx: number) => (
                   <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
-                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full p-2.5 rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
+                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
                       <div className="self-stretch min-w-60  my-auto">
                         <UpdateCard
                           image={update.image}
@@ -73,6 +74,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 >
                   <span className="relative inline-block">
                     {config.newsletterButtonText}
+                    <img src={greenTriangle.src} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
                     <span
                       style={{
                         display: "block",
