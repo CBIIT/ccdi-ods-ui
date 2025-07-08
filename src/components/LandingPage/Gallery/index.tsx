@@ -73,22 +73,9 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                     textAlign: "right",
                   }}
                 >
-                  <span className="relative inline-block">
+                  <span className="relative inline-block border-b-1 border-b-[#3E8283] pb-[14px]">
                     {config.newsletterButtonText}
                     <img src={greenTriangle.src} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
-                    <span
-                      style={{
-                        display: "block",
-                        height: "2px",
-                        width: "100%",
-                        background: "#3E8283",
-                        position: "absolute",
-                        right: 0,
-                        left: 0,
-                        bottom: "-14px",
-                        borderRadius: "1px",
-                      }}
-                    />
                   </span>
                 </a>
                 {/* End button */}

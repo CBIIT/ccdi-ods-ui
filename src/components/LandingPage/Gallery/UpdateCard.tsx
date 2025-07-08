@@ -44,20 +44,22 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         >
           {title}
         </a>
-        <div className="text-white font-normal text-[18px] [font-family:var(--font-nunito)] mt-2">
-          {description.length > 163
+        <div className="text-white font-normal text-[18px] [font-family:var(--font-nunito)] mt-2 h-[112px]">
+          <span>
+            {description.length > 163
             ? `${description.slice(0, 163)}...`
             : description}
+          </span>
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`ml-[15px] text-sm text-${readMoreColor} font-medium text-right uppercase underline z-10 mr-5 max-md:mr-2.5 cursor-pointer`}
+          >
+            Read More
+            <img src={externalLinkIcon.src} alt="external link" className="inline-block w-[14px] h-[14px] ml-2 align-middle" />
+          </a>
         </div>
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`text-sm text-${readMoreColor} font-medium text-right uppercase underline z-10 mr-5 max-md:mr-2.5 cursor-pointer`}
-        >
-          Read More
-          <img src={externalLinkIcon.src} alt="external link" className="inline-block w-[14px] h-[14px] ml-2 align-middle" />
-        </a>
       </div>
     </div>
   );
