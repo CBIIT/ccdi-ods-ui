@@ -1,4 +1,5 @@
 import React from "react";
+import externalLinkIcon from "../../../../assets/icons/external_link_icon.svg";
 
 interface UpdateCardProps {
   image: string;
@@ -44,11 +45,15 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
           {title}
         </a>
         <div className="text-white font-normal mt-2">{description}</div>
-        <div
-          className={`text-sm text-${readMoreColor} font-medium text-right uppercase underline z-10 mr-5 max-md:mr-2.5`}
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-sm text-${readMoreColor} font-medium text-right uppercase underline z-10 mr-5 max-md:mr-2.5 cursor-pointer`}
         >
           Read More
-        </div>
+          <img src={externalLinkIcon.src} alt="external link" className="inline-block w-[14px] h-[14px] ml-2 align-middle" />
+        </a>
       </div>
     </div>
   );
