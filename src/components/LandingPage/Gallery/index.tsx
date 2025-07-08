@@ -50,6 +50,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                           image={update.image}
                           title={update.title}
                           description={update.description}
+                          link={update.link}
                           readMoreColor={update.readMoreColor}
                         />
                       </div>
