@@ -7,8 +7,6 @@ interface UpdateCardProps {
   description: string;
   link: string
   readMoreColor?: string;
-  hasBorder?: boolean;
-  className?: string;
 }
 
 const UpdateCard: React.FC<UpdateCardProps> = ({
@@ -17,16 +15,10 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   description,
   link,
   readMoreColor,
-  hasBorder = false,
-  className = "",
 }) => {
   return (
     <div
-      className={`bg-[rgba(50,48,50,1)] pb-3.5 rounded-[0px_20px_0px_20px] ${
-        hasBorder
-          ? "shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border border-[rgba(222,234,237,1)] border-solid p-2.5"
-          : ""
-      } ${className}`}
+      className={`bg-[rgba(50,48,50,1)] pb-3.5 rounded-[0px_25px_0px_20px]`}
     >
       <div className="rounded-[0px_0px_0px_20px]">
         <img
