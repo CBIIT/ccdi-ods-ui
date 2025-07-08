@@ -44,7 +44,11 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         >
           {title}
         </a>
-        <div className="text-white font-normal mt-2">{description}</div>
+        <div className="text-white font-normal text-[18px] [font-family:var(--font-nunito)] mt-2">
+          {description.length > 163
+            ? `${description.slice(0, 163)}...`
+            : description}
+        </div>
         <a
           href={link}
           target="_blank"
