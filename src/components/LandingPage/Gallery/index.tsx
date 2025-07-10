@@ -8,7 +8,6 @@ export interface GalleryUpdate {
   title: string;
   description: string;
   link: string;
-  readMoreColor?: string;
 }
 
 export interface GalleryConfig {
@@ -51,7 +50,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                           title={update.title}
                           description={update.description}
                           link={update.link}
-                          readMoreColor={update.readMoreColor}
                         />
                       </div>
                     </div>
