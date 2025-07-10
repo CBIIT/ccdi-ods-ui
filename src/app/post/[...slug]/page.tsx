@@ -22,11 +22,14 @@ const ALLOWED_IFRAME_DOMAINS = [
   // Add other trusted domains as needed
 ];
 
+const PAGES_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages';
+
 // Add this function before the Post component
 export async function generateStaticParams() {
+  const pagesUrl = `${PAGES_URL}?ts=${new Date().getTime()}`;
   // Fetch all markdown files from GitHub at build time
   const response = await fetch(
-    'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages',
+    pagesUrl,
     {
       headers: {
         'Accept': 'application/vnd.github.v3+json',
