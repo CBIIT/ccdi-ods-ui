@@ -176,6 +176,13 @@ function SearchContent() {
             className="flex-1 px-6 py-4 text-2xl text-gray-700 bg-white focus:outline-none placeholder-gray-400"
             style={{ fontWeight: 300 }}
           />
+          <button
+            type="submit"
+            className="px-6 py-2 bg-[#36807B] text-white text-lg font-semibold hover:bg-[#27605c] transition-colors"
+            style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
+          >
+            SUBMIT
+          </button>
         </div>
       </form>
 
