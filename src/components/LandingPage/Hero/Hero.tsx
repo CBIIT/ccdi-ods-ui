@@ -35,9 +35,9 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
             alt="Background image"
             className="absolute h-full w-full object-cover inset-0"
           />
-          <div className="relative flex w-[1000px] max-w-full flex-row items-center justify-between gap-8 max-md:flex-col max-md:items-stretch">
+          <div className="relative flex w-[1100px] max-w-full flex-row items-start justify-between gap-8 max-md:flex-col max-md:items-stretch">
             {/* Left Side: Header and Mission */}
-            <div className="w-1/2 flex flex-col items-start text-left max-md:w-full">
+            <div className="flex-1 w-auto flex flex-col items-start text-left max-md:w-full mt-8">
               <HeroHeader 
                 title={config.title}
                 subtitle={config.subtitle}
@@ -50,11 +50,11 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               </div>
             </div>
             {/* Right Side: Hero Image */}
-            <div className="w-1/2 flex justify-center items-center max-md:w-full">
+            <div className="w-[645px] flex-shrink-0 relative flex max-md:w-full">
               <HeroImage 
                 src={config.image.src}
                 alt={config.image.alt}
-                className="w-full max-w-[400px] mx-auto my-8"
+                className="w-full max-w-[400px] mx-auto"
               />
             </div>
           </div>
