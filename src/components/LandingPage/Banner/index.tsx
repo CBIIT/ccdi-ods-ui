@@ -5,6 +5,7 @@ import ContactLink from "./ContactLink";
 import banner1 from "../../../../assets/landing/banner_1.svg";
 import banner2 from "../../../../assets/landing/banner_2.svg";
 import banner3 from "../../../../assets/landing/banner_3.svg";
+import arrowGreen from "../../../../assets/icons/right_arrow_green.svg";
 
 export interface BannerConfig {
   supportTitle: string;
@@ -59,7 +60,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
         <ContactLink 
           text={config.homepageButton.text}
           href={config.homepageButton.link}
-          arrowSrc="https://cdn.builder.io/api/v1/image/assets/4ccc52d59fb54340b43b3652db0442b6/daae2bf7b8f93fdfa46d0689475cd9e9b5c3aa27?placeholderIfAbsent=true"
+          arrowSrc={arrowGreen.src}
         />
       </div>
     </section>
