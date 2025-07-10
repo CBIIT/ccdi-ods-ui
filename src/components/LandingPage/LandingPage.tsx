@@ -4,7 +4,6 @@ import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
 import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
-import { DataSharingResources } from "./Resources";
 
 const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
 
@@ -44,7 +43,6 @@ export function LandingPage() {
       <Banner data={landingData} />
       <Gallery data={landingData} />
       <DataSharingGuidance data={landingData} />
-      <DataSharingResources />
     </>
   );
 }
