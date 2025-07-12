@@ -7,7 +7,10 @@ import Logo from "./components/LogoTablet";
 import menuClearIcon from '../../../assets/header/Menu_Cancel_Icon.svg';
 import rightArrowIcon from '../../../assets/header/Right_Arrow.svg';
 import leftArrowIcon from '../../../assets/header/Left_Arrow.svg';
+import { getGithubBranch } from '@/config/config';
 
+const branch = getGithubBranch();
+const LANDING_CONFIG_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/navigation.json?ts=${new Date().getTime()}&ref=${branch}`;
 interface NavItem {
   name: string;
   link: string;
@@ -185,7 +188,15 @@ const Header = () => {
   useEffect(() => {
     const fetchNavigationData = async () => {
       try {
-        const response = await fetch('https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/navigation.json');
+        const response = await fetch(
+          LANDING_CONFIG_URL,
+          {
+            headers: {
+              'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3+json',
+      }
+      }
+    );
         const data = await response.json();
         const content = JSON.parse(atob(data.content));
         setNavigationData(content);

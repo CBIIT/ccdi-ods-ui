@@ -4,8 +4,11 @@ import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
 import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
+import { getGithubBranch } from '@/config/config';
 
-const LANDING_CONFIG_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json';
+const branch = getGithubBranch();
+
+const LANDING_CONFIG_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json?ts=${new Date().getTime()}&ref=${branch}`;
 
 export function LandingPage() {
   const [landingData, setLandingData] = useState(null);
@@ -13,10 +16,12 @@ export function LandingPage() {
 
   useEffect(() => {
       async function fetchConfig() {
-        const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}`;
+        const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}&ref=${branch}`;
         try {
           const res = await fetch(fileUrl, {
-            headers: { 'Accept': 'application/vnd.github.v3.raw' },
+            headers: {
+              'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3.raw' },
           });
           if (res.ok) {
             const data = await res.json();

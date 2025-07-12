@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import matter from 'gray-matter';
+import { getGithubBranch } from '@/config/config';
+
+const branch = getGithubBranch();
 
 interface GithubContent {
   name: string;
@@ -28,9 +31,10 @@ async function fetchPostMetadata(url: string): Promise<string | undefined> {
 export async function generateStaticParams() {
   // Fetch all possible paths from GitHub at build time
   const response = await fetch(
-    'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages',
+    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}ref=${branch}`,
     {
       headers: {
+        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github.v3+json',
       }
     }
@@ -54,9 +58,10 @@ export async function generateStaticParams() {
 async function fetchGithubPosts(slug: string): Promise<Post[]> {
 
   const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${slug}`,
+    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${slug}?ts=${new Date().getTime()}&ref=${branch}`,
     {
       headers: {
+        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github.v3+json',
       },
       next: { revalidate: 3600 }

@@ -10,7 +10,9 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import Breadcrumb from '@/components/Breadcrumb';
 import matter from 'gray-matter';
+import { getGithubBranch } from '@/config/config';
 
+const branch = getGithubBranch();
 // List of allowed iframe domains for security
 const ALLOWED_IFRAME_DOMAINS = [
   'youtube.com',
@@ -22,53 +24,75 @@ const ALLOWED_IFRAME_DOMAINS = [
   // Add other trusted domains as needed
 ];
 
-const PAGES_URL = 'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages';
+// Add interface for metadata structure
+interface PostMetadata {
+  title?: string;
+  author?: string;
+  date?: string;
+  [key: string]: any; // Allow for additional metadata fields
+}
+
+
+const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
 
 // Add this function before the Post component
 export async function generateStaticParams() {
-  const pagesUrl = `${PAGES_URL}?ts=${new Date().getTime()}`;
-  // Fetch all markdown files from GitHub at build time
-  const response = await fetch(
-    pagesUrl,
-    {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
+  const pagesUrl = `${PAGES_URL}?ts=${new Date().getTime()}&ref=${branch}`;
+  try {
+    const response = await fetch(
+      pagesUrl,
+      {
+        headers: {
+          'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+          'Accept': 'application/vnd.github.v3+json',
+        }
       }
+    );
+
+    if (!response.ok) {
+      console.error('Failed to fetch directory structure');
+      return [{ slug: ['Resources', 'resource-list'] }]; // Return at least the required path
     }
-  );
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch directory structure');
-  }
+    const data = await response.json();
+    const paths: { slug: string[] }[] = [
+      // Include the required path explicitly
+      { slug: ['Resources', 'resource-list'] }
+    ];
 
-  const data = await response.json();
-  const paths: { slug: string[] }[] = [];
-
-  // Recursively fetch all .md files
-  async function fetchMarkdownFiles(items: any[], currentPath: string[] = []) {
-    for (const item of items) {
-      if (item.type === 'file' && item.name.endsWith('.md')) {
-        // Add path for markdown file (without .md extension)
-        paths.push({
-          slug: [...currentPath, item.name.replace('.md', '')]
-        });
-      } else if (item.type === 'dir') {
-        // Fetch contents of subdirectory
-        const dirResponse = await fetch(item.url, {
-          headers: {
-            'Accept': 'application/vnd.github.v3+json',
+    // Recursively fetch all .md files
+    async function fetchMarkdownFiles(items: any[], currentPath: string[] = []) {
+      for (const item of items) {
+        if (item.type === 'file' && item.name.endsWith('.md')) {
+          paths.push({
+            slug: [...currentPath, item.name.replace('.md', '')]
+          });
+        } else if (item.type === 'dir') {
+          const dirResponse = await fetch(
+            item.url,
+            {
+              headers: {
+                'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3+json',
+              }
+            }
+          );
+          if (dirResponse.ok) {
+            const dirData = await dirResponse.json();
+            await fetchMarkdownFiles(dirData, [...currentPath, item.name]);
           }
-        });
-        if (dirResponse.ok) {
-          const dirData = await dirResponse.json();
-          await fetchMarkdownFiles(dirData, [...currentPath, item.name]);
         }
       }
     }
-  }
 
-  await fetchMarkdownFiles(data);
-  return paths;
+    await fetchMarkdownFiles(data);
+    console.log('Generated paths:', paths); // Debug log
+    return paths;
+    
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [{ slug: ['Resources', 'resource-list'] }]; // Return at least the required path on error
+  }
 }
 
 
@@ -328,21 +352,15 @@ function transformImageUrls() {
   };
 }
 
-// Add interface for metadata structure
-interface PostMetadata {
-  title?: string;
-  author?: string;
-  date?: string;
-  [key: string]: any; // Allow for additional metadata fields
-}
 
 // Update fetchContent to include typed metadata
 async function fetchContent(slug: string): Promise<{ metadata: PostMetadata; content: string }> {
 
   const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${slug}.md`,
+    `${PAGES_URL}/${slug}.md?ref=${branch}`,
     {
       headers: {
+        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
         'Accept': 'application/vnd.github.v3.raw',
       },
       next: { revalidate: 3600 }
