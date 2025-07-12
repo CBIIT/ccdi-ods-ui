@@ -72,6 +72,12 @@ export async function generateStaticParams() {
   }
 }
 
+/**
+ * Fetches and processes markdown content for a given page.
+ * 
+ * @param {PageProps} props - Page properties
+ * @returns {Promise<JSX.Element>} The rendered page.
+ */
 export default async function Post({ params }: PageProps) {
   
  const resolvedParams = await params;

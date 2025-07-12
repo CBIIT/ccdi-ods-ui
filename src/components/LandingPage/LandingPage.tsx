@@ -1,10 +1,29 @@
-"use client";
+'use client';
+
+/**
+ * Main landing page component
+ * Fetches and displays the site's homepage content.
+ * 
+ * @returns {JSX.Element} The rendered landing page.
+ */
+
 import { useEffect, useState } from 'react';
 import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
 import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
 
+/**
+ * Main landing page component that fetches and displays the site's homepage content
+ * Composed of several sections:
+ * - Hero: Main banner with mission statement
+ * - Banner: Support information and call-to-action
+ * - Gallery: Latest updates and news
+ * - DataSharingGuidance: Links to important resources
+ * 
+ * The component fetches its configuration from the /api/config endpoint
+ * and handles loading states appropriately
+ */
 export function LandingPage() {
   const [landingData, setLandingData] = useState(null);
   const [loading, setLoading] = useState(true);

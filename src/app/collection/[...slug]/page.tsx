@@ -1,24 +1,45 @@
+/**
+ * This module handles the collection page that displays a list of policy documents
+ * fetched from a GitHub repository.
+ */
+
 import Link from 'next/link';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 
 const branch = getGithubBranch();
 
+/**
+ * Interface representing the structure of GitHub content API response
+ */
 interface GithubContent {
   name: string;
   path: string;
   sha: string;
-  // Add download_url for raw content
   download_url: string;
 }
 
-
+/**
+ * Interface representing a processed post with metadata
+ */
 interface Post {
   id: string;
   title: string;
   slug: string;
 }
 
+/**
+ * Interface for the page props
+ */
+interface PageProps {
+  params: Promise<{ slug: string[] }>;
+}
+
+/**
+ * Fetches and extracts metadata from a markdown file
+ * @param url - The raw content URL of the markdown file
+ * @returns The title from the markdown frontmatter, or undefined if not found
+ */
 async function fetchPostMetadata(url: string): Promise<string | undefined> {
   const response = await fetch(url);
   if (!response.ok) return undefined;
@@ -28,8 +49,13 @@ async function fetchPostMetadata(url: string): Promise<string | undefined> {
   return data.title;
 }
 
+/**
+ * Generates static paths for all available policy documents
+ * This function is used by Next.js for static site generation
+ */
 export async function generateStaticParams() {
   // Fetch all possible paths from GitHub at build time
+  // Fetch the directory structure from GitHub API with cache-busting timestamp
   const response = await fetch(
     `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
     {
@@ -54,7 +80,11 @@ export async function generateStaticParams() {
   return paths;
 }
 
-
+/**
+ * Fetches and processes posts from a specific GitHub directory
+ * @param slug - The directory path in the GitHub repository
+ * @returns Array of processed posts with metadata
+ */
 async function fetchGithubPosts(slug: string): Promise<Post[]> {
 
   const response = await fetch(
@@ -73,9 +103,10 @@ async function fetchGithubPosts(slug: string): Promise<Post[]> {
   }
 
   const data: GithubContent[] = await response.json();
+  // Filter to only include markdown files
   const mdFiles = data.filter(file => file.name.endsWith('.md'));
   
-  // Fetch metadata for all files in parallel
+  // Fetch metadata for all files in parallel for better performance
   const posts = await Promise.all(
     mdFiles.map(async (file) => {
       const metadataTitle = file.download_url ? 
@@ -93,12 +124,18 @@ async function fetchGithubPosts(slug: string): Promise<Post[]> {
   return posts;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default async function PostsList(props : any) {
-  const { params } = props;
-  const slug = params.slug.join('/');
+/**
+ * Fetches and displays a list of policy documents from GitHub.
+ * 
+ * @returns {JSX.Element} The rendered collection page.
+ */
+export default async function PostsList({ params }: PageProps) {
+  // Await the params promise
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug.join('/');
   const posts = await fetchGithubPosts(slug);
 
+  // Render the list of policy documents in a responsive grid layout
   return (
     <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Policy Documents</h1>

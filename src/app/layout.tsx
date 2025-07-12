@@ -5,6 +5,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
 
+/**
+ * Font configurations for the application using Next.js built-in font optimization
+ * These fonts are loaded and optimized at build time and injected via CSS variables
+ */
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,38 +19,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Open Sans - Primary font for body text and general content
 const openSans = Open_Sans({
   variable: "--font-open-sans",
   subsets: ["latin"],
 });
 
+// Poppins - Used for headings and emphasized text
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["400", "700"],
   subsets: ["latin"],
 });
 
+// Lato - Alternative body font with multiple weights
 const lato = Lato({
   variable: "--font-lato",
   weight: ["300", "400", "700"],
   subsets: ["latin"],
 });
 
+// Inter - Modern sans-serif font for UI elements
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
+// Nunito Sans - Used for navigation and buttons
 const nunitoSans = Nunito_Sans({
   variable: "--font-nunito-sans",
   subsets: ["latin"],
 });
 
+// Nunito - Alternative to Nunito Sans for specific UI components
 const nunito = Nunito({
   variable: "--font-nunito",
   subsets: ["latin"],
 });
 
+// Public Sans - USWDS (U.S. Web Design System) compliant font
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
   subsets: ["latin"],

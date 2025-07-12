@@ -1,5 +1,17 @@
 'use client';
 
+/**
+ * ClientPost component
+ * Handles rendering of a post page with responsive design and dynamic content.
+ * 
+ * @param {ClientPostProps} props - Component props
+ * @param {string} props.collection - The collection name
+ * @param {string} props.page - The page name
+ * @param {string} props.processedContent - The processed markdown content
+ * 
+ * @returns {JSX.Element} The rendered post page.
+ */
+
 import { useState, useEffect } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import { extractHeadings } from './serverUtils';

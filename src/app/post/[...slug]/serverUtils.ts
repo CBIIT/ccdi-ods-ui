@@ -14,6 +14,26 @@ import type { Element } from 'hast';
 const branch = getGithubBranch();
 const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
 
+/**
+ * Utility functions for processing markdown content.
+ * Includes parsing, highlighting, and extracting metadata.
+ * 
+ * @module serverUtils
+ */
+
+/**
+ * List of allowed iframe domains for security.
+ * Used to sanitize embedded content.
+ */
+const ALLOWED_IFRAME_DOMAINS = [
+  'youtube.com',
+  'www.youtube.com',
+  'youtu.be',
+  'vimeo.com',
+  'player.vimeo.com',
+  'www.google.com',
+];
+
 export interface PostMetadata {
   title?: string;
   author?: string;
@@ -27,16 +47,6 @@ export interface Heading {
   level: number;
   children: Heading[];
 }
-
-// List of allowed iframe domains for security
-const ALLOWED_IFRAME_DOMAINS = [
-  'youtube.com',
-  'www.youtube.com',
-  'youtu.be',
-  'vimeo.com',
-  'player.vimeo.com',
-  'www.google.com',
-];
 
 function sanitizeIframe() {
   return (tree: Node) => {
@@ -156,6 +166,12 @@ function rehypeCustomTheme() {
   };
 }
 
+/**
+ * Extracts headings from markdown content.
+ * 
+ * @param {string} markdown - The markdown content
+ * @returns {Heading[]} The extracted headings.
+ */
 export function extractHeadings(content: string): Heading[] {
   const headings: Heading[] = [];
   const regex = /<h([23])[^>]*?id="([^"]+)"[^>]*>((?:(?!<\/h[23]>).)*)<\/h[23]>/gs;
