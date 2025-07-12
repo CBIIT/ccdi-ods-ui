@@ -16,7 +16,7 @@ export function LandingPage() {
 
   useEffect(() => {
       async function fetchConfig() {
-        const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}&ref=${branch}`;
+        const fileUrl = LANDING_CONFIG_URL;
         try {
           const res = await fetch(fileUrl, {
             headers: {
