@@ -2,8 +2,18 @@ import { fetchContent, processMarkdown } from './serverUtils';
 import ClientPost from './ClientPost';
 import { getGithubBranch } from '@/config/config';
 
+interface GitHubContentItem {
+  name: string;
+  type: 'file' | 'dir';
+  url: string;
+}
+
 const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
 const branch = getGithubBranch();
+
+interface PageProps {
+  params: Promise<{ slug: string[] }>
+}
 
 // Required for static site generation with app directory
 export async function generateStaticParams() {
@@ -24,13 +34,13 @@ export async function generateStaticParams() {
       return [{ slug: ['Resources', 'resource-list'] }];
     }
 
-    const data = await response.json();
+    const data = await response.json() as GitHubContentItem[];
     const paths: { slug: string[] }[] = [
       { slug: ['Resources', 'resource-list'] }
     ];
 
     // Recursively fetch all .md files
-    async function fetchMarkdownFiles(items: any[], currentPath: string[] = []) {
+    async function fetchMarkdownFiles(items: GitHubContentItem[], currentPath: string[] = []) {
       for (const item of items) {
         if (item.type === 'file' && item.name.endsWith('.md')) {
           paths.push({
@@ -62,14 +72,12 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function Post({
-  params,
-}: {
-  params: { slug: string[] };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const slug = params.slug.join('/');
-  const [collection, page] = params.slug;
+export default async function Post({ params }: PageProps) {
+  
+ const resolvedParams = await params;
+  
+  const slug = resolvedParams.slug.join('/');
+  const [collection, page] = resolvedParams.slug;
   const { metadata, content } = await fetchContent(slug);
   const processedContent = await processMarkdown(content, slug);
   const cleanTitle = metadata?.title?.replace(/^["']|["']$/g, '') || page;
