@@ -1,0 +1,221 @@
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
+import { visit } from 'unist-util-visit';
+import matter from 'gray-matter';
+import { getGithubBranch } from '@/config/config';
+
+const branch = getGithubBranch();
+const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
+
+export interface PostMetadata {
+  title?: string;
+  author?: string;
+  date?: string;
+  [key: string]: any;
+}
+
+export interface Heading {
+  id: string;
+  text: string;
+  level: number;
+  children: Heading[];
+}
+
+// List of allowed iframe domains for security
+const ALLOWED_IFRAME_DOMAINS = [
+  'youtube.com',
+  'www.youtube.com',
+  'youtu.be',
+  'vimeo.com',
+  'player.vimeo.com',
+  'www.google.com',
+];
+
+function sanitizeIframe() {
+  return (tree: any) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'iframe') {
+        const src = node.properties?.src;
+        if (!src) {
+          node.tagName = 'div';
+          node.children = [{ type: 'text', value: 'Invalid iframe: missing source' }];
+          return;
+        }
+
+        try {
+          const url = new URL(src);
+          const isDomainAllowed = ALLOWED_IFRAME_DOMAINS.some(domain => 
+            url.hostname === domain || url.hostname.endsWith(`.${domain}`));
+
+          if (!isDomainAllowed) {
+            node.tagName = 'div';
+            node.children = [{ type: 'text', value: 'Iframe from untrusted domain not allowed' }];
+            return;
+          }
+
+          node.properties = {
+            ...node.properties,
+            class: 'w-full aspect-video rounded-lg border-0 my-4',
+            loading: 'lazy',
+            allowFullscreen: true,
+            referrerPolicy: 'no-referrer',
+          };
+        } catch (e) {
+          node.tagName = 'div';
+          node.children = [{ type: 'text', value: 'Invalid iframe: malformed URL' }];
+        }
+      }
+    });
+  };
+}
+
+function rehypeCustomTheme() {
+  return (tree: any) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'h1') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-3xl md:text-4xl', 'font-bold', 'my-4 md:my-6', 'text-[#49B5B1]'];
+      }
+      if (node.tagName === 'h2') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-2xl md:text-3xl', 'font-semibold', 'my-4 md:my-5', 'text-gray-800', 'scroll-mt-20'];
+      }
+      if (node.tagName === 'h3') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-xl md:text-2xl', 'font-semibold', 'my-3 md:my-4', 'text-gray-700', 'scroll-mt-20'];
+      }
+      if (node.tagName === 'h4') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-lg md:text-xl', 'font-semibold', 'my-2 md:my-3', 'text-gray-700'];
+      }
+      if (node.tagName === 'p') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-base', 'leading-7', 'mb-4', 'text-gray-600'];
+      }
+      if (node.tagName === 'a') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-blue-500', 'hover:text-blue-600', 'hover:underline', 'transition-colors'];
+      }
+      if (node.tagName === 'img') {
+        node.properties = node.properties || {};
+        node.properties.className = ['max-w-full', 'h-auto', 'rounded-lg', 'my-4', 'mx-auto', 'shadow-md'];
+        node.properties.loading = 'lazy';
+      }
+      if (node.tagName === 'figure') {
+        node.properties = node.properties || {};
+        node.properties.className = ['my-6 md:my-8', 'text-center'];
+      }
+      if (node.tagName === 'figcaption') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-sm', 'text-gray-600', 'mt-2', 'italic'];
+      }
+      if (node.tagName === 'ul') {
+        node.properties = node.properties || {};
+        node.properties.className = ['list-disc', 'ml-4 md:ml-6', 'my-4', 'space-y-2'];
+      }
+      if (node.tagName === 'ol') {
+        node.properties = node.properties || {};
+        node.properties.className = ['list-decimal', 'ml-4 md:ml-6', 'my-4', 'space-y-2'];
+      }
+      if (node.tagName === 'li') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-base', 'leading-7', 'text-gray-600'];
+      }
+      if (node.tagName === 'blockquote') {
+        node.properties = node.properties || {};
+        node.properties.className = ['border-l-4', 'border-gray-300', 'pl-4', 'my-4', 'italic', 'text-gray-700'];
+      }
+      if (node.tagName === 'code') {
+        node.properties = node.properties || {};
+        node.properties.className = ['bg-gray-100', 'rounded', 'px-1', 'py-0.5', 'font-mono', 'text-sm'];
+      }
+      if (node.tagName === 'pre') {
+        node.properties = node.properties || {};
+        node.properties.className = ['bg-gray-100', 'rounded-lg', 'p-4', 'my-4', 'overflow-x-auto', 'text-sm md:text-base'];
+      }
+      if (node.tagName === 'table') {
+        node.properties = node.properties || {};
+        node.properties.className = ['min-w-full', 'border-collapse', 'my-4', 'block', 'md:table', 'overflow-x-auto'];
+      }
+      if (node.tagName === 'th') {
+        node.properties = node.properties || {};
+        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'bg-gray-50', 'font-semibold', 'whitespace-nowrap'];
+      }
+      if (node.tagName === 'td') {
+        node.properties = node.properties || {};
+        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'whitespace-normal'];
+      }
+    });
+  };
+}
+
+export function extractHeadings(content: string): Heading[] {
+  const headings: Heading[] = [];
+  const regex = /<h([23])[^>]*?id="([^"]+)"[^>]*>((?:(?!<\/h[23]>).)*)<\/h[23]>/gs;
+  let match;
+  let currentH2: Heading | null = null;
+  
+  while ((match = regex.exec(content)) !== null) {
+    const level = parseInt(match[1]);
+    const id = match[2];
+    const text = match[3].replace(/<[^>]*>/g, '').trim();
+    
+    if (level === 2) {
+      currentH2 = { id, text, level, children: [] };
+      headings.push(currentH2);
+    } else if (level === 3 && currentH2) {
+      currentH2.children.push({ id, text, level, children: [] });
+    }
+  }
+  
+  return headings;
+}
+
+export async function fetchContent(slug: string): Promise<{ metadata: PostMetadata; content: string }> {
+  const response = await fetch(
+    `${PAGES_URL}/${slug}.md?ref=${branch}`,
+    {
+      headers: {
+        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3.raw',
+      },
+      next: { revalidate: 3600 }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch content');
+  }
+  const content = await response.text();
+  const { data: metadata, content: markdownContent } = matter(content);
+  
+  return { 
+    metadata: metadata as PostMetadata, 
+    content: markdownContent 
+  };
+}
+
+export async function processMarkdown(content: string, slug: string) {
+  const theme = slug.split('/')[0] === 'program' ? rehypeCustomTheme : rehypeCustomTheme;
+  const result = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, {
+      allowDangerousHtml: true,
+      footnoteLabel: 'Footnotes',
+      footnoteBackLabel: 'Back to content',
+    })
+    .use(theme)
+    .use(sanitizeIframe)
+    .use(rehypeSlug)
+    .use(rehypeHighlight)
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(content);
+
+  return result.toString();
+}
