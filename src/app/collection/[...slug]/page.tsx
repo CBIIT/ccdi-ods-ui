@@ -31,7 +31,7 @@ async function fetchPostMetadata(url: string): Promise<string | undefined> {
 export async function generateStaticParams() {
   // Fetch all possible paths from GitHub at build time
   const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}ref=${branch}`,
+    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
     {
       headers: {
         'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
