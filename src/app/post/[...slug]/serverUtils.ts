@@ -8,6 +8,8 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
+import type { Node } from 'unist';
+import type { Element } from 'hast';
 
 const branch = getGithubBranch();
 const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
@@ -16,7 +18,7 @@ export interface PostMetadata {
   title?: string;
   author?: string;
   date?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Heading {
@@ -37,12 +39,12 @@ const ALLOWED_IFRAME_DOMAINS = [
 ];
 
 function sanitizeIframe() {
-  return (tree: any) => {
-    visit(tree, 'element', (node) => {
+  return (tree: Node) => {
+    visit(tree, 'element', (node: Element) => {
       if (node.tagName === 'iframe') {
-        const src = node.properties?.src;
+        const src = node.properties?.src as string | undefined;
         if (!src) {
-          node.tagName = 'div';
+          (node as unknown as Element).tagName = 'div';
           node.children = [{ type: 'text', value: 'Invalid iframe: missing source' }];
           return;
         }
@@ -53,7 +55,7 @@ function sanitizeIframe() {
             url.hostname === domain || url.hostname.endsWith(`.${domain}`));
 
           if (!isDomainAllowed) {
-            node.tagName = 'div';
+            (node as unknown as Element).tagName = 'div';
             node.children = [{ type: 'text', value: 'Iframe from untrusted domain not allowed' }];
             return;
           }
@@ -65,8 +67,8 @@ function sanitizeIframe() {
             allowFullscreen: true,
             referrerPolicy: 'no-referrer',
           };
-        } catch (e) {
-          node.tagName = 'div';
+        } catch {
+          (node as unknown as Element).tagName = 'div';
           node.children = [{ type: 'text', value: 'Invalid iframe: malformed URL' }];
         }
       }
@@ -75,8 +77,8 @@ function sanitizeIframe() {
 }
 
 function rehypeCustomTheme() {
-  return (tree: any) => {
-    visit(tree, 'element', (node) => {
+  return (tree: Node) => {
+    visit(tree, 'element', (node: Element) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
         node.properties.className = ['text-3xl md:text-4xl', 'font-bold', 'my-4 md:my-6', 'text-[#49B5B1]'];
