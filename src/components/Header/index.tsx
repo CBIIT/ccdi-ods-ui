@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * Main Header component
+ * Handles responsive layout for different screen sizes.
+ * 
+ * @returns {JSX.Element} The rendered header.
+ */
+
 import React from 'react';
 import HeaderDesktop from './HeaderDesktop';
 import HeaderTablet from './HeaderTablet';
