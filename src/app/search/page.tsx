@@ -4,6 +4,9 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import Fuse from 'fuse.js';
 import matter from 'gray-matter';
+import { getGithubBranch } from '@/config/config';
+
+const branch = getGithubBranch();
 
 // ==========================
 // Interfaces
@@ -36,9 +39,11 @@ interface PostWithCollection extends GithubPost {
 // Fetch top-level collections (directories under pages/)
 async function fetchCollections() {
   const response = await fetch(
-    'https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages',
+    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
     {
-      headers: { 'Accept': 'application/vnd.github.v3+json' },
+      headers: { 
+        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json' },
     }
   );
 
@@ -53,9 +58,10 @@ async function fetchCollections() {
 // Fetch posts under a collection
 async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
   const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${collectionPath}`,
+    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${collectionPath}?ref=${branch}`,
     {
-      headers: { 'Accept': 'application/vnd.github.v3+json' },
+      headers: { 'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json' },
     }
   );
 
@@ -70,9 +76,10 @@ async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
   for (const item of items) {
     if (item.type === 'file' && item.name.endsWith('.md')) {
       const postResonse = await fetch(
-        `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/${item.path}`,
+        `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/${item.path}?ts=${new Date().getTime()}&ref=${branch}`,
         {
           headers: {
+            'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
             'Accept': 'application/vnd.github.v3.raw',
           },
           next: { revalidate: 3600 }
