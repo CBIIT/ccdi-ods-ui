@@ -94,7 +94,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 The application is configured for deployment on various platforms:
 
 - **GitHub Pages**: Uses gh-pages for deployment
-- **Vercel**: Automatic deployment with Vercel platform
 - **Custom Server**: Traditional build and serve
 
 For deployment instructions, see the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying).
