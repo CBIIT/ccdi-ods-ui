@@ -67,7 +67,8 @@ export async function generateStaticParams() {
   );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch directory structure');
+    console.error('Failed to fetch directory structure', response.statusText);  
+    return [{ slug: ['Resources', 'resource-list'] }];
   }
 
   const data: GithubContent[] = await response.json();
@@ -99,7 +100,8 @@ async function fetchGithubPosts(slug: string): Promise<Post[]> {
   );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch posts');
+    console.error('Failed to fetch posts', response.statusText);
+    return [];
   }
 
   const data: GithubContent[] = await response.json();

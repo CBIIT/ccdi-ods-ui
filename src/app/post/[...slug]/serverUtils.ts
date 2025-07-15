@@ -207,7 +207,8 @@ export async function fetchContent(slug: string): Promise<{ metadata: PostMetada
   );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch content');
+    console.log('Failed to fetch content');
+    return { metadata: {}, content: '' };
   }
   const content = await response.text();
   const { data: metadata, content: markdownContent } = matter(content);
