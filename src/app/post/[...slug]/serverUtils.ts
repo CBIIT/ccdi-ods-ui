@@ -34,6 +34,10 @@ const ALLOWED_IFRAME_DOMAINS = [
   'www.google.com',
 ];
 
+const ThemeColor = {
+  group1: '#335D85', // Example color for group 1
+}
+
 export interface PostMetadata {
   title?: string;
   author?: string;
@@ -91,15 +95,39 @@ function rehypeCustomTheme() {
     visit(tree, 'element', (node: Element) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-3xl md:text-4xl', 'font-bold', 'my-4 md:my-6', 'text-[#49B5B1]'];
+        node.properties.className = [
+          'text-3xl md:text-4xl',
+          'font-bold',
+          'my-4 md:my-6',
+          'text-[#FFFFFF]',
+          '[font-family:Inter]',
+          `bg-[${ThemeColor.group1}]`,
+          'p-[20px]'
+        ];
       }
       if (node.tagName === 'h2') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-2xl md:text-3xl', 'font-semibold', 'my-4 md:my-5', 'text-gray-800', 'scroll-mt-20'];
+        node.properties.className = [
+          'text-2xl md:text-3xl',
+          'font-semibold',
+          'my-4 md:my-5',
+          '[font-family:Inter]',
+          'text-[32px]',
+          'font-[600]'
+        ];
+        node.properties.style = `color: ${ThemeColor.group1};`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-xl md:text-2xl', 'font-semibold', 'my-3 md:my-4', 'text-gray-700', 'scroll-mt-20'];
+        node.properties.className = [
+          'my-3 md:my-4',
+          'scroll-mt-20',
+          'text-[20px]',
+          'font-[600]',
+          'leading-[20px]',
+          '[font-family:Poppins]',
+        ];
+        node.properties.style = `color: ${ThemeColor.group1};`;
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};

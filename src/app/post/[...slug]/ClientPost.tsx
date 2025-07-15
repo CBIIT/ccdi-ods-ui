@@ -22,6 +22,12 @@ interface ClientPostProps {
   processedContent: string;
 }
 
+const ThemeColor = {
+  group1: '#4385C5', // color for group 1
+  group2: '#AB53AC', // color for group 2
+  group3: '#755AD8', // color for group 2
+}
+
 export default function ClientPost({ collection, page, processedContent }: ClientPostProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -99,7 +105,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
           `}
           aria-label="Table of contents"
         >
-          <div className="border-l-[2.25px] border-[#49B5B1] p-4">
+          <div className="border-l-[2.25px] p-4" style={{ borderLeftColor: ThemeColor.group1 }}>
             {isMobile && (
               <div className="flex justify-between items-center mb-4 px-2">
                 <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
@@ -119,7 +125,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                 <li key={h2.id}>
                   <a
                     href={`#${h2.id}`}
-                    className="text-gray-600 hover:text-blue-600 text-sm block transition-colors font-medium py-1 rounded hover:bg-gray-50"
+                    className="text-[#464A4C] [font-family:Inter] text-sm block transition-colors font-normal py-1 rounded text-[16px] hover:text-[#257E7A] hover:font-semibold"
                     onClick={() => isMobile && setIsMobileMenuOpen(false)}
                   >
                     {h2.text}
@@ -130,7 +136,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                         <li key={h3.id}>
                           <a
                             href={`#${h3.id}`}
-                            className="text-gray-500 hover:text-blue-500 text-xs block transition-colors py-1 rounded hover:bg-gray-50"
+                            className="text-[#464A4C] [font-family:Inter] font-normal text-xs block transition-colors py-1 rounded text-[14px] hover:text-[#257E7A] hover:font-semibold"
                             onClick={() => isMobile && setIsMobileMenuOpen(false)}
                           >
                             {h3.text}
