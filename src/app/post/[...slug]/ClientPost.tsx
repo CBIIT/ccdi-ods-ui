@@ -1,5 +1,4 @@
 'use client';
-
 /**
  * ClientPost component
  * Handles rendering of a post page with responsive design and dynamic content.

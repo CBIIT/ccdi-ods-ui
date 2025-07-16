@@ -1,3 +1,5 @@
+'use client';
+
 import { fetchContent, processMarkdown } from './serverUtils';
 import ClientPost from './ClientPost';
 import { getGithubBranch } from '@/config/config';

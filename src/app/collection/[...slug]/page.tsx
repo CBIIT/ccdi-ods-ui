@@ -1,3 +1,4 @@
+'use client';
 /**
  * This module handles the collection page that displays a list of policy documents
  * fetched from a GitHub repository.
