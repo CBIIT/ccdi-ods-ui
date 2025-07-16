@@ -93,23 +93,8 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "https://www.cancer.gov/profiles/custom/cgov_site/themes/custom/cgov/static/images/design-elements/icons/favicons/favicon.ico",
+        url: "https://raw.githubusercontent.com/CBIIT/ccdi-ods-ui/refs/heads/dev2/public/favicon.ico",
         sizes: "32x32"
-      },
-      {
-        url: "https://www.cancer.gov/profiles/custom/cgov_site/themes/custom/cgov/static/images/design-elements/icons/favicons/favicon.svg",
-        type: "image/svg+xml"
-      }
-    ],
-    apple: [
-      {
-        url: "https://www.cancer.gov/profiles/custom/cgov_site/themes/custom/cgov/static/images/design-elements/icons/favicons/apple-touch-icon.png"
-      }
-    ],
-    other: [
-      {
-        rel: "manifest",
-        url: "https://www.cancer.gov/profiles/custom/cgov_site/themes/custom/cgov/static/images/design-elements/icons/favicons/site.webmanifest"
       }
     ]
   },
