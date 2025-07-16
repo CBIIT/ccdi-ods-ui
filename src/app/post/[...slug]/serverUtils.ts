@@ -35,7 +35,9 @@ const ALLOWED_IFRAME_DOMAINS = [
 ];
 
 const ThemeColor = {
-  group1: '#335D85', // Example color for group 1
+  group1: '#345D85', // color for group 1
+  group2: '#7B3D7C', // color for group 1
+  group3: '#6656A1', // color for group 1
 }
 
 export interface PostMetadata {
