@@ -36,7 +36,7 @@ const ALLOWED_IFRAME_DOMAINS = [
 
 const ThemeColor = {
   group1: '#345D85', // color for group 1
-  group2: '#7B3D7C', // color for group 1
+  group2: '#7B3D7C', // color for group 2
   group3: '#6656A1', // color for group 3
 }
 
