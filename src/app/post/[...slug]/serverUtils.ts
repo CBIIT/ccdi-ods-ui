@@ -131,15 +131,37 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-lg md:text-xl', 'font-semibold', 'my-2 md:my-3', 'text-gray-700'];
+        node.properties.className = ['text-[16px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+      }
+      if (node.tagName === 'h5') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-[14px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+      }
+      if (node.tagName === 'h6') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-[12px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
       }
       if (node.tagName === 'p') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-base', 'leading-7', 'mb-4', 'text-gray-600'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#000000]',
+          'leading-[28px]',
+          'mb-4',
+        ];
       }
       if (node.tagName === 'a') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-blue-500', 'hover:text-blue-600', 'hover:underline', 'transition-colors'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#1C8278]',
+          'font-medium',
+          'leading-[28px]',
+          'underline',
+        ];
+        node.properties.style = 'font-weight: 500; text-decoration-style: solid; text-decoration-skip-ink: none; text-decoration-thickness: 1px; text-underline-offset: auto; text-underline-position: from-font;';
       }
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
@@ -164,7 +186,13 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'li') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-base', 'leading-7', 'text-gray-600'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#000000]',
+          'leading-[28px]',
+          'mb-4',
+        ];
       }
       if (node.tagName === 'blockquote') {
         node.properties = node.properties || {};
@@ -180,15 +208,41 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'table') {
         node.properties = node.properties || {};
-        node.properties.className = ['min-w-full', 'border-collapse', 'my-4', 'block', 'md:table', 'overflow-x-auto'];
+        node.properties.className = [
+          'min-w-full',
+          'border-collapse',
+          'my-4',
+          'block',
+          'md:table',
+          'overflow-x-auto',
+        ];
+        node.properties.style = `border-top: 2px solid ${ThemeColor.group1};`;
       }
       if (node.tagName === 'th') {
         node.properties = node.properties || {};
-        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'bg-gray-50', 'font-semibold', 'whitespace-nowrap'];
+        node.properties.className = [
+          'px-4',
+          'py-2',
+          'whitespace-nowrap',
+          '[font-family:Inter]',
+          'text-[13px]',
+          'text-[#767676]',
+          'uppercase',
+        ];
+        node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
-        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'whitespace-normal'];
+        node.properties.className = [
+          'px-4',
+          'py-2',
+          'whitespace-normal',
+          '[font-family:Inter]',
+          'text-[12px]',
+          'text-[#000000]',
+          'leading-[16px]'
+        ];
+        node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }
     });
   };
