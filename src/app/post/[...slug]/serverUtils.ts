@@ -34,6 +34,12 @@ const ALLOWED_IFRAME_DOMAINS = [
   'www.google.com',
 ];
 
+const ThemeColor = {
+  group1: '#345D85', // color for group 1
+  group2: '#7B3D7C', // color for group 2
+  group3: '#6656A1', // color for group 3
+}
+
 export interface PostMetadata {
   title?: string;
   author?: string;
@@ -91,27 +97,73 @@ function rehypeCustomTheme() {
     visit(tree, 'element', (node: Element) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-3xl md:text-4xl', 'font-bold', 'my-4 md:my-6', 'text-[#49B5B1]'];
+        node.properties.className = [
+          'text-3xl md:text-4xl',
+          'font-bold',
+          'my-4 md:my-6',
+          'text-[#FFFFFF]',
+          '[font-family:Inter]',
+          `bg-[${ThemeColor.group1}]`,
+          'p-[20px]'
+        ];
       }
       if (node.tagName === 'h2') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-2xl md:text-3xl', 'font-semibold', 'my-4 md:my-5', 'text-gray-800', 'scroll-mt-20'];
+        node.properties.className = [
+          'text-2xl md:text-3xl',
+          'font-semibold',
+          'my-4 md:my-5',
+          '[font-family:Inter]',
+          'text-[32px]',
+          'font-[600]'
+        ];
+        node.properties.style = `color: ${ThemeColor.group1};`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-xl md:text-2xl', 'font-semibold', 'my-3 md:my-4', 'text-gray-700', 'scroll-mt-20'];
+        node.properties.className = [
+          'my-3 md:my-4',
+          'scroll-mt-20',
+          'text-[20px]',
+          'font-[600]',
+          'leading-[20px]',
+          '[font-family:Poppins]',
+        ];
+        node.properties.style = `color: ${ThemeColor.group1};`;
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-lg md:text-xl', 'font-semibold', 'my-2 md:my-3', 'text-gray-700'];
+        node.properties.className = ['text-[16px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+      }
+      if (node.tagName === 'h5') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-[14px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+      }
+      if (node.tagName === 'h6') {
+        node.properties = node.properties || {};
+        node.properties.className = ['text-[12px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
       }
       if (node.tagName === 'p') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-base', 'leading-7', 'mb-4', 'text-gray-600'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#000000]',
+          'leading-[28px]',
+          'mb-4',
+        ];
       }
       if (node.tagName === 'a') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-blue-500', 'hover:text-blue-600', 'hover:underline', 'transition-colors'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#1C8278]',
+          'font-medium',
+          'leading-[28px]',
+          'underline',
+        ];
+        node.properties.style = 'font-weight: 500; text-decoration-style: solid; text-decoration-skip-ink: none; text-decoration-thickness: 1px; text-underline-offset: auto; text-underline-position: from-font;';
       }
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
@@ -136,7 +188,13 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'li') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-base', 'leading-7', 'text-gray-600'];
+        node.properties.className = [
+          '[font-family:Nunito]',
+          'text-[18px]',
+          'text-[#000000]',
+          'leading-[28px]',
+          'mb-4',
+        ];
       }
       if (node.tagName === 'blockquote') {
         node.properties = node.properties || {};
@@ -152,15 +210,41 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'table') {
         node.properties = node.properties || {};
-        node.properties.className = ['min-w-full', 'border-collapse', 'my-4', 'block', 'md:table', 'overflow-x-auto'];
+        node.properties.className = [
+          'min-w-full',
+          'border-collapse',
+          'my-4',
+          'block',
+          'md:table',
+          'overflow-x-auto',
+        ];
+        node.properties.style = `border-top: 2px solid ${ThemeColor.group1};`;
       }
       if (node.tagName === 'th') {
         node.properties = node.properties || {};
-        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'bg-gray-50', 'font-semibold', 'whitespace-nowrap'];
+        node.properties.className = [
+          'px-4',
+          'py-2',
+          'whitespace-nowrap',
+          '[font-family:Inter]',
+          'text-[13px]',
+          'text-[#767676]',
+          'uppercase',
+        ];
+        node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
-        node.properties.className = ['border', 'border-gray-300', 'px-4', 'py-2', 'whitespace-normal'];
+        node.properties.className = [
+          'px-4',
+          'py-2',
+          'whitespace-normal',
+          '[font-family:Inter]',
+          'text-[12px]',
+          'text-[#000000]',
+          'leading-[16px]'
+        ];
+        node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }
     });
   };
