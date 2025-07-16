@@ -52,7 +52,8 @@ export async function GET() {
 
     // Handle unsuccessful responses
     if (!res.ok) {
-      throw new Error(`Failed to fetch config: ${res.status} ${res.statusText}`);
+      console.error('Failed to fetch config:', res.status, res.statusText);
+      return NextResponse.json({ error: 'Failed to fetch configuration' }, { status: res.status });
     }
 
     // Parse and return the configuration data
