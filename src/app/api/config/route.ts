@@ -28,7 +28,7 @@ export const revalidate = 3600; // Revalidate every hour
 // Get the current GitHub branch for content fetching
 const branch = getGithubBranch();
 // GitHub API URL for the landing page configuration file
-const LANDING_CONFIG_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/home.json`;
+const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/home.json`;
 
 /**
  * GET handler for the configuration endpoint.
@@ -40,13 +40,12 @@ const LANDING_CONFIG_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/
 export async function GET() {
   try {
     // Construct URL with timestamp to prevent caching and specify branch
-    const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}&ref=${branch}`;
+    const fileUrl = `${LANDING_CONFIG_URL}?ts=${new Date().getTime()}`;
     
     // Fetch configuration from GitHub with authentication
     const res = await fetch(fileUrl, {
       headers: {
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3.raw',
+        'Accept': 'application/json',
       },
     });
 
