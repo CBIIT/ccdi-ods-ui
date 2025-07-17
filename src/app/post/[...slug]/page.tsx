@@ -2,97 +2,45 @@
 
 import { fetchContent, processMarkdown } from './serverUtils';
 import ClientPost from './ClientPost';
-import { getGithubBranch } from '@/config/config';
-
-interface GitHubContentItem {
-  name: string;
-  type: 'file' | 'dir';
-  url: string;
-}
-
-const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
-const branch = getGithubBranch();
+import { useState, useEffect, use } from 'react';
 
 interface PageProps {
-  params: Promise<{ slug: string[] }>
+  params: Promise<{ slug: string[] }>;
 }
 
-// Required for static site generation with app directory
-export async function generateStaticParams() {
-  const pagesUrl = `${PAGES_URL}?ts=${new Date().getTime()}&ref=${branch}`;
-  try {
-    const response = await fetch(
-      pagesUrl,
-      {
-        headers: {
-          'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-        }
-      }
-    );
+interface Metadata {
+  title?: string;
+}
 
-    if (!response.ok) {
-      console.error('Failed to fetch directory structure');
-      return [{ slug: ['Resources', 'resource-list'] }];
+export default function Post({ params }: PageProps) {
+  const paramsData = use(params);
+  const { slug } = paramsData;
+
+  const [metadata, setMetadata] = useState<Metadata | null>(null);
+  const [processedContent, setProcessedContent] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const slugPath = slug.join('/');
+      const contentData = await fetchContent(slugPath);
+      const processedData = await processMarkdown(contentData.content, slugPath);
+
+      setMetadata(contentData.metadata);
+      setProcessedContent(processedData);
     }
 
-    const data = await response.json() as GitHubContentItem[];
-    const paths: { slug: string[] }[] = [
-      { slug: ['Resources', 'resource-list'] }
-    ];
+    fetchData();
+  }, [slug]);
 
-    // Recursively fetch all .md files
-    async function fetchMarkdownFiles(items: GitHubContentItem[], currentPath: string[] = []) {
-      for (const item of items) {
-        if (item.type === 'file' && item.name.endsWith('.md')) {
-          paths.push({
-            slug: [...currentPath, item.name.replace('.md', '')]
-          });
-        } else if (item.type === 'dir') {
-          const dirResponse = await fetch(
-            item.url,
-            {
-              headers: {
-                'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github.v3+json',
-              }
-            }
-          );
-          if (dirResponse.ok) {
-            const dirData = await dirResponse.json();
-            await fetchMarkdownFiles(dirData, [...currentPath, item.name]);
-          }
-        }
-      }
-    }
-
-    await fetchMarkdownFiles(data);
-    return paths;
-  } catch (error) {
-    console.error('Error in generateStaticParams:', error);
-    return [{ slug: ['Resources', 'resource-list'] }];
+  if (!metadata || !processedContent) {
+    return <div>Loading...</div>;
   }
-}
 
-/**
- * Fetches and processes markdown content for a given page.
- * 
- * @param {PageProps} props - Page properties
- * @returns {Promise<JSX.Element>} The rendered page.
- */
-export default async function Post({ params }: PageProps) {
-  
- const resolvedParams = await params;
-  
-  const slug = resolvedParams.slug.join('/');
-  const [collection, page] = resolvedParams.slug;
-  const { metadata, content } = await fetchContent(slug);
-  const processedContent = await processMarkdown(content, slug);
-  const cleanTitle = metadata?.title?.replace(/^["']|["']$/g, '') || page;
+  const cleanTitle = metadata?.title?.replace(/^['"]|['"]$/g, '') || slug[1];
 
   return (
     <ClientPost 
-      collection={collection}
+      collection={slug[0]}
       page={cleanTitle}
       processedContent={processedContent}
     />

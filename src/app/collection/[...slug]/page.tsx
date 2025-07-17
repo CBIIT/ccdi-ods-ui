@@ -1,4 +1,5 @@
 'use client';
+
 /**
  * This module handles the collection page that displays a list of policy documents
  * fetched from a GitHub repository.
@@ -7,6 +8,7 @@
 import Link from 'next/link';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
+import { useState, useEffect } from 'react';
 
 const branch = getGithubBranch();
 
@@ -48,38 +50,6 @@ async function fetchPostMetadata(url: string): Promise<string | undefined> {
   const content = await response.text();
   const { data } = matter(content);
   return data.title;
-}
-
-/**
- * Generates static paths for all available policy documents
- * This function is used by Next.js for static site generation
- */
-export async function generateStaticParams() {
-  // Fetch all possible paths from GitHub at build time
-  // Fetch the directory structure from GitHub API with cache-busting timestamp
-  const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
-    {
-      headers: {
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-      }
-    }
-  );
-
-  if (!response.ok) {
-    console.error('Failed to fetch directory structure', response.statusText);  
-    return [{ slug: ['Resources', 'resource-list'] }];
-  }
-
-  const data: GithubContent[] = await response.json();
-  
-  // Generate paths for both directories and files
-  const paths = data.map(item => ({
-    slug: [item.name]
-  }));
-
-  return paths;
 }
 
 /**
@@ -129,20 +99,28 @@ async function fetchGithubPosts(slug: string): Promise<Post[]> {
 
 /**
  * Fetches and displays a list of policy documents from GitHub.
- * 
+ *
  * @returns {JSX.Element} The rendered collection page.
  */
-export default async function PostsList({ params }: PageProps) {
-  // Await the params promise
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug.join('/');
-  const posts = await fetchGithubPosts(slug);
+export default function PostsList({ params }: PageProps) {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const resolvedParams = await params;
+      const slug = resolvedParams.slug.join('/');
+      const fetchedPosts = await fetchGithubPosts(slug);
+      setPosts(fetchedPosts);
+    }
+
+    fetchPosts();
+  }, [params]);
 
   // Render the list of policy documents in a responsive grid layout
   return (
     <main className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Policy Documents</h1>
-      
+
       <div className="grid gap-4">
         {posts.map((post) => (
           <article 
@@ -157,7 +135,7 @@ export default async function PostsList({ params }: PageProps) {
           </article>
         ))}
       </div>
-      
+
       <div className="mt-6">
         <Link 
           href="/" 
