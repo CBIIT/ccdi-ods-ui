@@ -103,9 +103,9 @@ function rehypeCustomTheme() {
           'my-4 md:my-6',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
-          `bg-[${ThemeColor.group1}]`,
           'p-[20px]'
         ];
+        node.properties.style = `background: ${ThemeColor.group1};`;
       }
       if (node.tagName === 'h2') {
         node.properties = node.properties || {};
