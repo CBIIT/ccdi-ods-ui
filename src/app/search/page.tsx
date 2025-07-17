@@ -143,8 +143,7 @@ function SearchContent() {
     ignoreLocation: true,
     shouldSort: true,
     findAllMatches: true,
-    useExtendedSearch: true,
-    distance: 0
+    useExtendedSearch: true
   });
 
   const searchResults = query ? fuse.search(query) : [];
