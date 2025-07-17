@@ -173,9 +173,8 @@ function SearchContent() {
   return (
     <>
       <div className="mb-8 ml-24 mt-11">
-        ←&nbsp;
         <Link href="/" className="inline-block text-[#3377FF] text-xl font-medium transition-all underline" style={{ color: '#005EA2' }}>
-          Back to Home
+          ← Back to Home
         </Link>
       </div>
       <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen">
