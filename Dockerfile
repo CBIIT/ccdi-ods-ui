@@ -58,3 +58,6 @@ ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
+
+
+# docker build --build-arg NEXT_PUBLIC_GITHUB_TOKEN=<your_token> -t ccdi-ods-ui .
