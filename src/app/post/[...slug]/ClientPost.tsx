@@ -54,7 +54,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
       <Breadcrumb collection={collection} page={page} />
       
       {/* Mobile Menu Toggle Button */}
-      {isMobile && (
+      {isMobile && headings.length > 0 && (
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="fixed bottom-4 right-4 z-50 bg-[#49B5B1] text-white p-3 rounded-full shadow-lg hover:bg-[#3a8f8c] focus:outline-none focus:ring-2 focus:ring-[#49B5B1] focus:ring-offset-2"
@@ -89,63 +89,65 @@ export default function ClientPost({ collection, page, processedContent }: Clien
 
       <div className="flex flex-col md:flex-row gap-8 relative">
         {/* Side Navigation */}
-        <nav 
-          className={`
-            ${isMobile ? 
-              `fixed inset-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
-               transition-transform duration-300 ease-in-out bg-white shadow-lg w-3/4 h-full overflow-y-auto` 
-              : 'mt-10 w-64 flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
-          `}
-          aria-label="Table of contents"
-        >
-          <div className="border-l-[2.25px] border-[#49B5B1] p-4">
-            {isMobile && (
-              <div className="flex justify-between items-center mb-4 px-2">
-                <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100"
-                  aria-label="Close menu"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            )}
-            <ul className="space-y-3 pl-4" role="list">
-              {headings.map((h2) => (
-                <li key={h2.id}>
-                  <a
-                    href={`#${h2.id}`}
-                    className="text-gray-600 hover:text-blue-600 text-sm block transition-colors font-medium py-1 rounded hover:bg-gray-50"
-                    onClick={() => isMobile && setIsMobileMenuOpen(false)}
+        {headings.length > 0 && (
+          <nav 
+            className={`
+              ${isMobile ? 
+                `fixed inset-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
+                 transition-transform duration-300 ease-in-out bg-white shadow-lg w-3/4 h-full overflow-y-auto` 
+                : 'mt-10 w-64 flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
+            `}
+            aria-label="Table of contents"
+          >
+            <div className="border-l-[2.25px] border-[#49B5B1] p-4">
+              {isMobile && (
+                <div className="flex justify-between items-center mb-4 px-2">
+                  <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100"
+                    aria-label="Close menu"
                   >
-                    {h2.text}
-                  </a>
-                  {h2.children.length > 0 && (
-                    <ul className="ml-4 mt-2 space-y-2" role="list">
-                      {h2.children.map((h3) => (
-                        <li key={h3.id}>
-                          <a
-                            href={`#${h3.id}`}
-                            className="text-gray-500 hover:text-blue-500 text-xs block transition-colors py-1 rounded hover:bg-gray-50"
-                            onClick={() => isMobile && setIsMobileMenuOpen(false)}
-                          >
-                            {h3.text}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+              <ul className="space-y-3 pl-4" role="list">
+                {headings.map((h2) => (
+                  <li key={h2.id}>
+                    <a
+                      href={`#${h2.id}`}
+                      className="text-gray-600 hover:text-blue-600 text-sm block transition-colors font-medium py-1 rounded hover:bg-gray-50"
+                      onClick={() => isMobile && setIsMobileMenuOpen(false)}
+                    >
+                      {h2.text}
+                    </a>
+                    {h2.children.length > 0 && (
+                      <ul className="ml-4 mt-2 space-y-2" role="list">
+                        {h2.children.map((h3) => (
+                          <li key={h3.id}>
+                            <a
+                              href={`#${h3.id}`}
+                              className="text-gray-500 hover:text-blue-500 text-xs block transition-colors py-1 rounded hover:bg-gray-50"
+                              onClick={() => isMobile && setIsMobileMenuOpen(false)}
+                            >
+                              {h3.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </nav>
+        )}
 
         {/* Overlay for mobile menu */}
-        {isMobile && isMobileMenuOpen && (
+        {isMobile && isMobileMenuOpen && headings.length > 0 && (
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
