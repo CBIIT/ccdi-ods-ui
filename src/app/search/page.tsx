@@ -180,7 +180,7 @@ function SearchContent() {
       </div>
       <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen">
         <form action="/search" method="GET" className="mb-12 flex justify-center">
-          <div className="flex w-full max-w-4xl border-2 border-[#3377FF] rounded-2xl overflow-hidden">
+          <div className="flex w-full max-w-4xl border-2 border-[#345D85] rounded-2xl overflow-hidden">
             <input
               type="text"
               name="q"
@@ -191,15 +191,14 @@ function SearchContent() {
             />
             <button
               type="submit"
-              className="px-6 py-2 bg-[#36807B] text-white text-lg font-semibold hover:bg-[#27605c] transition-colors"
-              style={{ borderTopRightRadius: '1rem', borderBottomRightRadius: '1rem' }}
+              className="px-6 py-2 bg-[#3E8283] text-white text-lg font-semibold hover:bg-[#27605c] transition-colors"
             >
               SUBMIT
             </button>
           </div>
         </form>
 
-        <h1 className="text-5xl font-bold mb-4 text-[#36807B]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>Search Results</h1>
+        <h1 className="text-5xl font-bold mb-4 text-[#408B88]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>Search Results</h1>
         <p className="mb-8 text-xl text-gray-600">Showing results for: “{query}”</p>
 
         {Object.keys(groupedResults).length === 0 ? (
@@ -215,14 +214,14 @@ function SearchContent() {
               else sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
               return (
-                <section key={collectionName} className="border border-[#3B6A75] rounded-xl p-8 bg-white">
-                  <h2 className="text-3xl font-bold mb-4 text-[#3B6A75]">{sectionTitle}</h2>
-                  <ul className="space-y-3">
+                <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
+                  <h2 className="text-3xl font-bold mb-4 text-[#345D85]">{sectionTitle}</h2>
+                  <ul className="space-y-3 ml-4.5">
                     {posts.map((post) => (
                       <li key={post.path}>
                         <Link
                           href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
-                          className="text-[#36807B] text-lg hover:underline"
+                          className="text-[#1C8278] text-lg hover:underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                         </Link>
