@@ -12,7 +12,8 @@ import type { Node } from 'unist';
 import type { Element } from 'hast';
 
 const branch = getGithubBranch();
-const PAGES_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages`;
+const PAGES_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/pages/`;
+
 
 /**
  * Utility functions for processing markdown content.
@@ -196,13 +197,11 @@ export function extractHeadings(content: string): Heading[] {
 
 export async function fetchContent(slug: string): Promise<{ metadata: PostMetadata; content: string }> {
   const response = await fetch(
-    `${PAGES_URL}/${slug}.md?ref=${branch}`,
+    `${PAGES_URL}/${slug}.md`,
     {
-      headers: {
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3.raw',
-      },
-      next: { revalidate: 3600 }
+        headers: {
+        'Accept': 'application/json',
+      }
     }
   );
 
