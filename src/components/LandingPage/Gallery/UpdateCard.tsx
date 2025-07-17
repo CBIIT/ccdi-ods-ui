@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import externalLinkIcon from "../../../../assets/icons/external_link_icon.svg";
 
 interface UpdateCardProps {
@@ -19,9 +20,11 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
       className="min-h-[340px] h-full bg-[rgba(50,48,50,1)] pb-3.5 rounded-[0px_25px_0px_20px]"
     >
       <div className="rounded-[0px_0px_0px_20px]">
-        <img
+        <Image
           src={image}
           alt={title}
+          width={350}
+          height={296}
           className="aspect-[1.18] object-contain w-full"
         />
       </div>
@@ -49,7 +52,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
             className="ml-[5px] text-sm text-[#76E7DD] font-medium text-right uppercase underline z-10 cursor-pointer whitespace-nowrap"
           >
             Read More
-            <img src={externalLinkIcon.src} alt="external link" className="inline-block w-[14px] h-[14px] ml-2 align-middle" />
+            <Image src={externalLinkIcon} alt="external link" className="inline-block w-[14px] h-[14px] ml-2 align-middle" />
           </a>
         </div>
       </div>

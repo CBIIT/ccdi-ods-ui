@@ -5,7 +5,7 @@ import youtubeIcon from '../../assets/footer/Youtube_Logo.svg';
 import linkedInIcon from '../../assets/footer/LinkedIn_Logo.svg';
 // footerLogoImage ideal image size 310x80 px
 
-export default {
+const footerData = {
   footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
   footerLogoAltText: 'Footer Logo',
   footerLogoHyperlink: 'https://www.cancer.gov/',
@@ -146,3 +146,5 @@ export default {
     },
   ],
 };
+
+export default footerData;

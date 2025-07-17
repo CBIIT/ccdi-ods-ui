@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
 import Logo from "./components/LogoMobile";
 import menuClearIcon from '../../../assets/header/Menu_Cancel_Icon.svg';
@@ -245,7 +246,7 @@ const Header = () => {
               }}
               onClick={() => setNavMobileDisplay('none')}
             >
-              <img className="closeIconImg" src={menuClearIcon.src} alt="menuClearButton" />
+              <Image className="closeIconImg" src={menuClearIcon} alt="menuClearButton" />
 
             </div>
             {navbarMobileList !== navigationData.navList && (
