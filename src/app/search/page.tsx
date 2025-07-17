@@ -32,73 +32,7 @@ interface PostWithCollection extends GithubPost {
   collectionName: string;
 }
 
-// ==========================
-// Fetch Helpers
-// ==========================
 
-// Fetch top-level collections (directories under pages/)
-async function fetchCollections() {
-  const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
-    {
-      headers: { 
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json' },
-    }
-  );
-
-  if (!response.ok) {
-    console.error('Failed to fetch collections', response.statusText);
-    return [];
-  }
-
-  const data: GithubCollection[] = await response.json();
-  return data.filter(item => item.type === 'dir');
-}
-
-// Fetch posts under a collection
-async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
-  const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${collectionPath}?ref=${branch}`,
-    {
-      headers: { 'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json' },
-    }
-  );
-
-  if (!response.ok) {
-    console.error(`Failed to fetch posts for ${collectionPath}`, response.statusText);
-    return [];
-  }
-
-  const items: GithubPost[] = await response.json();
-
-  // For each item inside the collection
-  const posts: GithubPost[] = [];
-  for (const item of items) {
-    if (item.type === 'file' && item.name.endsWith('.md')) {
-      const postResonse = await fetch(
-        `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/${item.path}?ts=${new Date().getTime()}`,
-        {
-          headers: {
-            'Accept': 'application/json',
-          }
-        }
-      );
-      if (postResonse.ok) {
-        const rawContent = await postResonse.text();
-        const { data: metadata, content } = matter(rawContent);
-        const post: GithubPost = {
-          ...item,
-          content,
-          metadata: metadata as { title?: string },
-        };
-        posts.push(post);
-      }
-    } 
-  }
-  return posts;
-}
 
 
 // ==========================
