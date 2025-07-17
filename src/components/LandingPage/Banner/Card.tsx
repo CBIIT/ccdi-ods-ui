@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface CardProps {
   imageSrc: string;
@@ -16,9 +17,11 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div className="bg-[rgba(0,148,133,1)] self-stretch flex min-w-60 items-center text-lg text-white font-normal text-center leading-6 my-auto p-2.5 rounded-[20px] ">
       <div className="self-stretch flex items-center gap-2.5 overflow-hidden my-auto px-2.5">
-        <img
+        <Image
           src={imageSrc}
           alt=""
+          width={96}
+          height={96}
           className={`${imageAspect} object-contain ${imageWidth} self-stretch shrink-0 my-auto`}
         />
       </div>

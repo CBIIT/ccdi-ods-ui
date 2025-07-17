@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import arrowWhite from "../../../../assets/icons/right_arrow_white.svg";
 
 interface ContactLinkProps {
@@ -15,14 +16,18 @@ export const ContactLink: React.FC<ContactLinkProps> = ({ text, href, arrowSrc }
     >
       <span className="flex items-center">
         {text}
-        <img
+        <Image
           src={arrowSrc}
           alt=""
+          width={7}
+          height={7}
           className="aspect-[0.87] object-contain w-[7px] shrink-0 my-auto ml-12 group-hover:hidden"
         />
-        <img
-          src={arrowWhite.src}
+        <Image
+          src={arrowWhite}
           alt=""
+          width={7}
+          height={7}
           className="aspect-[0.87] object-contain w-[7px] shrink-0 my-auto ml-12 hidden group-hover:inline"
         />
       </span>
