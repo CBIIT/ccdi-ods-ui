@@ -48,7 +48,8 @@ async function fetchCollections() {
   );
 
   if (!response.ok) {
-    throw new Error('Failed to fetch collections');
+    console.error('Failed to fetch collections', response.statusText);
+    return [];
   }
 
   const data: GithubCollection[] = await response.json();
@@ -66,7 +67,8 @@ async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
   );
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch posts for ${collectionPath}`);
+    console.error(`Failed to fetch posts for ${collectionPath}`, response.statusText);
+    return [];
   }
 
   const items: GithubPost[] = await response.json();

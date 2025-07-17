@@ -23,11 +23,33 @@ interface BreadcrumbProps {
 export default function Breadcrumb({ collection, page }: BreadcrumbProps) {
   return (
     <div className="text-sm text-gray-600 mb-4">
-      <Link href="/" className="hover:text-blue-500">Home</Link>
+      <Link 
+        href="/" 
+        className="text-[#005EA2] text-[16px] font-normal [font-family:'Public Sans'] underline"
+        style={{
+          textDecorationLine: 'underline',
+          textDecorationStyle: 'solid',
+          textDecorationSkipInk: 'none',
+          textDecorationThickness: 'auto',
+          textUnderlineOffset: 'auto',
+          textUnderlinePosition: 'from-font',
+        }}
+      >Home</Link>
       <span className="mx-2">/</span>
-      {collection}
+      <Link 
+        href={`/collection/${collection}`}
+        className="text-[#005EA2] text-[16px] font-normal [font-family:'Public Sans'] underline"
+        style={{
+          textDecorationLine: 'underline',
+          textDecorationStyle: 'solid',
+          textDecorationSkipInk: 'none',
+          textDecorationThickness: 'auto',
+          textUnderlineOffset: 'auto',
+          textUnderlinePosition: 'from-font',
+        }}
+      >{collection}</Link>
       <span className="mx-2">/</span>
-      <span className="text-gray-900">{page}</span>
+      <span className="text-[#1B1B1B] text-[16px] font-normal [font-family:'Public Sans']">{page}</span>
     </div>
   );
 }
