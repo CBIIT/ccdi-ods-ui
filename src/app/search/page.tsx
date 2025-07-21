@@ -31,9 +31,7 @@ interface GithubPost {
 interface PostWithCollection extends GithubPost {
   collectionName: string;
 }
-
-
-
+ 
 
 // ==========================
 // SearchPage Component
@@ -163,54 +161,69 @@ function SearchContent() {
   }
 
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <div className="mb-6">
-        <Link href="/" className="text-blue-600 hover:text-blue-800">
+    <>
+      <div className="mb-8 ml-24 mt-11">
+        <Link href="/" className="inline-block text-[#3377FF] text-xl font-medium transition-all underline" style={{ color: '#005EA2' }}>
           ← Back to Home
         </Link>
       </div>
+      <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen">
+        <form action="/search" method="GET" className="mb-12 flex justify-center">
+          <div className="flex w-full max-w-4xl border-2 border-[#345D85] rounded-2xl overflow-hidden">
+            <input
+              type="text"
+              name="q"
+              placeholder="Search..."
+              defaultValue={query}
+              className="flex-1 px-6 py-4 text-2xl text-gray-700 bg-white focus:outline-none placeholder-gray-400"
+              style={{ fontWeight: 300 }}
+            />
+            <button
+              type="submit"
+              className="px-6 py-2 bg-[#3E8283] text-white text-lg font-semibold hover:bg-[#27605c] transition-colors"
+            >
+              SUBMIT
+            </button>
+          </div>
+        </form>
 
-      <form action="/search" method="GET" className="mb-6">
-        <input
-          type="text"
-          name="q"
-          placeholder="Search documentation..."
-          defaultValue={query}
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </form>
+        <h1 className="text-5xl font-bold mb-4 text-[#408B88]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>Search Results</h1>
+        <p className="mb-8 text-xl text-gray-600">Showing results for: “{query}”</p>
 
-      <h1 className="text-4xl font-bold mb-6">Search Results</h1>
-      <p className="mb-6">Showing results for: &quot;{query}&quot;</p>
+        {Object.keys(groupedResults).length === 0 ? (
+          <p className="text-2xl text-gray-300 mt-16">No results found.</p>
+        ) : (
+          <div className="flex flex-col gap-8">
+            {Object.entries(groupedResults).map(([collectionName, posts]) => {
+              // Map collectionName to friendly section titles
+              let sectionTitle = collectionName;
+              if (collectionName.toLowerCase().includes('example')) sectionTitle = 'Examples';
+              else if (collectionName.toLowerCase().includes('about')) sectionTitle = 'About';
+              else if (collectionName.toLowerCase().includes('guidance')) sectionTitle = 'Guidance';
+              else sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
-      {Object.keys(groupedResults).length === 0 ? (
-        <p>No results found.</p>
-      ) : (
-        <div className="grid gap-6">
-          {Object.entries(groupedResults).map(([collectionName, posts]) => (
-            <article key={collectionName} className="border rounded-lg p-6">
-              <h2 className="text-2xl font-semibold mb-4">
-                <Link href={`/collection/${collectionName}`} className="hover:text-blue-600">
-                  {collectionName.charAt(0).toUpperCase() + collectionName.slice(1)}
-                </Link>
-              </h2>
-              <ul className="space-y-2 ml-4">
-                {posts.map((post) => (
-                  <li key={post.path}>
-                    <Link
-                      href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
-                      {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      )}
-    </main>
+              return (
+                <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
+                  <h2 className="text-3xl font-bold mb-4 text-[#345D85]">{sectionTitle}</h2>
+                  <ul className="space-y-3 ml-4.5">
+                    {posts.map((post) => (
+                      <li key={post.path}>
+                        <Link
+                          href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
+                          className="text-[#1C8278] text-lg hover:underline"
+                        >
+                          {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            })}
+          </div>
+        )}
+      </main>
+    </>
   );
 }
 
