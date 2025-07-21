@@ -150,7 +150,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                   <li key={h2.id}>
                     <a
                       href={`#${h2.id}`}
-                      className="text-gray-600 hover:text-blue-600 text-sm block transition-colors font-medium py-1 rounded hover:bg-gray-50"
+                      className="text-[#464A4C] [font-family:Inter] text-sm block transition-colors font-normal py-1 rounded text-[16px] hover:text-[#257E7A] hover:font-semibold"
                       onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     >
                       {h2.text}
@@ -161,7 +161,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                           <li key={h3.id}>
                             <a
                               href={`#${h3.id}`}
-                              className="text-gray-500 hover:text-blue-500 text-xs block transition-colors py-1 rounded hover:bg-gray-50"
+                              className="text-[#464A4C] [font-family:Inter] font-normal text-xs block transition-colors py-1 rounded text-[14px] hover:text-[#257E7A] hover:font-semibold"
                               onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}
