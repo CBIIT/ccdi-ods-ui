@@ -25,6 +25,12 @@ COPY src ./src
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
 
+
+ARG NEXT_PUBLIC_GITHUB_TOKEN
+ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
+# Create .env file with the GitHub token
+RUN echo "NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}" > .env
+
 RUN npm run build;
 
 # Production image, copy all the files and run next
@@ -51,6 +57,7 @@ EXPOSE 3000
 
 ENV PORT=3000
 
+
 ARG NEXT_PUBLIC_GITHUB_TOKEN
 ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 
@@ -60,4 +67,4 @@ ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
 
 
-# docker build --build-arg NEXT_PUBLIC_GITHUB_TOKEN=<your_token> -t ccdi-ods-ui .
+# docker build --build-arg NEXT_PUBLIC_GITHUB_TOKEN=<your_token_here> -t ccdi-ods-ui .
