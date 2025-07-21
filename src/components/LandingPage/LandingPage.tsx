@@ -12,6 +12,7 @@ import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
 import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
+import { getGithubBranch } from '@/config/config';
 
 /**
  * Main landing page component that fetches and displays the site's homepage content
@@ -30,8 +31,12 @@ export function LandingPage() {
 
   useEffect(() => {
     async function fetchConfig() {
+
+      const branch = getGithubBranch();
+      const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/home.json`;
+
       try {
-        const res = await fetch('/api/config');
+        const res = await fetch(`${LANDING_CONFIG_URL}?ts=${new Date().getTime()}`);
         if (res.ok) {
           const data = await res.json();
           setLandingData(data);

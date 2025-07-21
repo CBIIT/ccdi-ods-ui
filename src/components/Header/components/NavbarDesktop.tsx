@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { getGithubBranch } from '@/config/config';
 
 const branch = getGithubBranch();
-const LANDING_CONFIG_URL = `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/navigation.json?ts=${new Date().getTime()}&ref=${branch}`;
+const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/navigation.json`;
 
 interface NavItem {
   name: string;
@@ -61,15 +61,13 @@ const NavBar = () => {
         const response = await fetch(
           LANDING_CONFIG_URL,
           {
-            headers: {
-              'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-              'Accept': 'application/vnd.github.v3+json',
+             headers: {
+        'Accept': 'application/json',
       }
       }
     );
         const data = await response.json();
-        const content = JSON.parse(atob(data.content));
-        setNavigationData(content);
+        setNavigationData(data);
       } catch (error) {
         console.error('Error fetching navigation data:', error);
       }

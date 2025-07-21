@@ -31,80 +31,7 @@ interface GithubPost {
 interface PostWithCollection extends GithubPost {
   collectionName: string;
 }
-
-// ==========================
-// Fetch Helpers
-// ==========================
-
-// Fetch top-level collections (directories under pages/)
-async function fetchCollections() {
-  const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages?ts=${new Date().getTime()}&ref=${branch}`,
-    {
-      headers: {
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      },
-    }
-  );
-
-  if (!response.ok) {
-    console.error('Failed to fetch collections', response.statusText);
-    return [];
-  }
-
-  const data: GithubCollection[] = await response.json();
-  return data.filter(item => item.type === 'dir');
-}
-
-// Fetch posts under a collection
-async function fetchPosts(collectionPath: string): Promise<GithubPost[]> {
-  const response = await fetch(
-    `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/pages/${collectionPath}?ref=${branch}`,
-    {
-      headers: {
-        'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
-      },
-    }
-  );
-
-  if (!response.ok) {
-    console.error(`Failed to fetch posts for ${collectionPath}`, response.statusText);
-    return [];
-  }
-
-  const items: GithubPost[] = await response.json();
-
-  // For each item inside the collection
-  const posts: GithubPost[] = [];
-  for (const item of items) {
-    if (item.type === 'file' && item.name.endsWith('.md')) {
-      const postResonse = await fetch(
-        `https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/${item.path}?ts=${new Date().getTime()}&ref=${branch}`,
-        {
-          headers: {
-            'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
-            'Accept': 'application/vnd.github.v3.raw',
-          },
-          next: { revalidate: 3600 }
-        }
-      );
-      if (postResonse.ok) {
-        const rawContent = await postResonse.text();
-        const { data: metadata, content } = matter(rawContent);
-        const post: GithubPost = {
-          ...item,
-          content,
-          metadata: metadata as { title?: string },
-        };
-        posts.push(post);
-      }
-    }
-  }
-  return posts;
-}
-
+ 
 
 // ==========================
 // SearchPage Component
@@ -118,14 +45,77 @@ function SearchContent() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const fetchedCollections = await fetchCollections();
-        const collectionsWithPosts = await Promise.all(
-          fetchedCollections.map(async (collection) => ({
+        const response = await fetch(
+          `https://api.github.com/repos/CBIIT/ccdi-ods-content/git/trees/${branch}?recursive=1`,
+          {
+            headers: { 
+              'Authorization': `token ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
+              'Accept': 'application/vnd.github.v3+json' 
+            },
+          }
+        );
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch repository tree');
+        }
+
+        const data = await response.json();
+        const pagesFiles = data.tree
+          .filter((item: { path: string }) => item.path.startsWith('pages/') && item.path.endsWith('.md'))
+          .map((item: { path: string }) => {
+            const pathParts = item.path.split('/');
+            return {
+              name: pathParts[pathParts.length - 1],
+              collectionName: pathParts[1],
+              path: item.path
+            };
+          });
+
+        // Group files by collection
+        const groupedFiles = pagesFiles.reduce((acc: { [key: string]: GithubCollection }, file: { path: string; name: string; collectionName: string }) => {
+          if (!acc[file.collectionName]) {
+            acc[file.collectionName] = {
+              name: file.collectionName,
+              path: `pages/${file.collectionName}`,
+              type: 'dir',
+              posts: []
+            };
+          }
+          acc[file.collectionName].posts?.push({
+            name: file.name,
+            path: file.path,
+            type: 'file'
+          });
+          return acc;
+        }, {});
+
+        // Fetch content for all files in parallel
+        const collectionsWithContent = await Promise.all(
+          (Object.values(groupedFiles) as GithubCollection[]).map(async (collection) => ({
             ...collection,
-            posts: await fetchPosts(collection.name),
+            posts: await Promise.all(
+              (collection.posts || []).map(async (post) => {
+                const contentResponse = await fetch(
+                  `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/${post.path}`,
+                  {
+                    headers: {
+                      'Accept': 'application/json',
+                    }
+                  }
+                );
+                const rawContent = await contentResponse.text();
+                const { data: metadata, content } = matter(rawContent);
+                return {
+                  ...post,
+                  content,
+                  metadata: metadata as { title?: string },
+                };
+              })
+            )
           }))
         );
-        setCollections(collectionsWithPosts);
+
+        setCollections(collectionsWithContent);
       } catch (error) {
         console.error(error);
       } finally {
@@ -147,11 +137,11 @@ function SearchContent() {
   const fuse = new Fuse(allPosts, {
     keys: ['name', 'content'],
     includeScore: true,
-    threshold: 0.2,
+    threshold: 0,
     ignoreLocation: true,
     shouldSort: true,
     findAllMatches: true,
-    useExtendedSearch: true,
+    useExtendedSearch: true
   });
 
   const searchResults = query ? fuse.search(query) : [];

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import UpdateCard from "./UpdateCard";
 import greenTriangle from '../../../../assets/landing/green_triangle.svg';
 
@@ -73,7 +74,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 >
                   <span className="relative inline-block border-b-1 border-b-[#3E8283] pb-[14px]">
                     {config.newsletterButtonText}
-                    <img src={greenTriangle.src} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
+                    <Image src={greenTriangle} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
                   </span>
                 </a>
                 {/* End button */}

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import searchIcon from '../../../assets/header/Search_Small_Icon.svg';
 
 const SearchBar = () => {
@@ -47,7 +48,7 @@ const SearchBar = () => {
         onKeyDown={handleKeyPress}
         onClick={handleSearch}
       >
-        <img src={searchIcon.src} alt="searchIcon" />
+        <Image src={searchIcon} alt="searchIcon" />
       </div>
     </div>
   );

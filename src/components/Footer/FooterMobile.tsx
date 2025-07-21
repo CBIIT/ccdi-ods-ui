@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useRef, FormEvent, ChangeEvent } from 'react';
+import Image from 'next/image';
 import FooterData from '../../config/globalFooterData';
 
 const FooterMobile = () => {
@@ -140,7 +141,7 @@ const FooterMobile = () => {
                   const followkey = `follow_${followidx}`;
                   return (
                     <a key={followkey} className={followidx !== 0 ? "ml-2.5" : ""} href={followItem.link} target="_blank" rel="noopener noreferrer">
-                      <img src={followItem.img.src} alt={followItem.description} />
+                      <Image src={followItem.img.src} alt={followItem.description} width={24} height={24} />
                     </a>
                   );
                 })}
