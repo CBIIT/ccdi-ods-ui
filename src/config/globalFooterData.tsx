@@ -19,40 +19,16 @@ const footerData = {
       title: 'About',
       items: [
         {
-          text: 'About CCDI Hub',
-          link: 'https://ccdi.cancer.gov/about',
+          text: 'About the NCI Data Sharing Hub',
+          link: '/post/About/About-ODS',
         },
-        {
-          text: 'About CCDI',
-          link: 'https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative',
-        },
-        {
-          text: 'About cBioPortal',
-          link: 'https://docs.cbioportal.org/about-us/',
-        },
-        {
-          text: 'Contact CCDI Hub',
-          link: 'mailto:NCIChildhoodCancerDataInitiative@mail.nih.gov',
-        },
-      ],
-    }, {
-      title: 'Resources',
-      items: [
         {
           text: 'Contact Us',
-          link: 'https://www.cancer.gov/contact',
+          link: 'mailto:NCIOfficeofDataSharing@mail.nih.gov',
         },
         {
-          text: 'Publications',
-          link: 'https://www.cancer.gov/publications',
-        },
-        {
-          text: 'Dictionary of Cancer Terms',
-          link: 'https://www.cancer.gov/publications/dictionaries/cancer-terms',
-        },
-        {
-          text: 'Find a Clinical Trial',
-          link: 'https://www.cancer.gov/policies/disclaimer',
+          text: 'Index of NCI Studies',
+          link: 'https://studycatalog.cancer.gov',
         },
       ],
     },
@@ -119,8 +95,8 @@ const footerData = {
       link: 'tel:+18004226237',
     },
     {
-      text: 'NCIChildhoodCancerDataInitiative@mail.nih.gov',
-      link: 'mailto:NCIChildhoodCancerDataInitiative@mail.nih.gov',
+      text: 'NCIOfficeofDataSharing@mail.nih.gov',
+      link: 'mailto:NCIOfficeofDataSharing@mail.nih.gov',
     },
     {
       text: 'Site Feedback',
