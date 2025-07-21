@@ -161,7 +161,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                           <li key={h3.id}>
                             <a
                               href={`#${h3.id}`}
-                              className="text-[#464A4C] [font-family:Inter] font-normal text-xs block transition-colors py-1 rounded text-[14px] hover:text-[#257E7A] hover:font-semibold"
+                              className="text-[#464A4C] [font-family:Inter] font-normal block transition-colors py-1 rounded text-[14px] hover:text-[#257E7A] hover:font-semibold"
                               onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}
