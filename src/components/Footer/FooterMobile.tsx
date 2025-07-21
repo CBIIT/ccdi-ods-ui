@@ -38,7 +38,7 @@ const FooterMobile = () => {
       } else {
         dropdown.classList.remove("show");
         dropdown.classList.add("hidden");
-  }
+      }
     }
 
     if (arrow) {
