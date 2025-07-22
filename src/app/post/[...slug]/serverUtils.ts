@@ -165,6 +165,11 @@ function rehypeCustomTheme() {
           'underline',
         ];
         node.properties.style = 'font-weight: 500; text-decoration-style: solid; text-decoration-skip-ink: none; text-decoration-thickness: 1px; text-underline-offset: auto; text-underline-position: from-font;';
+        const href = node.properties.href as string | undefined;
+        if (href && href.trim().toLowerCase().startsWith('http')) {
+          node.properties.target = '_blank';
+          node.properties.rel = 'noopener noreferrer';
+        }
       }
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
