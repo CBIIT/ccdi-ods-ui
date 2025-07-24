@@ -5,4 +5,19 @@ const nextConfig: NextConfig = {
   output: "standalone",
 };
 
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.com',
+      },
+    ],
+  },
+};
+
 export default nextConfig;
