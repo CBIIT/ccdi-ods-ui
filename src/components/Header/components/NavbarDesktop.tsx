@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { getGithubBranch } from '@/config/config';
+import { usePathname } from 'next/navigation';
 
 const branch = getGithubBranch();
 const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/navigation.json`;
@@ -27,6 +28,7 @@ const NavBar = () => {
   const [navigationData, setNavigationData] = useState<NavigationData | null>(null);
   const [clickedTitle, setClickedTitle] = useState<string>("");
   const dropdownSelection = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchNavigationData = async () => {
@@ -106,15 +108,15 @@ const NavBar = () => {
 
   function shouldBeUnderlined(item: NavItem): boolean {
     const linkName = item.name;
-    const correctPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    const correctPath = pathname || '';
     if (item.className === "navMobileItem") {
-      return correctPath === item.link;
+      return correctPath === item.link || correctPath === item.link + '/'
     }
     if (!(linkName in (navigationData as NavigationData).navbarSublists)) {
       return false;
     }
     const linkNames = navigationData!.navbarSublists[linkName].map(e => e.link);
-    return linkNames.includes(correctPath);
+    return linkNames.includes(correctPath) || linkNames.some(link => correctPath.startsWith(link));
   }
 
   const renderSubmenuRows = (items: NavItem[]) => {
@@ -144,8 +146,9 @@ const NavBar = () => {
                             onKeyDown={onKeyPressHandler}
                             role="button"
                             tabIndex={0}
-                            className={`navbar-item cursor-pointer text-[#585C65] border-b-4 border-b-[#FFFFFF] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] 
-                              ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#3A75BD]" : ""}`}
+                            className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                              ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
+                            `}
                             onClick={handleMenuClick}
                           >
                             {navMobileItem.name}
@@ -156,16 +159,16 @@ const NavBar = () => {
                   )
                   : (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
-                      <div className={clickedTitle === navMobileItem.name ? 'block text-white font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#1F4671] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
+                      <div className={clickedTitle === navMobileItem.name ? 'block text-white font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#004971] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
                         <div
                           id={navMobileItem.id}
                           onKeyDown={onKeyPressHandler}
                           role="button"
                           tabIndex={0}
                           className={`navbar-item cursor-pointer ${clickedTitle === navMobileItem.name ? 
-                            'text-white bg-[#1F4671] border-b-4 border-b-[#1F4671] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
-                            'text-[#585C65] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
-                          } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#3A75BD]" : ""}`}
+                            'text-white bg-[#004971] border-b-4 border-b-[#004971] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
+                            'text-[#585C65] hover:text-[#007bbd] hover:border-b-4 hover:border-b-[#007bbd] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
+                          } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#007bbd]" : ""}`}
                           onClick={handleMenuClick}
                         >
                           {navMobileItem.name}
@@ -178,9 +181,9 @@ const NavBar = () => {
           }
         </ul>
       </div>
-      <div ref={dropdownSelection} className={`absolute top-[64.5px] left-0 w-full bg-[#1F4671] z-[1100] ${clickedTitle === '' ? "invisible" : ""}`}>
+      <div ref={dropdownSelection} className={`absolute top-[64.5px] left-0 w-full bg-[#004971] z-[1100] ${clickedTitle === '' ? "invisible" : ""}`}>
         <div className="mx-auto text-left relative max-w-[1400px]">
-          <div className="bg-[#1F4671] p-[32px_32px_0_32px]">
+          <div className="bg-[#004971] p-[32px_32px_0_32px]">
             {clickedTitle !== "" && renderSubmenuRows(navigationData.navbarSublists[clickedTitle]).map((row, rowIdx) => (
               <div key={`row_${rowIdx}`} className="grid grid-cols-4 gap-6 mb-8">
                 {row.map((dropItem, idx) => (
