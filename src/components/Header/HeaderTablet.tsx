@@ -219,30 +219,30 @@ const Header = () => {
     }
   };
 
-  const renderSubmenuItems = (items: NavItem[]) => {
-    const rows = [];
-    for (let i = 0; i < items.length; i += 3) {
-      const row = items.slice(i, i + 3);
-      rows.push(
-        <div key={`row_${i}`} className="subMenuRow">
-          {row.map((item, idx) => (
-            <Link key={`${item.id}_${idx}`} id={item.id} href={item.link} passHref>
-              <div
-                role="button"
-                tabIndex={0}
-                className="navMobileItem SubItem"
-                onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
-                onClick={() => setNavMobileDisplay('none')}
-              >
-                {item.name}
-              </div>
-            </Link>
-          ))}
-        </div>
-      );
-    }
-    return rows;
-  };
+  // const renderSubmenuItems = (items: NavItem[]) => {
+  //   const rows = [];
+  //   for (let i = 0; i < items.length; i += 3) {
+  //     const row = items.slice(i, i + 3);
+  //     rows.push(
+  //       <div key={`row_${i}`} className="subMenuRow">
+  //         {row.map((item, idx) => (
+  //           <Link key={`${item.id}_${idx}`} id={item.id} href={item.link} passHref>
+  //             <div
+  //               role="button"
+  //               tabIndex={0}
+  //               className="navMobileItem SubItem"
+  //               onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
+  //               onClick={() => setNavMobileDisplay('none')}
+  //             >
+  //               {item.name}
+  //             </div>
+  //           </Link>
+  //         ))}
+  //       </div>
+  //     );
+  //   }
+  //   return rows;
+  // };
 
   return (
     <>
