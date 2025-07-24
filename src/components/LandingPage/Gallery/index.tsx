@@ -37,7 +37,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
       >
         {config.title}
       </h2>
-      <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+      <div className="w-full mt-[31px] max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
