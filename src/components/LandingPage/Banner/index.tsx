@@ -53,7 +53,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
         ))}
       </div>
       
-      <div className="flex gap-3 flex-wrap mt-[68px] max-md:max-w-full max-md:mt-10">
+      <div className="flex gap-3 flex-wrap mt-[29px] max-md:max-w-full max-md:mt-10">
         <div className="text-white text-lg font-normal leading-loose text-right w-[546px] max-md:max-w-full">
           {config.questionText}
         </div>
