@@ -41,6 +41,7 @@ function SearchContent() {
   const query = searchParams.get('q') || '';
   const [collections, setCollections] = useState<GithubCollection[]>([]);
   const [loading, setLoading] = useState(true);
+  const [inputValue, setInputValue] = useState(query);
 
   useEffect(() => {
     const loadData = async () => {
@@ -170,14 +171,39 @@ function SearchContent() {
       <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen">
         <form action="/search" method="GET" className="mb-12 flex justify-center">
           <div className="flex w-full max-w-4xl border-2 border-[#345D85] rounded-2xl overflow-hidden">
-            <input
-              type="text"
-              name="q"
-              placeholder="Search..."
-              defaultValue={query}
-              className="flex-1 px-6 py-4 text-2xl text-gray-700 bg-white focus:outline-none placeholder-gray-400"
-              style={{ fontWeight: 300 }}
-            />
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                name="q"
+                placeholder="Search..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="w-full px-6 py-4 text-2xl text-gray-700 bg-white focus:outline-none placeholder-gray-400"
+                style={{ fontWeight: 300 }}
+              />
+              {/* Right icon: Search icon when empty, Clear icon when has value */}
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                {inputValue ? (
+                  <button
+                    type="button"
+                    onClick={() => setInputValue('')}
+                    className="text-gray-400 hover:text-gray-600"
+                    aria-label="Clear search"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                ) : (
+                  <div className="text-[#004A8B]">
+                    <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="7" cy="7.43" r="6" stroke="currentColor" strokeWidth="2"/>
+                      <path d="M16 16.43L11.5 11.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
+            </div>
             <button
               type="submit"
               className="px-6 py-2 bg-[#3E8283] text-white text-lg font-semibold hover:bg-[#27605c] transition-colors"
