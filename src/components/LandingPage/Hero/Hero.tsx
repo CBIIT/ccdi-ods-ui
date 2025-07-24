@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
     <section className="text-center">
       <div className="bg-white w-full max-md:max-w-full max-md:pb-[100px]">
-        <div className="flex flex-col relative min-h-[500px] mb-[-42px] items-center pt-10 pb-10 px-35 max-md:max-w-full max-md:mb-2.5 max-md:px-5">
+        <div className="flex flex-col relative min-h-[500px] mb-[-42px] items-center pt-15 pb-10 px-35 max-md:max-w-full max-md:mb-2.5 max-md:px-5">
           <Image
             src="/bg.png"
             alt="Background image"
