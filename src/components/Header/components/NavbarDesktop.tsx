@@ -140,20 +140,38 @@ const NavBar = () => {
                   ? (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
                       <div className="block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent">
-                        <Link href={navMobileItem.link} passHref>
-                          <div
-                            id={navMobileItem.id}
-                            onKeyDown={onKeyPressHandler}
-                            role="button"
-                            tabIndex={0}
-                            className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
-                              ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
-                            `}
-                            onClick={handleMenuClick}
-                          >
-                            {navMobileItem.name}
-                          </div>
-                        </Link>
+                        {
+                          navMobileItem.link.startsWith('http') ?
+                          <a href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div
+                              id={navMobileItem.id}
+                              onKeyDown={onKeyPressHandler}
+                              role="button"
+                              tabIndex={0}
+                              
+                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                                ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
+                              `}
+                              onClick={handleMenuClick}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </a> :
+                          <Link href={navMobileItem.link} passHref>
+                            <div
+                              id={navMobileItem.id}
+                              onKeyDown={onKeyPressHandler}
+                              role="button"
+                              tabIndex={0}
+                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                                ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
+                              `}
+                              onClick={handleMenuClick}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </Link>
+                        }
                       </div>
                     </li>
                   )
@@ -188,21 +206,40 @@ const NavBar = () => {
               <div key={`row_${rowIdx}`} className="grid grid-cols-4 gap-6 mb-8">
                 {row.map((dropItem, idx) => (
                   dropItem.link && (
-                    <Link
-                      id={dropItem.id}
-                      href={dropItem.link}
-                      passHref
-                      className="cursor-pointer text-left font-poppins font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
-                      key={`drop_${rowIdx}_${idx}`}
-                      onClick={() => setClickedTitle("")}
-                    >
-                      {dropItem.name}
-                      {dropItem.text && dropItem.text.trim() !== '' && (
-                        <div className="mt-[5px] font-open-sans font-normal text-[16.16px] leading-[22px]">
-                          {dropItem.text}
-                        </div>
-                      )}
-                    </Link>
+                    dropItem.link.startsWith('http') ? (
+                      <a
+                        id={dropItem.id}
+                        href={dropItem.link}
+                        className="cursor-pointer text-left font-poppins font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
+                        key={`drop_${rowIdx}_${idx}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setClickedTitle("")}
+                      >
+                        {dropItem.name}
+                        {dropItem.text && dropItem.text.trim() !== '' && (
+                          <div className="mt-[5px] font-open-sans font-normal text-[16.16px] leading-[22px]">
+                            {dropItem.text}
+                          </div>
+                        )}
+                      </a>
+                    ) : (
+                      <Link
+                        id={dropItem.id}
+                        href={dropItem.link}
+                        passHref
+                        className="cursor-pointer text-left font-poppins font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
+                        key={`drop_${rowIdx}_${idx}`}
+                        onClick={() => setClickedTitle("")}
+                      >
+                        {dropItem.name}
+                        {dropItem.text && dropItem.text.trim() !== '' && (
+                          <div className="mt-[5px] font-open-sans font-normal text-[16.16px] leading-[22px]">
+                            {dropItem.text}
+                          </div>
+                        )}
+                      </Link>
+                    )
                   )
                 ))}
               </div>
