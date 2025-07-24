@@ -18,7 +18,6 @@ export function getGithubBranch() {
     if (
       host.includes('dev') ||
       host.includes('qa') ||
-      host.includes('stage') ||
       host.includes('localhost')
     ) {
       return 'dev'; // your dev branch name
