@@ -31,7 +31,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
 
   return (
     <section 
-      className="bg-[rgba(0,148,133,1)] flex flex-col items-center px-20 py-14 max-md:px-5"
+      className="bg-[rgba(0,148,133,1)] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
       aria-labelledby="hero-title"
     >
       <h2
