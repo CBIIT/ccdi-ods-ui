@@ -129,36 +129,54 @@ export default function PostsList({ params }: PageProps) {
 
   return (
     <>
-      <div className="mb-8 ml-24 mt-11">
-        <Link
-          href="/"
-          className="inline-block text-[#3377FF] text-xl font-medium transition-all underline"
-          style={{ color: '#005EA2' }}
-        >
-          ← Back to Home
-        </Link>
+      <div className="max-w-[1444px] mx-auto p-6">
+        <div className="mb-4 ml-8">
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-[#005EA2] underline"
+            style={{ 
+              fontFamily: '"Public Sans"', 
+              fontSize: '16px', 
+              fontWeight: 400, 
+              lineHeight: '162%', 
+              textDecorationLine: 'underline',
+              textDecorationStyle: 'solid',
+              textDecorationSkipInk: 'none',
+              textUnderlineOffset: 'auto',
+              textUnderlinePosition: 'from-font'
+            }}
+          >
+            <span className="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                <path fillRule="evenodd" clipRule="evenodd" d="M4.50012 9.5L5.55762 8.4425L2.12262 5L5.55762 1.5575L4.50012 0.5L0.000117695 5L4.50012 9.5Z" fill="#71767A"/>
+              </svg>
+            </span> Back to Home
+          </Link>
+        </div>
       </div>
-      <main className="max-w-5xl mx-auto p-8 bg-white min-h-screen">
-        <section>
-          <h1 className="text-5xl font-bold mb-8 text-[#345D85]">
-            {sectionTitle}
-          </h1>
-          <div className="flex flex-col space-y-8 ml-12">
-            {posts.length === 0 ? (
-              <p className="text-2xl text-gray-300 mt-16">No documents found.</p>
-            ) : (
-              posts.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/post/${post.slug}`}
-                  className="text-[#408B88] text-3xl font-normal hover:underline"
-                >
-                  {post.title}
-                </Link>
-              ))
-            )}
+      <main className="max-w-7xl mx-auto p-8 bg-white min-h-screen">
+        <h1 className="text-5xl font-bold mb-4 text-[#408B88]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>{sectionTitle}</h1>
+        
+        {posts.length === 0 ? (
+          <p className="text-2xl text-gray-300 mt-16">No documents found.</p>
+        ) : (
+          <div className="flex flex-col gap-8">
+            <section className="border border-[#345D85] rounded-xl p-8 bg-white">
+              <ul className="space-y-3 ml-4.5">
+                {posts.map((post) => (
+                  <li key={post.id}>
+                    <Link
+                      href={`/post/${post.slug}`}
+                      className="text-[#1C8278] text-lg hover:underline"
+                    >
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </div>
-        </section>
+        )}
       </main>
     </>
   );
