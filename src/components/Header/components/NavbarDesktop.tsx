@@ -23,33 +23,6 @@ interface NavigationData {
   };
 }
 
-const useOutsideAlerter = (ref: React.RefObject<HTMLDivElement | null>) => {
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        event.target instanceof HTMLElement &&
-        ref.current &&
-        !ref.current.contains(event.target) &&
-        event.target.getAttribute("class") !== "dropdownList"
-      ) {
-        const toggle = document.getElementsByClassName("navText clicked");
-        if (
-          toggle[0] &&
-          event.target.getAttribute("class") !== "navText clicked"
-        ) {
-          const temp: HTMLElement = toggle[0] as HTMLElement;
-          temp.click();
-        }
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]);
-};
-
 const NavBar = () => {
   const [navigationData, setNavigationData] = useState<NavigationData | null>(null);
   const [clickedTitle, setClickedTitle] = useState<string>("");
@@ -75,6 +48,37 @@ const NavBar = () => {
 
     fetchNavigationData();
   }, []);
+
+  const useOutsideAlerter = (ref: React.RefObject<HTMLDivElement | null>) => {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        event.target instanceof HTMLElement &&
+        ref.current &&
+        !ref.current.contains(event.target)
+      ) {
+        // Check if click is on a navbar item
+        let el = event.target as HTMLElement | null;
+        let clickedNavbarItem = false;
+        while (el) {
+          if (el.classList && el.classList.contains('navbar-item')) {
+            clickedNavbarItem = true;
+            break;
+          }
+          el = el.parentElement;
+        }
+        if (!clickedNavbarItem) {
+          setClickedTitle("");
+        }
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+};
 
   useOutsideAlerter(dropdownSelection);
 
@@ -140,7 +144,7 @@ const NavBar = () => {
                             onKeyDown={onKeyPressHandler}
                             role="button"
                             tabIndex={0}
-                            className={`cursor-pointer text-[#585C65] border-b-4 border-b-[#FFFFFF] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] 
+                            className={`navbar-item cursor-pointer text-[#585C65] border-b-4 border-b-[#FFFFFF] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] 
                               ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#3A75BD]" : ""}`}
                             onClick={handleMenuClick}
                           >
@@ -158,7 +162,7 @@ const NavBar = () => {
                           onKeyDown={onKeyPressHandler}
                           role="button"
                           tabIndex={0}
-                          className={`cursor-pointer ${clickedTitle === navMobileItem.name ? 
+                          className={`navbar-item cursor-pointer ${clickedTitle === navMobileItem.name ? 
                             'text-white bg-[#1F4671] border-b-4 border-b-[#1F4671] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
                             'text-[#585C65] hover:text-[#3A75BD] hover:border-b-4 hover:border-b-[#3A75BD] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
                           } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#3A75BD]" : ""}`}
@@ -174,7 +178,7 @@ const NavBar = () => {
           }
         </ul>
       </div>
-      <div ref={dropdownSelection} className={`absolute top-[60.5px] left-0 w-full bg-[#1F4671] z-[1100] ${clickedTitle === '' ? "invisible" : ""}`}>
+      <div ref={dropdownSelection} className={`absolute top-[64.5px] left-0 w-full bg-[#1F4671] z-[1100] ${clickedTitle === '' ? "invisible" : ""}`}>
         <div className="mx-auto text-left relative max-w-[1400px]">
           <div className="bg-[#1F4671] p-[32px_32px_0_32px]">
             {clickedTitle !== "" && renderSubmenuRows(navigationData.navbarSublists[clickedTitle]).map((row, rowIdx) => (
