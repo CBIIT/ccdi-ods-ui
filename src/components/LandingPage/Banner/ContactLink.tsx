@@ -21,14 +21,14 @@ export const ContactLink: React.FC<ContactLinkProps> = ({ text, href, arrowSrc }
           alt=""
           width={7}
           height={7}
-          className="aspect-[0.87] object-contain w-[7px] shrink-0 my-auto ml-12 group-hover:hidden"
+          className="aspect-[1] object-contain w-[10px] shrink-0 my-auto ml-12 group-hover:hidden"
         />
         <Image
           src={arrowWhite}
           alt=""
           width={7}
           height={7}
-          className="aspect-[0.87] object-contain w-[7px] shrink-0 my-auto ml-12 hidden group-hover:inline"
+          className="aspect-[1] object-contain w-[10px] shrink-0 my-auto ml-12 hidden group-hover:inline"
         />
       </span>
     </a>
