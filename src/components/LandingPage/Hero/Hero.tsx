@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           />
           <div className="relative flex w-[1100px] max-w-full flex-row items-start justify-between gap-8 max-md:flex-col max-md:items-stretch">
             {/* Left Side: Header and Mission */}
-            <div className="flex-1 w-auto flex flex-col items-start text-left max-md:w-full mt-8">
+            <div className="flex-1 w-auto flex flex-col items-start text-left max-md:w-full mt-[41px]">
               <HeroHeader 
                 title={config.title}
                 subtitle={config.subtitle}
