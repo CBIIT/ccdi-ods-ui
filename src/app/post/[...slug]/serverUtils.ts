@@ -231,7 +231,6 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'px-4',
           'py-2',
-          'whitespace-nowrap',
           '[font-family:Inter]',
           'text-[13px]',
           'text-[#767676]',

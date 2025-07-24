@@ -104,11 +104,14 @@ async function fetchGithubPosts(slug: string): Promise<Post[]> {
  */
 export default function PostsList({ params }: PageProps) {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [groupName, setGroupName] = useState<string>('');
 
   useEffect(() => {
     async function fetchPosts() {
       const resolvedParams = await params;
-      const slug = resolvedParams.slug.join('/');
+      const slugArr = resolvedParams.slug;
+      const slug = slugArr.join('/');
+      setGroupName(slugArr[slugArr.length - 1] || 'Documents');
       const fetchedPosts = await fetchGithubPosts(slug);
       setPosts(fetchedPosts);
     }
@@ -116,34 +119,65 @@ export default function PostsList({ params }: PageProps) {
     fetchPosts();
   }, [params]);
 
-  // Render the list of policy documents in a responsive grid layout
+  // Friendly section title mapping (like Search Results)
+  let sectionTitle = groupName;
+  if (sectionTitle.toLowerCase().includes('example')) sectionTitle = 'Examples';
+  else if (sectionTitle.toLowerCase().includes('about')) sectionTitle = 'About';
+  else if (sectionTitle.toLowerCase().includes('guidance')) sectionTitle = 'Guidance';
+  else if (sectionTitle.toLowerCase().includes('news')) sectionTitle = 'News';
+  else sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1);
+
   return (
-    <main className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Policy Documents</h1>
-
-      <div className="grid gap-4">
-        {posts.map((post) => (
-          <article 
-            key={post.id} 
-            className="border rounded-lg p-4 hover:shadow-lg transition-shadow"
+    <>
+      <div className="max-w-[1444px] mx-auto p-6">
+        <div className="mb-4 ml-8">
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-[#005EA2] underline"
+            style={{ 
+              fontFamily: '"Public Sans"', 
+              fontSize: '16px', 
+              fontWeight: 400, 
+              lineHeight: '162%', 
+              textDecorationLine: 'underline',
+              textDecorationStyle: 'solid',
+              textDecorationSkipInk: 'none',
+              textUnderlineOffset: 'auto',
+              textUnderlinePosition: 'from-font'
+            }}
           >
-            <Link href={`/post/${post.slug}`}>
-              <h2 className="text-xl font-semibold hover:text-blue-500">
-                {post.title}
-              </h2>
-            </Link>
-          </article>
-        ))}
+            <span className="mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                <path fillRule="evenodd" clipRule="evenodd" d="M4.50012 9.5L5.55762 8.4425L2.12262 5L5.55762 1.5575L4.50012 0.5L0.000117695 5L4.50012 9.5Z" fill="#71767A"/>
+              </svg>
+            </span> Back to Home
+          </Link>
+        </div>
       </div>
-
-      <div className="mt-6">
-        <Link 
-          href="/" 
-          className="text-blue-500 hover:underline"
-        >
-          ← Back to Home
-        </Link>
-      </div>
-    </main>
+      <main className="max-w-7xl mx-auto p-8 bg-white min-h-screen">
+        <h1 className="text-5xl font-bold mb-4 text-[#408B88]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>{sectionTitle}</h1>
+        
+        {posts.length === 0 ? (
+          <p className="text-2xl text-gray-300 mt-16">No documents found.</p>
+        ) : (
+          <div className="flex flex-col gap-8">
+            <section className="border border-[#345D85] rounded-xl p-8 bg-white">
+              <ul className="space-y-3 ml-4.5">
+                {posts.map((post) => (
+                  <li key={post.id}>
+                    <Link
+                      href={`/post/${post.slug}`}
+                      className="text-[#1C8278] text-lg hover:underline"
+                    >
+                      {post.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+        )}
+      </main>
+    </>
   );
 }
