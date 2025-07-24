@@ -30,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
   return (
     <section className="text-center">
       <div className="bg-white w-full max-md:max-w-full max-md:pb-[100px]">
-        <div className="flex flex-col relative min-h-[500px] mb-[-42px] items-center pt-10 pb-10 px-35 max-md:max-w-full max-md:mb-2.5 max-md:px-5">
+        <div className="flex flex-col relative min-h-[500px] mb-[-42px] items-center pt-15 pb-10 px-35 max-md:max-w-full max-md:mb-2.5 max-md:px-5">
           <Image
             src="/bg.png"
             alt="Background image"
@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
           />
           <div className="relative flex w-[1100px] max-w-full flex-row items-start justify-between gap-8 max-md:flex-col max-md:items-stretch">
             {/* Left Side: Header and Mission */}
-            <div className="flex-1 w-auto flex flex-col items-start text-left max-md:w-full mt-8">
+            <div className="flex-1 w-auto flex flex-col items-start text-left max-md:w-full mt-[41px]">
               <HeroHeader 
                 title={config.title}
                 subtitle={config.subtitle}

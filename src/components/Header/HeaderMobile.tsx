@@ -54,7 +54,7 @@ const HeaderContainer = styled.div`
         height: 45px;
         background: #1F4671;
         border-radius: 5px;
-        font-family: 'Open Sans';
+        font-family: 'Inter';
         font-weight: 700;
         font-size: 20px;
         line-height: 45px;
@@ -112,7 +112,7 @@ const MenuArea = styled.div`
  
 
     .backButton {
-        font-family: Open Sans;
+        font-family: Inter;
         font-weight: 600;
         font-size: 16px;
         line-height: 16px;
@@ -142,7 +142,7 @@ const MenuArea = styled.div`
     .navMobileItem {
         width: 268px;
         padding: 8px 24px 8px 16px;
-        font-family: Open Sans;
+        font-family: Inter;
         font-weight: 400;
         font-size: 16px;
         line-height: 16px;
