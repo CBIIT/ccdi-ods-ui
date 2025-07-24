@@ -134,7 +134,6 @@ function SearchContent() {
       collectionName: collection.name
     }))
   );
-  console.log(allPosts);
   const fuse = new Fuse(allPosts, {
     keys: ['name', 'content'],
     includeScore: true,
