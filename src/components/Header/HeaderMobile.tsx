@@ -272,11 +272,19 @@ const Header = () => {
                   return (
                     <React.Fragment key={mobilekey}>
                       {navMobileItem.className === 'navMobileItem' && (
-                        <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
-                          <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
-                            {navMobileItem.name}
-                          </div>
-                        </Link>
+                        navMobileItem.link.startsWith('http') ? (
+                          <a id={navMobileItem.id} href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
+                              {navMobileItem.name}
+                            </div>
+                          </a>
+                        ) : (
+                          <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
+                            <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
+                              {navMobileItem.name}
+                            </div>
+                          </Link>
+                        )
                       )}
                       {navMobileItem.className === 'navMobileItem clickable' && (
                         <div
@@ -291,17 +299,31 @@ const Header = () => {
                         </div>
                       )}
                       {navMobileItem.className === 'navMobileSubItem' && (
-                        <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
-                          <div
-                            role="button"
-                            tabIndex={0}
-                            className="navMobileItem SubItem"
-                            onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
-                            onClick={() => setNavMobileDisplay('none')}
-                          >
-                            {navMobileItem.name}
-                          </div>
-                        </Link>
+                        navMobileItem.link.startsWith('http') ? (
+                          <a id={navMobileItem.id} href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              className="navMobileItem SubItem"
+                              onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
+                              onClick={() => setNavMobileDisplay('none')}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </a>
+                        ) : (
+                          <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              className="navMobileItem SubItem"
+                              onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
+                              onClick={() => setNavMobileDisplay('none')}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </Link>
+                        )
                       )}
                       {navMobileItem.className === 'navMobileSubTitle' && (
                         <div className="navMobileItem">{navMobileItem.name}</div>
