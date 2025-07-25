@@ -7,7 +7,7 @@ interface GuidanceLinkProps {
 
 export const GuidanceLink: React.FC<GuidanceLinkProps> = ({ text, href }) => {
   return (
-    <div className="flex items-center p-2.5 group">
+    <div className="flex items-center px-2.5 py-0 group">
       <a 
         href={href}
         className="text-[#3F4244] font-['Poppins'] text-[20px] tracking-[0.02em] underline decoration-[#3F4244] hover:text-[#009485] hover:decoration-[#009485]"

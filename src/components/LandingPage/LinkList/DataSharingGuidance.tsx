@@ -42,13 +42,13 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2
-                className="text-[32px] font-semibold mb-[13px] max-md:text-[28px] max-sm:text-2xl"
+                className="text-[32px] font-semibold mb-[23px] max-md:text-[28px] max-sm:text-2xl"
                 style={{ color: section.titleTextColor }}
               >
                 {section.title}
               </h2>
               {chunkLinks(section.links).map((row, rowIdx) => (
-                <div key={rowIdx} className="flex gap-5 w-full mb-2">
+                <div key={rowIdx} className="flex gap-5 w-full mb-0">
                   {row.map((link, colIdx) => (
                     <div key={colIdx} className="w-1/2">
                       <GuidanceLink text={link.text} href={link.link} />
