@@ -120,12 +120,7 @@ export default function PostsList({ params }: PageProps) {
   }, [params]);
 
   // Friendly section title mapping (like Search Results)
-  let sectionTitle = groupName;
-  if (sectionTitle.toLowerCase().includes('example')) sectionTitle = 'Examples';
-  else if (sectionTitle.toLowerCase().includes('about')) sectionTitle = 'About';
-  else if (sectionTitle.toLowerCase().includes('guidance')) sectionTitle = 'Guidance';
-  else if (sectionTitle.toLowerCase().includes('news')) sectionTitle = 'News';
-  else sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1);
+  let sectionTitle = groupName.charAt(0).toUpperCase() + groupName.slice(1);
 
   return (
     <>
