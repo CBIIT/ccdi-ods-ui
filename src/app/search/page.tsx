@@ -241,7 +241,7 @@ function SearchContent() {
           <div className="flex flex-col gap-8">
             {Object.entries(groupedResults).map(([collectionName, posts]) => {
               // Map collectionName to friendly section titles
-              let sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
+              const sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
