@@ -58,7 +58,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 ))}
               </div>
               {/* Button below the cards */}
-              <div className="flex justify-end mt-8 w-full">
+              <div className="flex justify-end mt-[22px] w-full">
                 <a
                   href={config.newsletterButtonLink}
                   target="_blank"
