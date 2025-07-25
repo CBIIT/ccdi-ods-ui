@@ -42,7 +42,7 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2
-                className="text-[32px] font-semibold mb-2 max-md:text-[28px] max-sm:text-2xl"
+                className="text-[32px] font-semibold mb-[13px] max-md:text-[28px] max-sm:text-2xl"
                 style={{ color: section.titleTextColor }}
               >
                 {section.title}
