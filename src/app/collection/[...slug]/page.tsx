@@ -119,7 +119,6 @@ export default function PostsList({ params }: PageProps) {
     fetchPosts();
   }, [params]);
 
-  // Friendly section title mapping (like Search Results)
   let sectionTitle = groupName.charAt(0).toUpperCase() + groupName.slice(1);
 
   return (
