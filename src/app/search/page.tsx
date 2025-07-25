@@ -134,7 +134,6 @@ function SearchContent() {
       collectionName: collection.name
     }))
   );
-  console.log(allPosts);
   const fuse = new Fuse(allPosts, {
     keys: ['name', 'content'],
     includeScore: true,
@@ -242,15 +241,15 @@ function SearchContent() {
           <div className="flex flex-col gap-8">
             {Object.entries(groupedResults).map(([collectionName, posts]) => {
               // Map collectionName to friendly section titles
-              let sectionTitle = collectionName;
-              if (collectionName.toLowerCase().includes('example')) sectionTitle = 'Examples';
-              else if (collectionName.toLowerCase().includes('about')) sectionTitle = 'About';
-              else if (collectionName.toLowerCase().includes('guidance')) sectionTitle = 'Guidance';
-              else sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
+              let sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
-                  <h2 className="text-3xl font-bold mb-4 text-[#345D85]">{sectionTitle}</h2>
+                  <h2 className="text-3xl font-bold mb-4">
+                    <Link href={`/collection/${collectionName}`} className=" text-[#1C8278] hover:underline">
+                      {sectionTitle}
+                    </Link>
+                  </h2>
                   <ul className="space-y-3 ml-4.5">
                     {posts.map((post) => (
                       <li key={post.path}>
