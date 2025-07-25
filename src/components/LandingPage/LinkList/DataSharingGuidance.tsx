@@ -37,7 +37,7 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
 
   return (
     <section className="flex flex-col items-stretch items-center px-20 py-14 pt-[40px] max-md:px-5 max-w-[1444px] mx-auto" >
-      <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
+      <div className="flex flex-col gap-4 ml-2.5 mb-4 w-full">
         {config.map((section: LinkListArrayConfig, sectionIdx: number) => (
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
@@ -59,7 +59,7 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
               ))}
             </div>
             {sectionIdx < config.length - 1 && (
-              <div className="w-full h-px bg-[#D8D8D8] mt-[38px]" />
+              <div className="w-full h-px bg-[#D8D8D8] mt-0" />
             )}
           </React.Fragment>
         ))}
