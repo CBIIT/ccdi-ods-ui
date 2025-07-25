@@ -30,18 +30,18 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   if (!config) return null;
   
   return (
-    <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" aria-labelledby="latest-updates-heading">
+    <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
         className="text-[rgba(52,93,133,1)] text-[32px] font-semibold leading-none ml-2.5"
       >
         {config.title}
       </h2>
-      <div className="w-full mt-12 max-md:max-w-full max-md:mt-10">
+      <div className="w-full mt-[31px] max-md:max-w-full max-md:mt-10">
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
-              <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
+              <div className="gap-[24px] flex max-md:flex-col max-md:items-stretch">
                 {config.updates.map((update: GalleryUpdate, idx: number) => (
                   <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
                     <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
@@ -58,7 +58,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 ))}
               </div>
               {/* Button below the cards */}
-              <div className="flex justify-end mt-8 w-full">
+              <div className="flex justify-end mt-[22px] w-full">
                 <a
                   href={config.newsletterButtonLink}
                   target="_blank"
