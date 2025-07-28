@@ -119,7 +119,7 @@ export default function PostsList({ params }: PageProps) {
     fetchPosts();
   }, [params]);
 
-  let sectionTitle = groupName.charAt(0).toUpperCase() + groupName.slice(1);
+  const sectionTitle = groupName.charAt(0).toUpperCase() + groupName.slice(1);
 
   return (
     <>
