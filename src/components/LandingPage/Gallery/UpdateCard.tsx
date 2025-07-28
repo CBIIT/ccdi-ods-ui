@@ -17,18 +17,18 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
 }) => {
   return (
     <div
-      className="min-h-[340px] h-full bg-[rgba(50,48,50,1)] pb-3.5 rounded-[0px_25px_0px_20px]"
+      className="h-[496px] bg-[rgba(50,48,50,1)] pb-3.5 rounded-[0px_25px_0px_20px]"
     >
-      <div className="rounded-[0px_0px_0px_20px]">
+      <div className="h-[310px] rounded-[0px_0px_0px_20px]">
         <Image
           src={image}
           alt={title}
-          width={350}
-          height={296}
-          className="aspect-[1.18] object-contain w-full"
+          width={367}
+          height={310}
+          className="object-contain"
         />
       </div>
-      <div className="flex flex-col items-stretch text-lg leading-7 mt-[11px] px-6 max-md:pl-5">
+      <div className="h-[186px] flex flex-col items-stretch text-lg leading-7 mt-[11px] px-6 max-md:pl-5">
         <div className="h-[50px]">
         <a
           href={link}
@@ -41,8 +41,8 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         </div>
         <div className="text-white font-normal text-[18px] [font-family:var(--font-nunito)] mt-2 min-h-[112px]">
           <span>
-            {description.length > 163
-              ? `${description.slice(0, 163)}...`
+            {description.length > 123
+              ? `${description.slice(0, 123)}...`
               : description}
           </span>
           <a

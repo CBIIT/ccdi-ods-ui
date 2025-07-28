@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Open Sans - Primary font for body text and general content
+// Open Sans - Primary font for body text and general content (replaced with Inter)
 const openSans = Open_Sans({
-  variable: "--font-open-sans",
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 

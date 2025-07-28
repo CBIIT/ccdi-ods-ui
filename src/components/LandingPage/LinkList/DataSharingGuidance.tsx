@@ -36,19 +36,19 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
   };
 
   return (
-    <section className="flex flex-col items-stretch items-center px-20 py-14 max-md:px-5 max-w-[1444px] mx-auto" >
-      <div className="flex flex-col gap-8 ml-2.5 mb-4 w-full">
+    <section className="flex flex-col items-stretch items-center px-20 py-14 pt-[40px] max-md:px-5 max-w-[1444px] mx-auto" >
+      <div className="flex flex-col gap-4 ml-2.5 mb-4 w-full">
         {config.map((section: LinkListArrayConfig, sectionIdx: number) => (
           <React.Fragment key={sectionIdx}>
             <div className="mb-2 w-full">
               <h2
-                className="text-[32px] font-semibold mb-2 max-md:text-[28px] max-sm:text-2xl"
+                className="text-[32px] font-semibold mb-[23px] max-md:text-[28px] max-sm:text-2xl"
                 style={{ color: section.titleTextColor }}
               >
                 {section.title}
               </h2>
               {chunkLinks(section.links).map((row, rowIdx) => (
-                <div key={rowIdx} className="flex gap-5 w-full mb-2">
+                <div key={rowIdx} className="flex gap-5 w-full mb-0">
                   {row.map((link, colIdx) => (
                     <div key={colIdx} className="w-1/2">
                       <GuidanceLink text={link.text} href={link.link} />
@@ -59,7 +59,7 @@ export const DataSharingGuidance: React.FC<DataSharingGuidanceProps> = ({ data }
               ))}
             </div>
             {sectionIdx < config.length - 1 && (
-              <div className="w-full h-px bg-[#D8D8D8] mt-[38px]" />
+              <div className="w-full h-px bg-[#D8D8D8] mt-0" />
             )}
           </React.Fragment>
         ))}
