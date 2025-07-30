@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { Hero } from './Hero';
 import Banner from './Banner';
 import Gallery from './Gallery';
-import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
+// import { DataSharingGuidance } from "./LinkList/DataSharingGuidance";
 import { getGithubBranch } from '@/config/config';
 
 /**
@@ -61,7 +61,7 @@ export function LandingPage() {
       <Hero data={landingData} />
       <Banner data={landingData} />
       <Gallery data={landingData} />
-      <DataSharingGuidance data={landingData} />
+      {/* <DataSharingGuidance data={landingData} /> */}
     </>
   );
 }

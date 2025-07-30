@@ -30,7 +30,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   if (!config) return null;
   
   return (
-    <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto" aria-labelledby="latest-updates-heading">
+    <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
         className="text-[rgba(52,93,133,1)] text-[32px] font-semibold leading-none ml-2.5"
