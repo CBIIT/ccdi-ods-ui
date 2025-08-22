@@ -10,7 +10,7 @@ const Header = () => {
       <div className="mx-auto px-8 max-w-[1400px] flex">
         <Logo />
         <div className="flex ml-auto">
-          <div className="pt-[42px] pr-8"><SearchBar /></div>
+          <div className="pt-[42px]"><SearchBar /></div>
         </div>
       </div>
       <div className="navbarContainer"><NavBar /></div>
