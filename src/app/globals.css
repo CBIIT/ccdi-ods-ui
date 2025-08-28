@@ -31,5 +31,5 @@ body {
   /* background: var(--background); */
   background: #fff !important;
   color: var(--foreground);
-  font-family: var(--font-open-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
