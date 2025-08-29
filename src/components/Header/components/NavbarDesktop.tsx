@@ -149,7 +149,7 @@ const NavBar = () => {
                               role="button"
                               tabIndex={0}
                               
-                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                              className={`[font-family:var(--font-poppins)] navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
                                 ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
                               `}
                               onClick={handleMenuClick}
@@ -163,7 +163,7 @@ const NavBar = () => {
                               onKeyDown={onKeyPressHandler}
                               role="button"
                               tabIndex={0}
-                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                              className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
                                 ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
                               `}
                               onClick={handleMenuClick}
@@ -183,7 +183,7 @@ const NavBar = () => {
                           onKeyDown={onKeyPressHandler}
                           role="button"
                           tabIndex={0}
-                          className={`navbar-item cursor-pointer ${clickedTitle === navMobileItem.name ? 
+                          className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] ${clickedTitle === navMobileItem.name ? 
                             'text-white bg-[#004971] border-b-4 border-b-[#004971] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
                             'text-[#585C65] hover:text-[#007bbd] hover:border-b-4 hover:border-b-[#007bbd] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
                           } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#007bbd]" : ""}`}
