@@ -2,7 +2,6 @@
   "name": "ods-docs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://{username}.github.io/{repository-name}",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -15,7 +14,7 @@
     "base-64": "^1.0.0",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
-    "next": "15.3.1",
+    "next": "^15.4.3",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

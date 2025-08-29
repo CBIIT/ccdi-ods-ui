@@ -5,7 +5,7 @@ import youtubeIcon from '../../assets/footer/Youtube_Logo.svg';
 import linkedInIcon from '../../assets/footer/LinkedIn_Logo.svg';
 // footerLogoImage ideal image size 310x80 px
 
-export default {
+const footerData = {
   footerLogoImage: 'https://raw.githubusercontent.com/cbiit/datacommons-assets/main/bento/images/icons/png/footerlogo.png',
   footerLogoAltText: 'Footer Logo',
   footerLogoHyperlink: 'https://www.cancer.gov/',
@@ -19,40 +19,16 @@ export default {
       title: 'About',
       items: [
         {
-          text: 'About CCDI Hub',
-          link: 'https://ccdi.cancer.gov/about',
+          text: 'About the NCI Data Sharing Hub',
+          link: '/post/About/About-ODS',
         },
-        {
-          text: 'About CCDI',
-          link: 'https://www.cancer.gov/research/areas/childhood/childhood-cancer-data-initiative',
-        },
-        {
-          text: 'About cBioPortal',
-          link: 'https://docs.cbioportal.org/about-us/',
-        },
-        {
-          text: 'Contact CCDI Hub',
-          link: 'mailto:NCIChildhoodCancerDataInitiative@mail.nih.gov',
-        },
-      ],
-    }, {
-      title: 'Resources',
-      items: [
         {
           text: 'Contact Us',
-          link: 'https://www.cancer.gov/contact',
+          link: 'mailto:NCIOfficeofDataSharing@mail.nih.gov',
         },
         {
-          text: 'Publications',
-          link: 'https://www.cancer.gov/publications',
-        },
-        {
-          text: 'Dictionary of Cancer Terms',
-          link: 'https://www.cancer.gov/publications/dictionaries/cancer-terms',
-        },
-        {
-          text: 'Find a Clinical Trial',
-          link: 'https://www.cancer.gov/policies/disclaimer',
+          text: 'Index of NCI Studies',
+          link: 'https://studycatalog.cancer.gov',
         },
       ],
     },
@@ -111,20 +87,8 @@ export default {
   ],
   contact_links: [
     {
-      text: 'Live chat',
-      link: 'https://livehelp.cancer.gov/',
-    },
-    {
-      text: '1-800-4-CANCER',
-      link: 'tel:+18004226237',
-    },
-    {
-      text: 'NCIChildhoodCancerDataInitiative@mail.nih.gov',
-      link: 'mailto:NCIChildhoodCancerDataInitiative@mail.nih.gov',
-    },
-    {
-      text: 'Site Feedback',
-      link: 'https://nci.az1.qualtrics.com/jfe/form/SV_aeLLobt6ZeGVn5I',
+      text: 'NCIOfficeofDataSharing@mail.nih.gov',
+      link: 'mailto:NCIOfficeofDataSharing@mail.nih.gov',
     },
   ],
   global_footer_links: [
@@ -146,3 +110,5 @@ export default {
     },
   ],
 };
+
+export default footerData;

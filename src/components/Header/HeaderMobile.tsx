@@ -2,11 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
 import Logo from "./components/LogoMobile";
 import menuClearIcon from '../../../assets/header/Menu_Cancel_Icon.svg';
 import rightArrowIcon from '../../../assets/header/Right_Arrow.svg';
 import leftArrowIcon from '../../../assets/header/Left_Arrow.svg';
+import { getGithubBranch } from '@/config/config';
+
+const branch = getGithubBranch();
+const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/navigation.json`;
 
 interface NavItem {
   name: string;
@@ -49,7 +54,7 @@ const HeaderContainer = styled.div`
         height: 45px;
         background: #1F4671;
         border-radius: 5px;
-        font-family: 'Open Sans';
+        font-family: 'Inter';
         font-weight: 700;
         font-size: 20px;
         line-height: 45px;
@@ -107,7 +112,7 @@ const MenuArea = styled.div`
  
 
     .backButton {
-        font-family: Open Sans;
+        font-family: Inter;
         font-weight: 600;
         font-size: 16px;
         line-height: 16px;
@@ -137,7 +142,7 @@ const MenuArea = styled.div`
     .navMobileItem {
         width: 268px;
         padding: 8px 24px 8px 16px;
-        font-family: Open Sans;
+        font-family: Inter;
         font-weight: 400;
         font-size: 16px;
         line-height: 16px;
@@ -172,11 +177,17 @@ const Header = () => {
   useEffect(() => {
     const fetchNavigationData = async () => {
       try {
-        const response = await fetch('https://api.github.com/repos/CBIIT/ccdi-ods-content/contents/config/navigation.json');
+         const response = await fetch(
+          LANDING_CONFIG_URL,
+          {
+             headers: {
+        'Accept': 'application/json',
+      },
+      }
+    );
         const data = await response.json();
-        const content = JSON.parse(atob(data.content));
-        setNavigationData(content);
-        setNavbarMobileList(content.navList);
+        setNavigationData(data);
+        setNavbarMobileList(data.navList);
       } catch (error) {
         console.error('Error fetching navigation data:', error);
       }
@@ -235,7 +246,7 @@ const Header = () => {
               }}
               onClick={() => setNavMobileDisplay('none')}
             >
-              <img className="closeIconImg" src={menuClearIcon.src} alt="menuClearButton" />
+              <Image className="closeIconImg" src={menuClearIcon} alt="menuClearButton" />
 
             </div>
             {navbarMobileList !== navigationData.navList && (
@@ -261,11 +272,19 @@ const Header = () => {
                   return (
                     <React.Fragment key={mobilekey}>
                       {navMobileItem.className === 'navMobileItem' && (
-                        <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
-                          <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
-                            {navMobileItem.name}
-                          </div>
-                        </Link>
+                        navMobileItem.link.startsWith('http') ? (
+                          <a id={navMobileItem.id} href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
+                              {navMobileItem.name}
+                            </div>
+                          </a>
+                        ) : (
+                          <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
+                            <div className="navMobileItem" onClick={() => setNavMobileDisplay('none')}>
+                              {navMobileItem.name}
+                            </div>
+                          </Link>
+                        )
                       )}
                       {navMobileItem.className === 'navMobileItem clickable' && (
                         <div
@@ -280,17 +299,31 @@ const Header = () => {
                         </div>
                       )}
                       {navMobileItem.className === 'navMobileSubItem' && (
-                        <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
-                          <div
-                            role="button"
-                            tabIndex={0}
-                            className="navMobileItem SubItem"
-                            onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
-                            onClick={() => setNavMobileDisplay('none')}
-                          >
-                            {navMobileItem.name}
-                          </div>
-                        </Link>
+                        navMobileItem.link.startsWith('http') ? (
+                          <a id={navMobileItem.id} href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              className="navMobileItem SubItem"
+                              onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
+                              onClick={() => setNavMobileDisplay('none')}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </a>
+                        ) : (
+                          <Link id={navMobileItem.id} href={navMobileItem.link} passHref>
+                            <div
+                              role="button"
+                              tabIndex={0}
+                              className="navMobileItem SubItem"
+                              onKeyDown={(e) => { if (e.key === "Enter") { setNavMobileDisplay('none'); } }}
+                              onClick={() => setNavMobileDisplay('none')}
+                            >
+                              {navMobileItem.name}
+                            </div>
+                          </Link>
+                        )
                       )}
                       {navMobileItem.className === 'navMobileSubTitle' && (
                         <div className="navMobileItem">{navMobileItem.name}</div>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useRef, FormEvent, ChangeEvent } from 'react';
+import Image from 'next/image';
 import FooterData from '../../config/globalFooterData';
 
 const FooterMobile = () => {
@@ -31,11 +32,17 @@ const FooterMobile = () => {
     const arrow = document.getElementById(`${param}Arrow`);
 
     if (dropdown) {
-      dropdown.classList.toggle("show");
+      if (dropdown.classList.contains("hidden")) {
+        dropdown.classList.remove("hidden");
+        dropdown.classList.add("show");
+      } else {
+        dropdown.classList.remove("show");
+        dropdown.classList.add("hidden");
+      }
     }
 
     if (arrow) {
-      arrow.classList.toggle("rotate");
+      arrow.classList.toggle("rotate-90");
     }
   };
 
@@ -81,7 +88,7 @@ const FooterMobile = () => {
             className="px-4 pb-8"
             noValidate>
             <input type="hidden" name="topic_id" id="topic_id" value="USNIHNCI_223" />
-            <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4">
+            <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4 mt-4">
               Sign up for email updates
             </div>
             <div className={errorClass !== "" ? 'border-l-4 border-[#e41154] pl-4 -left-5 relative' : undefined}>
@@ -140,7 +147,7 @@ const FooterMobile = () => {
                   const followkey = `follow_${followidx}`;
                   return (
                     <a key={followkey} className={followidx !== 0 ? "ml-2.5" : ""} href={followItem.link} target="_blank" rel="noopener noreferrer">
-                      <img src={followItem.img.src} alt={followItem.description} />
+                      <Image src={followItem.img.src} alt={followItem.description} width={24} height={24} />
                     </a>
                   );
                 })}
