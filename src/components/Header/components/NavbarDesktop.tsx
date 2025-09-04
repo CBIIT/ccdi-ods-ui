@@ -139,7 +139,7 @@ const NavBar = () => {
                 navMobileItem.className === 'navMobileItem'
                   ? (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
-                      <div className="block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent">
+                      <div className="block text-[#585C65] font-poppins text-[17px] font-semibold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent">
                         {
                           navMobileItem.link.startsWith('http') ?
                           <a href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
@@ -163,7 +163,7 @@ const NavBar = () => {
                               onKeyDown={onKeyPressHandler}
                               role="button"
                               tabIndex={0}
-                              className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                              className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] font-semibold text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
                                 ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
                               `}
                               onClick={handleMenuClick}
@@ -177,13 +177,13 @@ const NavBar = () => {
                   )
                   : (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
-                      <div className={clickedTitle === navMobileItem.name ? 'block text-white font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#004971] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
+                      <div className={clickedTitle === navMobileItem.name ? 'block text-white font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#004971] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-semibold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
                         <div
                           id={navMobileItem.id}
                           onKeyDown={onKeyPressHandler}
                           role="button"
                           tabIndex={0}
-                          className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] ${clickedTitle === navMobileItem.name ? 
+                          className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] font-semibold ${clickedTitle === navMobileItem.name ? 
                             'text-white bg-[#004971] border-b-4 border-b-[#004971] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
                             'text-[#585C65] hover:text-[#007bbd] hover:border-b-4 hover:border-b-[#007bbd] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
                           } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#007bbd]" : ""}`}
