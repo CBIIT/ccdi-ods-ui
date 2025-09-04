@@ -36,18 +36,10 @@ export default function Breadcrumb({ collection, page }: BreadcrumbProps) {
         }}
       >Home</Link>
       <span className="mx-2">/</span>
-      <Link 
-        href={`/collection/${collection}`}
-        className="text-[#005EA2] text-[16px] font-normal [font-family:'Public Sans'] underline"
-        style={{
-          textDecorationLine: 'underline',
-          textDecorationStyle: 'solid',
-          textDecorationSkipInk: 'none',
-          textDecorationThickness: 'auto',
-          textUnderlineOffset: 'auto',
-          textUnderlinePosition: 'from-font',
-        }}
-      >{collection}</Link>
+      <span 
+        // href={`/collection/${collection}`}
+        className="text-[#1B1B1B] text-[16px] font-normal [font-family:'Public Sans']"
+      >{collection}</span>
       <span className="mx-2">/</span>
       <span className="text-[#1B1B1B] text-[16px] font-normal [font-family:'Public Sans']">{page}</span>
     </div>

@@ -162,7 +162,7 @@ function SearchContent() {
 
   return (
     <>
-      <div className="max-w-[1444px] mx-auto p-6">
+      <div className="max-w-[1444px] mx-auto p-6 pt-[11px] pb-[1px]">
      <div className="mb-8 ml-8">
         <Link 
           href="/" 
@@ -187,8 +187,8 @@ function SearchContent() {
         </Link>
       </div>
       </div>
-      <main className="max-w-7xl mx-auto p-8 bg-white min-h-screen">
-        <form action="/search" method="GET" className="mb-12 flex justify-center">
+      <main className="max-w-7xl mx-auto p-8 pt-[16px] bg-white min-h-screen">
+        <form action="/search" method="GET" className="mb-[34px] flex justify-center">
           <div className="flex w-full max-w-[711px] border-1 border-[#345D85] rounded-md overflow-hidden">
             <div className="flex-1 relative">
               <input
@@ -201,7 +201,7 @@ function SearchContent() {
                 style={{ fontWeight: 300 }}
               />
               {/* Right icon: Search icon when empty, Clear icon when has value */}
-              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+              <div className="absolute right-4 top-5.5 transform -translate-y-1/2">
                 {inputValue ? (
                   <button
                     type="button"
@@ -225,7 +225,7 @@ function SearchContent() {
             </div>
             <button
               type="submit"
-              className="px-4 py-0 bg-[#3E8283] text-white text-base font-semibold hover:bg-[#27605c] transition-colors"
+              className="px-[25px] py-0 bg-[#3E8283] text-white text-base font-semibold hover:bg-[#27605c] transition-colors"
             >
               SUBMIT
             </button>
@@ -238,7 +238,7 @@ function SearchContent() {
         {Object.keys(groupedResults).length === 0 ? (
           <p className="text-2xl text-gray-300 mt-16">No results found.</p>
         ) : (
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-[35px]">
             {Object.entries(groupedResults).map(([collectionName, posts]) => {
               // Map collectionName to friendly section titles
               const sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
@@ -246,7 +246,10 @@ function SearchContent() {
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
                   <h2 className="text-3xl font-bold mb-4">
-                    <Link href={`/collection/${collectionName}`} className=" text-[#1C8278] hover:underline">
+                    <Link
+                      href={`/collection/${collectionName}`}
+                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px] hover:underline"
+                    >
                       {sectionTitle}
                     </Link>
                   </h2>
