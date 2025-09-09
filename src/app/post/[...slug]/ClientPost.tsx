@@ -72,7 +72,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   }, [processedContent]);
 
   return (
-    <div className="flex flex-col items-stretch px-4 md:px-8 lg:px-20 pb-14 pt-3 max-w-[1444px] mx-auto min-h-screen">
+    <div className="flex flex-col items-stretch px-4 md:px-8 lg:px-13.5 pb-14 pt-3 max-w-[1444px] mx-auto min-h-screen">
       <Breadcrumb collection={collection} page={page} />
       
       {/* Mobile Menu Toggle Button */}

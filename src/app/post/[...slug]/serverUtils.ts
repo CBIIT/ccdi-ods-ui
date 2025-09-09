@@ -101,7 +101,7 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'text-3xl md:text-4xl',
           'font-bold',
-          'my-4 md:my-6',
+          'my-[15px] md:my-[15px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
           'p-[20px]'
@@ -126,7 +126,7 @@ function rehypeCustomTheme() {
           'my-3 md:my-4',
           'scroll-mt-20',
           'text-[20px]',
-          'font-[600]',
+          'font-[400]',
           'leading-[20px]',
           '[font-family:Poppins]',
         ];
@@ -173,7 +173,7 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
-        node.properties.className = ['max-w-full', 'h-auto', 'rounded-lg', 'my-4', 'mx-auto', 'shadow-md'];
+        node.properties.className = ['max-w-full', 'h-auto', 'my-4', 'mx-auto', 'shadow-md'];
         node.properties.loading = 'lazy';
       }
       if (node.tagName === 'figure') {
