@@ -236,6 +236,7 @@ function rehypeCustomTheme() {
           'text-[13px]',
           'text-[#767676]',
           'uppercase',
+          'text-left',
         ];
         node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
       }
@@ -246,7 +247,7 @@ function rehypeCustomTheme() {
           'py-2',
           'whitespace-normal',
           '[font-family:Inter]',
-          'text-[12px]',
+          'text-[14px]',
           'text-[#000000]',
           'leading-[16px]'
         ];
