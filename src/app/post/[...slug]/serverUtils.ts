@@ -6,6 +6,7 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
+import { visitParents } from 'unist-util-visit-parents';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
@@ -95,7 +96,7 @@ function sanitizeIframe() {
 
 function rehypeCustomTheme() {
   return (tree: Node) => {
-    visit(tree, 'element', (node: Element) => {
+    visitParents(tree, 'element', (node: Element, ancestors: Node[]) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
         node.properties.className = [
@@ -170,6 +171,20 @@ function rehypeCustomTheme() {
         if (href && href.trim().toLowerCase().startsWith('http')) {
           node.properties.target = '_blank';
           node.properties.rel = 'noopener noreferrer';
+        }
+        const isInTd = ancestors.some(
+          ancestor => (ancestor as Element).tagName === 'td'
+        );
+        if (isInTd) {
+          // <a> is inside a <td>
+          node.properties.className = [
+            '[font-family:Nunito]',
+            'text-[14px]',
+            'text-[#1C8278]',
+            'font-medium',
+            'leading-[28px]',
+            'underline',
+          ];
         }
       }
       if (node.tagName === 'img') {
