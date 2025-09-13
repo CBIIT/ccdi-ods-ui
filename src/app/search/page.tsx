@@ -246,19 +246,19 @@ function SearchContent() {
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
                   <h2 className="text-3xl font-bold mb-4">
-                    <Link
-                      href={`/collection/${collectionName}`}
-                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px] hover:underline"
+                    <div
+                      // href={`/collection/${collectionName}`}
+                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]"
                     >
                       {sectionTitle}
-                    </Link>
+                    </div>
                   </h2>
                   <ul className="space-y-3 ml-4.5">
                     {posts.map((post) => (
                       <li key={post.path}>
                         <Link
                           href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
-                          className="text-[#1C8278] text-lg hover:underline"
+                          className="text-[#1C8278] text-lg underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                         </Link>
