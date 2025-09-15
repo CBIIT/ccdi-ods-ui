@@ -6,6 +6,7 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
+import { visitParents } from 'unist-util-visit-parents';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
@@ -95,13 +96,14 @@ function sanitizeIframe() {
 
 function rehypeCustomTheme() {
   return (tree: Node) => {
-    visit(tree, 'element', (node: Element) => {
+    visitParents(tree, 'element', (node: Element, ancestors: Node[]) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
         node.properties.className = [
           'text-3xl md:text-4xl',
           'font-bold',
-          'my-4 md:my-6',
+          'my-[15px] md:my-[15px]',
+          'ml-[-20px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
           'p-[20px]'
@@ -126,7 +128,7 @@ function rehypeCustomTheme() {
           'my-3 md:my-4',
           'scroll-mt-20',
           'text-[20px]',
-          'font-[600]',
+          'font-[400]',
           'leading-[20px]',
           '[font-family:Poppins]',
         ];
@@ -170,10 +172,24 @@ function rehypeCustomTheme() {
           node.properties.target = '_blank';
           node.properties.rel = 'noopener noreferrer';
         }
+        const isInTd = ancestors.some(
+          ancestor => (ancestor as Element).tagName === 'td'
+        );
+        if (isInTd) {
+          // <a> is inside a <td>
+          node.properties.className = [
+            '[font-family:Nunito]',
+            'text-[14px]',
+            'text-[#1C8278]',
+            'font-medium',
+            'leading-[28px]',
+            'underline',
+          ];
+        }
       }
       if (node.tagName === 'img') {
         node.properties = node.properties || {};
-        node.properties.className = ['max-w-full', 'h-auto', 'rounded-lg', 'my-4', 'mx-auto', 'shadow-md'];
+        node.properties.className = ['max-w-full', 'h-auto', 'my-4', 'mx-auto', 'shadow-md'];
         node.properties.loading = 'lazy';
       }
       if (node.tagName === 'figure') {
@@ -235,6 +251,7 @@ function rehypeCustomTheme() {
           'text-[13px]',
           'text-[#767676]',
           'uppercase',
+          'text-left',
         ];
         node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
       }
@@ -245,7 +262,7 @@ function rehypeCustomTheme() {
           'py-2',
           'whitespace-normal',
           '[font-family:Inter]',
-          'text-[12px]',
+          'text-[14px]',
           'text-[#000000]',
           'leading-[16px]'
         ];
