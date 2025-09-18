@@ -140,7 +140,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                <li className="mb-[10px]">
                 <a
                   href={h1Info ? `#${h1Info.id}` : "#"}
-                  className="text-[#000000] leading-[20px] border-b-[1.5px] border-[#E3E3E3] [font-family:Poppins] font-semibold pt-0 block transition-colors font-normal py-[16px] text-[18px] hover:text-[#257E7A] hover:font-semibold"
+                  className="text-[#000000] tracking-[0.36px] leading-[20px] border-b-[1.5px] border-[#E3E3E3] [font-family:Poppins] font-semibold pt-0 block transition-colors font-normal py-[16px] text-[18px] hover:text-[#257E7A] hover:font-semibold"
                   onClick={() => isMobile && setIsMobileMenuOpen(false)}
                 >
                   {h1Info ? h1Info.text : ""}
@@ -150,7 +150,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                   <li className="mb-[10px]" key={h2.id}>
                     <a
                       href={`#${h2.id}`}
-                      className="text-[#000000] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
+                      className="text-[#000000] tracking-[0.16px] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
                       onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     >
                       {h2.text}
@@ -161,7 +161,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                           <li className="pl-4 border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
                             <a
                               href={`#${h3.id}`}
-                              className="text-[#464A4C] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
+                              className="text-[#464A4C] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
                               onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}

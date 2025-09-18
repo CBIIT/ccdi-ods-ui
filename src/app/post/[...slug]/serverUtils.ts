@@ -37,10 +37,12 @@ const ALLOWED_IFRAME_DOMAINS = [
 ];
 
 const ThemeColor = {
-  group1: '#345D85', // color for group 1
+  group1: '#335D85', // color for group 1
   group2: '#7B3D7C', // color for group 2
   group3: '#6656A1', // color for group 3
 }
+
+const FontColor = '#345D85';
 
 export interface PostMetadata {
   title?: string;
@@ -121,7 +123,7 @@ function rehypeCustomTheme() {
           'text-[32px]',
           'font-[600]'
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor}`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
@@ -133,7 +135,7 @@ function rehypeCustomTheme() {
           'leading-[20px]',
           '[font-family:Poppins]',
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
@@ -241,7 +243,7 @@ function rehypeCustomTheme() {
           'md:table',
           'overflow-x-auto',
         ];
-        node.properties.style = `border-top: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-top: 2px solid ${FontColor};`;
       }
       if (node.tagName === 'th') {
         node.properties = node.properties || {};
@@ -254,7 +256,7 @@ function rehypeCustomTheme() {
           'uppercase',
           'text-left',
         ];
-        node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-bottom: 2px solid ${FontColor};`;
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
