@@ -179,7 +179,7 @@ function rehypeCustomTheme() {
           // <a> is inside a <td>
           node.properties.className = [
             '[font-family:Nunito]',
-            'text-[14px]',
+            'text-[16px]',
             'text-[#1C8278]',
             'font-medium',
             'leading-[28px]',
@@ -248,7 +248,7 @@ function rehypeCustomTheme() {
           'px-4',
           'py-2',
           '[font-family:Inter]',
-          'text-[13px]',
+          'text-[16px]',
           'text-[#767676]',
           'uppercase',
           'text-left',
@@ -262,7 +262,7 @@ function rehypeCustomTheme() {
           'py-2',
           'whitespace-normal',
           '[font-family:Inter]',
-          'text-[14px]',
+          'text-[16px]',
           'text-[#000000]',
           'leading-[16px]'
         ];
