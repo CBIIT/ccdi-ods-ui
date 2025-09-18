@@ -101,7 +101,8 @@ function rehypeCustomTheme() {
         node.properties = node.properties || {};
         node.properties.className = [
           'text-3xl md:text-4xl',
-          'font-bold',
+          'font-extrabold',
+          'text-[45px]',
           'my-[15px] md:my-[15px]',
           'ml-[-20px]',
           'text-[#FFFFFF]',
