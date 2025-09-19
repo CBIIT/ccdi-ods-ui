@@ -121,7 +121,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
             `}
             aria-label="Table of contents"
           >
-           <div className="pr-4 pt-0" style={{ borderLeftColor: ThemeColor.group1 }}>
+           <div className="pr-4 pt-0">
               {isMobile && (
                 <div className="flex justify-between items-center mb-4 px-2">
                   <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
