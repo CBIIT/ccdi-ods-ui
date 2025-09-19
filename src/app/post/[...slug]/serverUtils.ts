@@ -119,6 +119,7 @@ function rehypeCustomTheme() {
           'text-2xl md:text-3xl',
           'font-semibold',
           'my-4 md:my-5',
+          'mt-[35px] md:mt-[35px]',
           '[font-family:Inter]',
           'text-[32px]',
           'font-[600]'
