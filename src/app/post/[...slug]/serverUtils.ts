@@ -131,10 +131,10 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'my-3 md:my-4',
           'scroll-mt-20',
-          'text-[20px]',
+          'text-[28px]',
           'font-[400]',
-          'leading-[20px]',
-          '[font-family:Poppins]',
+          'leading-[30px]',
+          '[font-family:Inter]',
         ];
         node.properties.style = `color: ${FontColor};`;
       }
