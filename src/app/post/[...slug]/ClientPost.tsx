@@ -21,12 +21,6 @@ interface ClientPostProps {
   processedContent: string;
 }
 
-const ThemeColor = {
-  group1: '#4385C5', // color for group 1
-  group2: '#AB53AC', // color for group 2
-  group3: '#755AD8', // color for group 3
-}
-
 function extractH1Info(html: string) {
   if (typeof window === 'undefined') return null;
   const doc = new window.DOMParser().parseFromString(html, 'text/html');
