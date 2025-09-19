@@ -37,10 +37,12 @@ const ALLOWED_IFRAME_DOMAINS = [
 ];
 
 const ThemeColor = {
-  group1: '#345D85', // color for group 1
+  group1: '#335D85', // color for group 1
   group2: '#7B3D7C', // color for group 2
   group3: '#6656A1', // color for group 3
 }
+
+const FontColor = '#345D85';
 
 export interface PostMetadata {
   title?: string;
@@ -101,8 +103,9 @@ function rehypeCustomTheme() {
         node.properties = node.properties || {};
         node.properties.className = [
           'text-3xl md:text-4xl',
-          'font-bold',
-          'my-[15px] md:my-[15px]',
+          'font-extrabold',
+          'text-[45px]',
+          'my-[20px] md:my-[20px]',
           'ml-[-20px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
@@ -116,23 +119,24 @@ function rehypeCustomTheme() {
           'text-2xl md:text-3xl',
           'font-semibold',
           'my-4 md:my-5',
+          'mt-[35px] md:mt-[35px]',
           '[font-family:Inter]',
           'text-[32px]',
           'font-[600]'
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor}`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
         node.properties.className = [
           'my-3 md:my-4',
           'scroll-mt-20',
-          'text-[20px]',
+          'text-[28px]',
           'font-[400]',
-          'leading-[20px]',
-          '[font-family:Poppins]',
+          'leading-[30px]',
+          '[font-family:Inter]',
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
@@ -179,7 +183,7 @@ function rehypeCustomTheme() {
           // <a> is inside a <td>
           node.properties.className = [
             '[font-family:Nunito]',
-            'text-[14px]',
+            'text-[16px]',
             'text-[#1C8278]',
             'font-medium',
             'leading-[28px]',
@@ -240,7 +244,7 @@ function rehypeCustomTheme() {
           'md:table',
           'overflow-x-auto',
         ];
-        node.properties.style = `border-top: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-top: 2px solid ${FontColor};`;
       }
       if (node.tagName === 'th') {
         node.properties = node.properties || {};
@@ -248,12 +252,12 @@ function rehypeCustomTheme() {
           'px-4',
           'py-2',
           '[font-family:Inter]',
-          'text-[13px]',
+          'text-[16px]',
           'text-[#767676]',
           'uppercase',
           'text-left',
         ];
-        node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-bottom: 2px solid ${FontColor};`;
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
@@ -262,7 +266,7 @@ function rehypeCustomTheme() {
           'py-2',
           'whitespace-normal',
           '[font-family:Inter]',
-          'text-[14px]',
+          'text-[16px]',
           'text-[#000000]',
           'leading-[16px]'
         ];

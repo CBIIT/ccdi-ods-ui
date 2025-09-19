@@ -72,7 +72,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   }, [processedContent]);
 
   return (
-    <div className="flex flex-col items-stretch px-4 md:px-8 lg:px-13.5 pb-14 pt-3 max-w-[1444px] mx-auto min-h-screen">
+    <div className="flex flex-col items-stretch px-4 md:px-8 lg:px-[55.5px] pb-14 pt-3 max-w-[1444px] mx-auto min-h-screen">
       <Breadcrumb collection={collection} page={page} />
       
       {/* Mobile Menu Toggle Button */}
@@ -121,7 +121,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
             `}
             aria-label="Table of contents"
           >
-           <div className="border-l-[2.25px] p-4 pt-0" style={{ borderLeftColor: ThemeColor.group1 }}>
+           <div className="pr-4 pt-0">
               {isMobile && (
                 <div className="flex justify-between items-center mb-4 px-2">
                   <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
@@ -136,32 +136,32 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                   </button>
                 </div>
               )}
-              <ul className="space-y-3 pl-4" role="list">
-               <li>
+              <ul className="space-y-3" role="list">
+               <li className="mb-[10px]">
                 <a
                   href={h1Info ? `#${h1Info.id}` : "#"}
-                  className="text-[#6C777A] [font-family:Inter] font-semibold pt-0 block transition-colors font-normal py-1 rounded text-[18px] hover:text-[#257E7A] hover:font-semibold"
+                  className="text-[#000000] tracking-[0.36px] leading-[20px] border-b-[1.5px] border-[#E3E3E3] [font-family:Poppins] font-semibold pt-0 block transition-colors font-normal py-[16px] text-[18px] hover:text-[#257E7A] hover:font-semibold"
                   onClick={() => isMobile && setIsMobileMenuOpen(false)}
                 >
                   {h1Info ? h1Info.text : ""}
                 </a>
               </li>
                 {headings.map((h2) => (
-                  <li key={h2.id}>
+                  <li className="mb-[10px]" key={h2.id}>
                     <a
                       href={`#${h2.id}`}
-                      className="text-[#464A4C] [font-family:Inter] text-sm block transition-colors font-normal py-1 rounded text-[16px] hover:text-[#257E7A] hover:font-semibold"
+                      className="text-[#000000] tracking-[0.16px] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
                       onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     >
                       {h2.text}
                     </a>
                     {h2.children.length > 0 && (
-                      <ul className="ml-4 mt-2 space-y-2" role="list">
+                      <ul className="mt-2 space-y-2" role="list">
                         {h2.children.map((h3) => (
-                          <li key={h3.id}>
+                          <li className="pl-4 border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
                             <a
                               href={`#${h3.id}`}
-                              className="text-[#464A4C] [font-family:Inter] font-normal block transition-colors py-1 rounded text-[14px] hover:text-[#257E7A] hover:font-semibold"
+                              className="text-[#464A4C] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
                               onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}
