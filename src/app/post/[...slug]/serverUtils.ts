@@ -105,7 +105,7 @@ function rehypeCustomTheme() {
           'text-3xl md:text-4xl',
           'font-extrabold',
           'text-[45px]',
-          'my-[15px] md:my-[15px]',
+          'my-[20px] md:my-[20px]',
           'ml-[-20px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
