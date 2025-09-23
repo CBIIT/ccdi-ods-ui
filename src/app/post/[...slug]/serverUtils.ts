@@ -11,6 +11,7 @@ import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
 import type { Element } from 'hast';
+import externalLinkIcon from '../../../../assets/icons/external_link_icon_info.svg';
 
 const branch = getGithubBranch();
 const PAGES_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/pages/`;
@@ -102,14 +103,14 @@ function rehypeCustomTheme() {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
         node.properties.className = [
-          'text-3xl md:text-4xl',
           'font-extrabold',
           'text-[45px]',
           'my-[20px] md:my-[20px]',
           'ml-[-20px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
-          'p-[20px]'
+          'p-[20px]',
+          'py-[15px]'
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -175,6 +176,20 @@ function rehypeCustomTheme() {
         if (href && href.trim().toLowerCase().startsWith('http')) {
           node.properties.target = '_blank';
           node.properties.rel = 'noopener noreferrer';
+          node.children = [
+            ...(node.children || []),
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: externalLinkIcon.src,
+                alt: 'External link',
+                className: 'external-link-icon inline-block ml-[8px] mb-1 w-[1em] h-[1em] align-text-bottom',
+                'aria-hidden': 'true',
+              },
+              children: [],
+            },
+          ];
         }
         const isInTd = ancestors.some(
           ancestor => (ancestor as Element).tagName === 'td'
@@ -192,6 +207,9 @@ function rehypeCustomTheme() {
         }
       }
       if (node.tagName === 'img') {
+        if (node.properties && node.properties.className?.toString().includes('external-link-icon')) {
+          return;
+        }
         node.properties = node.properties || {};
         node.properties.className = ['max-w-full', 'h-auto', 'my-4', 'mx-auto', 'shadow-md'];
         node.properties.loading = 'lazy';
