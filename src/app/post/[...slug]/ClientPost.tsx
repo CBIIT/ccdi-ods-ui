@@ -155,7 +155,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                           <li className="pl-4 border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
                             <a
                               href={`#${h3.id}`}
-                              className="text-[#464A4C] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
+                              className="text-[#000000] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
                               onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}
