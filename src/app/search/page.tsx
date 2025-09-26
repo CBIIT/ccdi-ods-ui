@@ -232,7 +232,7 @@ function SearchContent() {
           </div>
         </form>
 
-        <h1 className="text-5xl font-bold mb-4 text-[#408B88]" style={{ fontFamily: 'inherit', letterSpacing: '-2px' }}>Search Results</h1>
+        <h1 className="[font-family:Inter] text-5xl font-bold mb-4 text-[#408B88] tracking-[0.045px]">Search Results</h1>
         <p className="mb-8 text-xl text-gray-600">Showing results for: “{query}”</p>
 
         {Object.keys(groupedResults).length === 0 ? (

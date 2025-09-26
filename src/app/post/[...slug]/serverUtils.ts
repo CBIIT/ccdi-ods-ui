@@ -110,7 +110,8 @@ function rehypeCustomTheme() {
           'text-[#FFFFFF]',
           '[font-family:Inter]',
           'p-[20px]',
-          'py-[15px]'
+          'py-[15px]',
+          'tracking-[0.045px]',
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -123,7 +124,8 @@ function rehypeCustomTheme() {
           'mt-[35px] md:mt-[35px]',
           '[font-family:Inter]',
           'text-[32px]',
-          'font-[600]'
+          'font-[600]',
+          'leading-[35px]'
         ];
         node.properties.style = `color: ${FontColor}`;
       }
@@ -141,15 +143,37 @@ function rehypeCustomTheme() {
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[16px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[20px]',
+          'font-semibold',
+          'leading-[20px]',
+          '[font-family:Inter]',
+          'my-3',
+        ];
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h5') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[14px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[19px]',
+          'font-normal',
+          'leading-[20px]',
+          '[font-family:Inter]',
+          'my-3',
+        ];
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h6') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[12px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[16px]',
+          'font-extrabold',
+          'leading-[22px]',
+          '[font-family:Inter]',
+          'text-[#194A7A]',
+          'uppercase',
+          'my-3',
+        ];
       }
       if (node.tagName === 'p') {
         node.properties = node.properties || {};
