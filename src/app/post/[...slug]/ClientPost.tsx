@@ -144,7 +144,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                   <li className="mb-[10px]" key={h2.id}>
                     <a
                       href={`#${h2.id}`}
-                      className="text-[#000000] tracking-[0.16px] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
+                      className="text-[#000000] pl-[20px] tracking-[0.16px] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
                       onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     >
                       {h2.text}
@@ -152,7 +152,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
                     {h2.children.length > 0 && (
                       <ul className="mt-2 space-y-2" role="list">
                         {h2.children.map((h3) => (
-                          <li className="pl-4 border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
+                          <li className="pl-[40px] border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
                             <a
                               href={`#${h3.id}`}
                               className="text-[#000000] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
@@ -182,7 +182,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         )}
 
         {/* Main Content */}
-        <main className="flex-1 w-full max-w-4xl p-2 md:p-6">
+        <main className="flex-1 w-full max-w-[977px] p-2 md:p-6">
           <div 
             className="prose prose-sm md:prose lg:prose-xl max-w-none"
             dangerouslySetInnerHTML={{ __html: processedContent }}
