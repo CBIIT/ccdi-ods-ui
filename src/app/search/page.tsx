@@ -162,8 +162,8 @@ function SearchContent() {
 
   return (
     <>
-      <div className="max-w-[1444px] mx-auto p-6 pt-[11px] pb-[1px]">
-     <div className="mb-8 ml-8">
+      <div className="mx-auto px-8 max-w-[1400px] flex pt-[11px] pb-[1px]">
+     <div className="mb-8">
         <Link 
           href="/" 
           className="inline-flex items-center text-[#005EA2] underline"

@@ -16,10 +16,10 @@ import USABanner from './USABanner';
 const Header = () => (
   <div>
     <USABanner />
-    <div className="hidden lg:block">
+    <div className="hidden xl:block">
       <HeaderDesktop />
     </div>
-    <div className="hidden md:block lg:hidden">
+    <div className="hidden md:block xl:hidden">
       <HeaderTablet />
     </div>
     <div className="block md:hidden">
