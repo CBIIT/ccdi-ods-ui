@@ -112,6 +112,7 @@ function rehypeCustomTheme() {
           'p-[20px]',
           'py-[15px]',
           'tracking-[0.045px]',
+          'leading-[40px]'
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -208,7 +209,7 @@ function rehypeCustomTheme() {
               properties: {
                 src: externalLinkIcon.src,
                 alt: 'External link',
-                className: 'external-link-icon inline-block ml-[8px] mb-1 w-[1em] h-[1em] align-text-bottom',
+                className: 'external-link-icon inline-block ml-[5px] mb-1 w-[1em] h-[1em] align-text-bottom',
                 'aria-hidden': 'true',
               },
               children: [],
