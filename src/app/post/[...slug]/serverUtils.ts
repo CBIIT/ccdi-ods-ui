@@ -295,6 +295,7 @@ function rehypeCustomTheme() {
           'px-4',
           'py-2',
           '[font-family:Inter]',
+          'font-medium',
           'text-[16px]',
           'text-[#767676]',
           'uppercase',
@@ -311,7 +312,7 @@ function rehypeCustomTheme() {
           '[font-family:Inter]',
           'text-[16px]',
           'text-[#000000]',
-          'leading-[16px]'
+          'leading-[17px]'
         ];
         node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }
