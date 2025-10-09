@@ -112,6 +112,7 @@ function rehypeCustomTheme() {
           'p-[20px]',
           'py-[15px]',
           'tracking-[0.045px]',
+          'leading-[40px]'
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -208,7 +209,7 @@ function rehypeCustomTheme() {
               properties: {
                 src: externalLinkIcon.src,
                 alt: 'External link',
-                className: 'external-link-icon inline-block ml-[8px] mb-1 w-[1em] h-[1em] align-text-bottom',
+                className: 'external-link-icon inline-block ml-[5px] mb-1 w-[1em] h-[1em] align-text-bottom',
                 'aria-hidden': 'true',
               },
               children: [],
@@ -294,12 +295,19 @@ function rehypeCustomTheme() {
           'px-4',
           'py-2',
           '[font-family:Inter]',
+          'font-medium',
           'text-[16px]',
           'text-[#767676]',
           'uppercase',
           'text-left',
         ];
         node.properties.style = `border-bottom: 2px solid ${FontColor};`;
+        // If the header cell has zero children, collapse its height and remove vertical padding
+        const hasNoChildren = !node.children || node.children.length === 0;
+        if (hasNoChildren) {
+          const baseStyle = typeof node.properties.style === 'string' ? node.properties.style : '';
+          node.properties.style = `${baseStyle} height: 0; padding-top: 0; padding-bottom: 0; line-height: 0; border-bottom: 0px`;
+        }
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
@@ -310,7 +318,7 @@ function rehypeCustomTheme() {
           '[font-family:Inter]',
           'text-[16px]',
           'text-[#000000]',
-          'leading-[16px]'
+          'leading-[17px]'
         ];
         node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }

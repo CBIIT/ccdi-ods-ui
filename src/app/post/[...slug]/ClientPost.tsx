@@ -66,7 +66,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   }, [processedContent]);
 
   return (
-    <div className="flex flex-col items-stretch px-4 md:px-8 lg:px-[55.5px] pb-14 pt-3 max-w-[1444px] mx-auto min-h-screen">
+    <div className="mx-auto max-w-[1400px] flex flex-col items-stretch px-4 xl:pl-[33px] xl:pr-8 pb-14 pt-3 min-h-screen">
       <Breadcrumb collection={collection} page={page} />
       
       {/* Mobile Menu Toggle Button */}
@@ -111,11 +111,11 @@ export default function ClientPost({ collection, page, processedContent }: Clien
               ${isMobile ? 
                 `fixed inset-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
                  transition-transform duration-300 ease-in-out bg-white shadow-lg w-3/4 h-full overflow-y-auto` 
-                : 'mt-10 mr-[20px] w-64 flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
+                : 'mt-10 mr-[20px] w-[337px] flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
             `}
             aria-label="Table of contents"
           >
-           <div className="pr-4 pt-0">
+           <div className="pt-0">
               {isMobile && (
                 <div className="flex justify-between items-center mb-4 px-2">
                   <h2 className="text-lg font-semibold text-gray-800">Contents</h2>

@@ -22,7 +22,7 @@ interface BreadcrumbProps {
  */
 export default function Breadcrumb({ collection, page }: BreadcrumbProps) {
   return (
-    <div className="text-sm text-gray-600 mb-[49px]">
+    <div className="text-sm flex text-gray-600 mb-[49px]">
       <Link 
         href="/" 
         className="text-[#005EA2] text-[16px] font-normal [font-family:'Public Sans'] underline"
@@ -35,12 +35,12 @@ export default function Breadcrumb({ collection, page }: BreadcrumbProps) {
           textUnderlinePosition: 'from-font',
         }}
       >Home</Link>
-      <span className="mx-2">/</span>
+      <span><img src="/arrow_right.svg" alt="arrow" className="mx-3 mt-1.5" /></span>
       <span 
         // href={`/collection/${collection}`}
         className="text-[#1B1B1B] text-[16px] font-normal [font-family:'Public Sans']"
       >{collection}</span>
-      <span className="mx-2">/</span>
+      <span><img src="/arrow_right.svg" alt="arrow" className="mx-3 mt-1.5" /></span>
       <span className="text-[#1B1B1B] text-[16px] font-normal [font-family:'Public Sans']">{page}</span>
     </div>
   );

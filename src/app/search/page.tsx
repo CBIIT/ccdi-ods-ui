@@ -162,7 +162,7 @@ function SearchContent() {
 
   return (
     <>
-      <div className="mx-auto px-8 max-w-[1400px] flex pt-[11px] pb-[1px]">
+      <div className="mx-auto px-8 max-w-[1400px] flex pt-[11px] pb-[1px] md:px-4 xl:pl-[33px]">
      <div className="mb-8">
         <Link 
           href="/" 
