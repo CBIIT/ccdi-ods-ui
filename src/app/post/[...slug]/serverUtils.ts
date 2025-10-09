@@ -302,6 +302,12 @@ function rehypeCustomTheme() {
           'text-left',
         ];
         node.properties.style = `border-bottom: 2px solid ${FontColor};`;
+        // If the header cell has zero children, collapse its height and remove vertical padding
+        const hasNoChildren = !node.children || node.children.length === 0;
+        if (hasNoChildren) {
+          const baseStyle = typeof node.properties.style === 'string' ? node.properties.style : '';
+          node.properties.style = `${baseStyle} height: 0; padding-top: 0; padding-bottom: 0; line-height: 0; border-bottom: 0px`;
+        }
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
