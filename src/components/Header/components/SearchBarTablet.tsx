@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import searchIcon from '../../../assets/header/Search_Small_Icon.svg';
+import searchIcon from '../../../../assets/header/Search_Small_Icon.svg';
 
 const SearchBar = () => {
   const router = useRouter();
@@ -15,20 +15,22 @@ const SearchBar = () => {
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      router.push(`/sitesearch/${localText.trim()}`);
+    if (event.key === "Enter" && localText.trim()) {
+      router.push(`/search?q=${encodeURIComponent(localText.trim())}`);
       setLocalText("");
     }
   };
 
   const handleSearch = () => {
-    router.push(`/sitesearch/${localText.trim()}`);
-    setLocalText("");
+    if (localText.trim()) {
+      router.push(`/search?q=${encodeURIComponent(localText.trim())}`);
+      setLocalText("");
+    }
   };
 
   return (
-    <div className="flex">
-      <div className="ml-auto w-[303px] h-[43px] border border-[#71767A]">
+    <div className="flex w-full justify-end mr-[16px]">
+      <div className="w-[303px] h-[43px] border border-[#71767A]">
         <label>
           <input
             id="header-search-bar"
