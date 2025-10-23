@@ -29,7 +29,7 @@ const SearchBar = () => {
   return (
     <div className="flex">
       <div className="ml-auto w-[224px] h-[32px] border border-[#71767A]">
-        <label>
+        <label aria-label="site search desktop">
           <input
             id="header-search-bar"
             type="search"
