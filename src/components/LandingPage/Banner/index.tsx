@@ -31,17 +31,17 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
 
   return (
     <section 
-      className="bg-[rgba(0,148,133,1)] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
+      className="bg-[linear-gradient(95deg,#007B72_15.94%,#009184_44.43%,#0D3A5B_97.99%)] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
       aria-labelledby="hero-title"
     >
       <h2
         id="hero-title"
-        className="text-white text-xl font-normal leading-[1.4] text-center max-md:max-w-full pt-[61px]"
+        className="text-white text-center [font-family:Poppins] text-[20px] font-normal leading-[28px] max-md:max-w-full pt-[61px]"
       >
         {config.supportTitle}
       </h2>
       
-      <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[16px] max-md:max-w-full max-md:mt-10">
+      <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[20px] max-md:max-w-full max-md:mt-10">
         {config.textFrame.map((desc: string, idx: number) => (
           <HeroCard
             key={idx}
@@ -54,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
       </div>
       
       <div className="flex gap-3 flex-wrap mt-[29px] max-md:max-w-full max-md:mt-10">
-        <div className="text-white text-lg font-normal leading-loose text-right w-[546px] max-md:max-w-full">
+        <div className="text-white text-right [font-family:Nunito] text-[18px] font-normal leading-[28px] w-[546px] max-md:max-w-full">
           {config.questionText}
         </div>
         <ContactLink 
