@@ -53,8 +53,8 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
         ))}
       </div>
       
-      <div className="flex gap-3 flex-wrap mt-[29px] max-md:max-w-full max-md:mt-10">
-        <div className="text-white text-right [font-family:Nunito] text-[18px] font-normal leading-[28px] w-[546px] max-md:max-w-full">
+      <div className="flex gap-[50px] flex-wrap mt-[29px] max-md:max-w-full max-md:mt-10">
+        <div className="text-white text-right [font-family:Nunito] text-[18px] font-normal leading-[28px] w-[546px] mt-[6px] max-md:max-w-full">
           {config.questionText}
         </div>
         <ContactLink 

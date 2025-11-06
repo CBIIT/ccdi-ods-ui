@@ -12,24 +12,10 @@ export const ContactLink: React.FC<ContactLinkProps> = ({ text, href, arrowSrc }
   return (
     <a 
       href={href}
-      className="inline-flex items-center gap-[40px_60px] text-sm text-[#C2FFF1] font-bold uppercase tracking-[0.7px] leading-[36px] border-b border-[rgba(194,255,241,1)] cursor-pointer w-auto hover:text-white hover:border-b-white group"
+      className="bg-[#FFFFFF] flex h-[41px] py-[12px] px-[30px] justify-center items-center gap-[40px_60px] text-sm text-[#C2FFF1] font-bold uppercase tracking-[0.7px] leading-[36px] cursor-pointer w-auto"
     >
-      <span className="flex items-center">
+      <span className="text-[#054255] text-center [font-family:Poppins] text-[12px] font-semibold leading-[16px] tracking-[0.24px] uppercase flex items-center">
         {text}
-        <Image
-          src={arrowSrc}
-          alt=""
-          width={7}
-          height={7}
-          className="aspect-[1] object-contain w-[10px] shrink-0 my-auto ml-12 group-hover:hidden"
-        />
-        <Image
-          src={arrowWhite}
-          alt=""
-          width={7}
-          height={7}
-          className="aspect-[1] object-contain w-[10px] shrink-0 my-auto ml-12 hidden group-hover:inline"
-        />
       </span>
     </a>
   );

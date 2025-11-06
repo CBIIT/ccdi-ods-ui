@@ -33,7 +33,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
     <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
-        className="text-[rgba(52,93,133,1)] text-[32px] font-semibold leading-none ml-2.5"
+        className="text-[#345D85] text-[32px] font-semibold leading-none text-right"
       >
         {config.title}
       </h2>
@@ -72,9 +72,8 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                     textAlign: "right",
                   }}
                 >
-                  <span className="relative inline-block border-b-1 border-b-[#3E8283] pb-[14px]">
+                  <span className="bg-[#06324E] text-white text-center [font-family:Poppins] text-[12px] font-semibold leading-[16px] tracking-[0.24px] uppercase flex h-[41px] py-[12px] px-[30px] justify-center items-center relative pb-[14px]">
                     {config.newsletterButtonText}
-                    <Image src={greenTriangle} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
                   </span>
                 </a>
                 {/* End button */}
