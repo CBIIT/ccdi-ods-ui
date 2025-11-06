@@ -31,7 +31,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
 
   return (
     <section 
-      className="bg-[linear-gradient(95deg,#007B72_15.94%,#009184_44.43%,#0D3A5B_97.99%)] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
+      className="bg-[#008577] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
       aria-labelledby="hero-title"
     >
       <h2
@@ -41,7 +41,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
         {config.supportTitle}
       </h2>
       
-      <div className="flex items-center gap-[25px] justify-center flex-wrap mt-[20px] max-md:max-w-full max-md:mt-10">
+      <div className="flex items-center gap-[20px] justify-center flex-wrap mt-[20px] max-md:max-w-full max-md:mt-10">
         {config.textFrame.map((desc: string, idx: number) => (
           <HeroCard
             key={idx}
