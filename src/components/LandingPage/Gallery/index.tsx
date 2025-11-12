@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import UpdateCard from "./UpdateCard";
-import greenTriangle from '../../../../assets/landing/green_triangle.svg';
 
 export interface GalleryUpdate {
   image: string;

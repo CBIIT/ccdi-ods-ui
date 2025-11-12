@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "next/image";
-import arrowWhite from "../../../../assets/icons/right_arrow_white.svg";
 
 interface ContactLinkProps {
   text: string;
@@ -8,7 +6,7 @@ interface ContactLinkProps {
   arrowSrc: string;
 }
 
-export const ContactLink: React.FC<ContactLinkProps> = ({ text, href, arrowSrc }) => {
+export const ContactLink: React.FC<ContactLinkProps> = ({ text, href }) => {
   return (
     <a 
       href={href}
