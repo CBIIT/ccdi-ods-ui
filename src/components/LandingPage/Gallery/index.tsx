@@ -33,7 +33,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
     <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
-        className="text-[rgba(52,93,133,1)] text-[32px] font-semibold leading-none ml-2.5"
+        className="text-[#345D85] text-[32px] font-semibold leading-none text-right"
       >
         {config.title}
       </h2>
@@ -41,11 +41,11 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
           <div className="w-full max-md:w-full max-md:ml-0">
             <div className="w-full max-md:max-w-full max-md:mt-8">
-              <div className="gap-[24px] flex max-md:flex-col max-md:items-stretch">
+              <div className="flex justify-end gap-[32px] max-md:flex-col max-md:items-stretch">
                 {config.updates.map((update: GalleryUpdate, idx: number) => (
-                  <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
-                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
-                      <div className="self-stretch min-w-60  my-auto">
+                  <div className="w-[367px] max-md:w-full max-md:ml-0" key={idx}>
+                    <div className="flex items-center rounded-[0px_28px_0px_28px] max-md:mt-3">
+                      <div className="my-auto w-full">
                         <UpdateCard
                           image={update.image}
                           title={update.title}
@@ -72,9 +72,8 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                     textAlign: "right",
                   }}
                 >
-                  <span className="relative inline-block border-b-1 border-b-[#3E8283] pb-[14px]">
+                  <span className="bg-[#06324E] text-white text-center [font-family:Poppins] text-[12px] font-semibold leading-[16px] tracking-[0.24px] uppercase flex h-[41px] py-[12px] px-[30px] justify-center items-center relative pb-[14px]">
                     {config.newsletterButtonText}
-                    <Image src={greenTriangle} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
                   </span>
                 </a>
                 {/* End button */}
