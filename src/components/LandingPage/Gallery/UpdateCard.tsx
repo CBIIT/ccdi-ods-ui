@@ -44,7 +44,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
                 ? `${description.slice(0, 138)}...`
                 : description}
             </span>
-            <span className="flex gap-[8px] items-center ml-1 inline-flex">
+            <span className="gap-[8px] items-center ml-1 inline-flex">
               <a
                 href={link}
                 target="_blank"
