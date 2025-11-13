@@ -17,7 +17,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
 }) => {
   return (
     <div className="relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[496px] sm:max-w-[367px]">
-      <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full max-w-[367px] sm:max-w-none">
+      <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full">
         <div className="aspect-[367/310] max-h-[310px] relative shrink-0 w-full sm:max-w-[367px]">
           <Image
             src={image}
