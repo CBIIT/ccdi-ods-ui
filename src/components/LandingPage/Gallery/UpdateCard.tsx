@@ -16,19 +16,19 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   link,
 }) => {
   return (
-    <div className="relative rounded-bl-[20px] rounded-tr-[20px] w-full h-full">
+    <div className="relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[496px] sm:max-w-[367px]">
       <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full">
-        <div className="h-[310px] relative shrink-0 w-[367px]">
+        <div className="aspect-[367/310] max-h-[310px] relative shrink-0 w-full sm:max-w-[367px]">
           <Image
             src={image}
             alt={title}
             width={367}
             height={310}
-            className="absolute inset-0 max-w-none object-cover object-center pointer-events-none w-full h-full"
+            className="absolute inset-0 object-cover object-center pointer-events-none w-full h-full"
           />
         </div>
-        <div className="bg-[#323032] box-border flex flex-col h-[186px] items-start justify-between overflow-hidden pb-[15px] pt-[11px] px-[18px] relative shrink-0 w-[367px]">
-          <p className="[font-family:Nunito] font-bold leading-[20px] min-w-full relative shrink-0 text-[18px] text-white w-[min-content] mb-[5px]">
+        <div className="bg-[#323032] box-border flex flex-col flex-1 items-start overflow-hidden pb-[15px] pt-[11px] px-[18px] relative shrink-0 w-full">
+          <p className="[font-family:Nunito] font-bold leading-[20px] relative shrink-0 text-[16px] sm:text-[17px] md:text-[18px] text-white w-full mb-[5px] min-h-[40px]">
             <a
               href={link}
               target="_blank"
@@ -38,10 +38,10 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
               {title}
             </a>
           </p>
-          <div className="[font-family:Nunito] font-normal leading-[28px] text-[18px] text-white">
+          <div className="[font-family:Nunito] font-normal leading-[24px] sm:leading-[26px] md:leading-[28px] text-[16px] sm:text-[17px] md:text-[18px] text-white">
             <span>
-              {description.length > 138
-                ? `${description.slice(0, 138)}...`
+              {description.length > 100
+                ? `${description.slice(0, 100)}...`
                 : description}
             </span>
             <span className="gap-[8px] items-center ml-1 inline-flex">
