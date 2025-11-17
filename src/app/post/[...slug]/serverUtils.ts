@@ -298,6 +298,7 @@ function rehypeCustomTheme() {
           'font-medium',
           'text-[16px]',
           'text-[#767676]',
+          'leading-[18px]',
           'uppercase',
           'text-left',
         ];
