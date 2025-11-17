@@ -40,8 +40,8 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
           </p>
           <div className="[font-family:Nunito] font-normal leading-[24px] sm:leading-[26px] md:leading-[28px] text-[16px] sm:text-[17px] md:text-[18px] text-white">
             <span>
-              {description.length > 135
-                ? `${description.slice(0, 135)}...`
+              {description.length > 100
+                ? `${description.slice(0, 100)}...`
                 : description}
             </span>
             <span className="gap-[8px] items-center ml-1 inline-flex">

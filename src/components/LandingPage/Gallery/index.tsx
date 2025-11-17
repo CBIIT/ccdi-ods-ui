@@ -28,7 +28,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   if (!config) return null;
   
   return (
-    <section className="flex flex-col items-center px-4 sm:px-8 lg:px-[136px] pb-[10px] pt-[36px] max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
+    <section className="flex flex-col items-center px-3 sm:px-8 xl:px-[136px] pb-[10px] pt-[36px] max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
         className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] font-semibold leading-none text-right w-full"
