@@ -131,7 +131,7 @@ const NavBar = () => {
   return (
     <div className="relative w-full bg-white shadow-md z-[1100]">
       <div className="mx-auto max-w-[1400px] text-left relative flex justify-between items-end">
-        <ul className="list-none m-0 pt-[17px] pl-[11px]">
+        <ul className="list-none m-0 pt-[17px] pl-[13px]">
           {
             navigationData.navList.map((navMobileItem, idx) => {
               const navkey = `nav_${idx}`;
@@ -139,7 +139,7 @@ const NavBar = () => {
                 navMobileItem.className === 'navMobileItem'
                   ? (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
-                      <div className="block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent">
+                      <div className="block text-[#585C65] font-['Poppins'] text-[17px] font-semibold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent">
                         {
                           navMobileItem.link.startsWith('http') ?
                           <a href={navMobileItem.link} target="_blank" rel="noopener noreferrer">
@@ -149,9 +149,7 @@ const NavBar = () => {
                               role="button"
                               tabIndex={0}
                               
-                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
-                                ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
-                              `}
+                              className={`font-['Poppins'] navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd] ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}`}
                               onClick={handleMenuClick}
                             >
                               {navMobileItem.name}
@@ -163,7 +161,7 @@ const NavBar = () => {
                               onKeyDown={onKeyPressHandler}
                               role="button"
                               tabIndex={0}
-                              className={`navbar-item cursor-pointer text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
+                              className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] font-semibold text-[#585C65] border-b-4 hover:text-[#007bbd] hover:border-b-[#007bbd]
                                 ${shouldBeUnderlined(navMobileItem) ? "border-b-[#007bbd]" : "border-b-[#FFFFFF]"}
                               `}
                               onClick={handleMenuClick}
@@ -177,13 +175,13 @@ const NavBar = () => {
                   )
                   : (
                     <li key={navkey} className="inline-block relative leading-[50px] tracking-[1px] text-center transition-all duration-300 ease-in-out">
-                      <div className={clickedTitle === navMobileItem.name ? 'block text-white font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#004971] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
+                      <div className={clickedTitle === navMobileItem.name ? 'block text-white [font-family:var(--font-poppins)] text-[17px] font-bold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none bg-[#004971] border-t-4 border-l-4 border-r-4 border-[#5786FF]' : 'block text-[#585C65] font-poppins text-[17px] font-semibold leading-[40px] tracking-normal no-underline mx-[45px_0_0_5px] px-[15px] select-none border-t-4 border-l-4 border-r-4 border-transparent'}>
                         <div
                           id={navMobileItem.id}
                           onKeyDown={onKeyPressHandler}
                           role="button"
                           tabIndex={0}
-                          className={`navbar-item cursor-pointer ${clickedTitle === navMobileItem.name ? 
+                          className={`navbar-item cursor-pointer [font-family:var(--font-poppins)] font-semibold ${clickedTitle === navMobileItem.name ? 
                             'text-white bg-[#004971] border-b-4 border-b-[#004971] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-t after:border-r after:border-white after:border-b-0 after:border-l-0 after:ml-2 after:mb-0 after:-rotate-45' : 
                             'text-[#585C65] hover:text-[#007bbd] hover:border-b-4 hover:border-b-[#007bbd] after:content-[""] after:inline-block after:w-[6px] after:h-[6px] after:border-b after:border-l after:border-[#585C65] after:ml-2 after:mb-1 after:-rotate-45 hover:after:border-[#298085]'
                           } ${shouldBeUnderlined(navMobileItem) ? "border-b-4 border-b-[#007bbd]" : ""}`}
@@ -210,7 +208,7 @@ const NavBar = () => {
                       <a
                         id={dropItem.id}
                         href={dropItem.link}
-                        className="cursor-pointer text-left font-poppins font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
+                        className="cursor-pointer text-left font-['Poppins'] tracking-[0px] font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
                         key={`drop_${rowIdx}_${idx}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -228,7 +226,7 @@ const NavBar = () => {
                         id={dropItem.id}
                         href={dropItem.link}
                         passHref
-                        className="cursor-pointer text-left font-poppins font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
+                        className="cursor-pointer text-left font-['Poppins'] tracking-[0px] font-semibold text-[20px] leading-[110%] text-white no-underline hover:underline"
                         key={`drop_${rowIdx}_${idx}`}
                         onClick={() => setClickedTitle("")}
                       >

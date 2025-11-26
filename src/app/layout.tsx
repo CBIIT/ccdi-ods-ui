@@ -28,7 +28,7 @@ const openSans = Open_Sans({
 // Poppins - Used for headings and emphasized text
 const poppins = Poppins({
   variable: "--font-poppins",
-  weight: ["400", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 

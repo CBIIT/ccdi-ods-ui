@@ -6,7 +6,7 @@ import { headerData } from '../../../config/globalHeaderData';
 const Logo = () => (
   <div className="flex">
     <a id="header-logo-home-link" className="mt-[35px]" href={headerData.globalHeaderLogoLink}>
-      <Image className="h-[56px] w-fit" src={headerData.globalHeaderLogo} alt={headerData.globalHeaderLogoAltText} />
+      <Image className="h-[50px] max-w-[320px]" src={headerData.globalHeaderLogo} alt={headerData.globalHeaderLogoAltText} />
     </a>
   </div>
 );

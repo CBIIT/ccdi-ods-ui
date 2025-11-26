@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -9,6 +10,7 @@ import menuClearIcon from '../../../assets/header/Menu_Cancel_Icon.svg';
 import rightArrowIcon from '../../../assets/header/Right_Arrow.svg';
 import leftArrowIcon from '../../../assets/header/Left_Arrow.svg';
 import { getGithubBranch } from '@/config/config';
+import SearchBar from './components/SearchBarMobile';
 
 const branch = getGithubBranch();
 const LANDING_CONFIG_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/${branch}/config/navigation.json`;
@@ -37,11 +39,6 @@ const HeaderContainer = styled.div`
     margin: 0 auto;
     padding-left: 16px;
     box-shadow: -0.1px 6px 9px -6px rgba(0, 0, 0, 0.5);
-
-    .searchBarArea {
-        padding: 0 16px 0 0;
-        margin-left: 24px;
-    }
 
     .headerLowerContainer {
         display: flex;
@@ -170,6 +167,7 @@ const MenuArea = styled.div`
 `;
 
 const Header = () => {
+  const pathname = usePathname();
   const [navMobileDisplay, setNavMobileDisplay] = useState('none');
   const [navigationData, setNavigationData] = useState<NavigationData | null>(null);
   const [navbarMobileList, setNavbarMobileList] = useState<NavItem[]>([]);
@@ -227,7 +225,7 @@ const Header = () => {
             >
               Menu
             </div>
-            {/* {path !== "/sitesearch" && <div className="searchBarArea"><SearchBar /></div>} */}
+            {pathname !== '/search/' && <SearchBar />}
           </div>
         </HeaderContainer>
       </HeaderBanner>

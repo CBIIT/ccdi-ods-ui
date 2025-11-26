@@ -6,10 +6,12 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
+import { visitParents } from 'unist-util-visit-parents';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
 import type { Element } from 'hast';
+import externalLinkIcon from '../../../../assets/icons/external_link_icon_info.svg';
 
 const branch = getGithubBranch();
 const PAGES_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/pages/`;
@@ -36,10 +38,12 @@ const ALLOWED_IFRAME_DOMAINS = [
 ];
 
 const ThemeColor = {
-  group1: '#345D85', // color for group 1
+  group1: '#335D85', // color for group 1
   group2: '#7B3D7C', // color for group 2
   group3: '#6656A1', // color for group 3
 }
+
+const FontColor = '#345D85';
 
 export interface PostMetadata {
   title?: string;
@@ -95,16 +99,20 @@ function sanitizeIframe() {
 
 function rehypeCustomTheme() {
   return (tree: Node) => {
-    visit(tree, 'element', (node: Element) => {
+    visitParents(tree, 'element', (node: Element, ancestors: Node[]) => {
       if (node.tagName === 'h1') {
         node.properties = node.properties || {};
         node.properties.className = [
-          'text-3xl md:text-4xl',
-          'font-bold',
-          'my-4 md:my-6',
+          'font-extrabold',
+          'text-[45px]',
+          'my-[20px] md:my-[20px]',
+          'ml-[-20px]',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
-          'p-[20px]'
+          'p-[20px]',
+          'py-[15px]',
+          'tracking-[0.045px]',
+          'leading-[45px]'
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -114,35 +122,59 @@ function rehypeCustomTheme() {
           'text-2xl md:text-3xl',
           'font-semibold',
           'my-4 md:my-5',
+          'mt-[35px] md:mt-[35px]',
           '[font-family:Inter]',
           'text-[32px]',
-          'font-[600]'
+          'font-[600]',
+          'leading-[35px]'
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor}`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
         node.properties.className = [
           'my-3 md:my-4',
           'scroll-mt-20',
-          'text-[20px]',
-          'font-[600]',
-          'leading-[20px]',
-          '[font-family:Poppins]',
+          'text-[28px]',
+          'font-[400]',
+          'leading-[30px]',
+          '[font-family:Inter]',
         ];
-        node.properties.style = `color: ${ThemeColor.group1};`;
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h4') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[16px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[20px]',
+          'font-semibold',
+          'leading-[20px]',
+          '[font-family:Inter]',
+          'my-3',
+        ];
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h5') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[14px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[19px]',
+          'font-normal',
+          'leading-[20px]',
+          '[font-family:Inter]',
+          'my-3',
+        ];
+        node.properties.style = `color: ${FontColor};`;
       }
       if (node.tagName === 'h6') {
         node.properties = node.properties || {};
-        node.properties.className = ['text-[12px]', 'font-semibold', 'my-2 md:my-3', 'text-[#000000]'];
+        node.properties.className = [
+          'text-[16px]',
+          'font-extrabold',
+          'leading-[22px]',
+          '[font-family:Inter]',
+          'text-[#194A7A]',
+          'uppercase',
+          'my-3',
+        ];
       }
       if (node.tagName === 'p') {
         node.properties = node.properties || {};
@@ -169,11 +201,42 @@ function rehypeCustomTheme() {
         if (href && href.trim().toLowerCase().startsWith('http')) {
           node.properties.target = '_blank';
           node.properties.rel = 'noopener noreferrer';
+          node.children = [
+            ...(node.children || []),
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: externalLinkIcon.src,
+                alt: 'External link',
+                className: 'external-link-icon inline-block ml-[5px] mb-1 w-[1em] h-[1em] align-text-bottom',
+                'aria-hidden': 'true',
+              },
+              children: [],
+            },
+          ];
+        }
+        const isInTd = ancestors.some(
+          ancestor => (ancestor as Element).tagName === 'td'
+        );
+        if (isInTd) {
+          // <a> is inside a <td>
+          node.properties.className = [
+            '[font-family:Nunito]',
+            'text-[16px]',
+            'text-[#1C8278]',
+            'font-medium',
+            'leading-[28px]',
+            'underline',
+          ];
         }
       }
       if (node.tagName === 'img') {
+        if (node.properties && node.properties.className?.toString().includes('external-link-icon')) {
+          return;
+        }
         node.properties = node.properties || {};
-        node.properties.className = ['max-w-full', 'h-auto', 'rounded-lg', 'my-4', 'mx-auto', 'shadow-md'];
+        node.properties.className = ['max-w-full', 'h-auto', 'my-4', 'mx-auto', 'shadow-md'];
         node.properties.loading = 'lazy';
       }
       if (node.tagName === 'figure') {
@@ -224,7 +287,7 @@ function rehypeCustomTheme() {
           'md:table',
           'overflow-x-auto',
         ];
-        node.properties.style = `border-top: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-top: 2px solid ${FontColor};`;
       }
       if (node.tagName === 'th') {
         node.properties = node.properties || {};
@@ -232,11 +295,20 @@ function rehypeCustomTheme() {
           'px-4',
           'py-2',
           '[font-family:Inter]',
-          'text-[13px]',
+          'font-medium',
+          'text-[16px]',
           'text-[#767676]',
+          'leading-[18px]',
           'uppercase',
+          'text-left',
         ];
-        node.properties.style = `border-bottom: 2px solid ${ThemeColor.group1};`;
+        node.properties.style = `border-bottom: 2px solid ${FontColor};`;
+        // If the header cell has zero children, collapse its height and remove vertical padding
+        const hasNoChildren = !node.children || node.children.length === 0;
+        if (hasNoChildren) {
+          const baseStyle = typeof node.properties.style === 'string' ? node.properties.style : '';
+          node.properties.style = `${baseStyle} height: 0; padding-top: 0; padding-bottom: 0; line-height: 0; border-bottom: 0px`;
+        }
       }
       if (node.tagName === 'td') {
         node.properties = node.properties || {};
@@ -245,9 +317,9 @@ function rehypeCustomTheme() {
           'py-2',
           'whitespace-normal',
           '[font-family:Inter]',
-          'text-[12px]',
+          'text-[16px]',
           'text-[#000000]',
-          'leading-[16px]'
+          'leading-[17px]'
         ];
         node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }
