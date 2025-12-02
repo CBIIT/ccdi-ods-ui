@@ -10,7 +10,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    // setupFiles: ["./src/setupTests.tsx"],
+    setupFiles: ["./src/setupTests.ts"],
     // globalSetup: "./src/vitest.global-setup.ts",
     // exclude: [...configDefaults.exclude, ...testExcludes],
     coverage: {
