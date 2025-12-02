@@ -64,11 +64,19 @@ describe('Breadcrumb', () => {
   it('maintains proper breadcrumb order: Home > Collection > Page', () => {
     const { container } = render(<Breadcrumb collection="Guides" page="Installation" />);
     
-    const text = container.textContent;
-    const homeIndex = text?.indexOf('Home') || 0;
-    const collectionIndex = text?.indexOf('Guides') || 0;
-    const pageIndex = text?.indexOf('Installation') || 0;
+    // Get all text nodes in order
+    const allText = Array.from(container.querySelectorAll('a, span'))
+      .map(el => el.textContent?.trim())
+      .filter(text => text && text !== '');
     
+    // Verify the order: Home should come first, then Guides, then Installation
+    const homeIndex = allText.findIndex(text => text === 'Home');
+    const collectionIndex = allText.findIndex(text => text === 'Guides');
+    const pageIndex = allText.findIndex(text => text === 'Installation');
+    
+    expect(homeIndex).toBeGreaterThan(-1);
+    expect(collectionIndex).toBeGreaterThan(-1);
+    expect(pageIndex).toBeGreaterThan(-1);
     expect(homeIndex).toBeLessThan(collectionIndex);
     expect(collectionIndex).toBeLessThan(pageIndex);
   });
