@@ -112,7 +112,7 @@ function rehypeCustomTheme() {
           'p-[20px]',
           'py-[15px]',
           'tracking-[0.045px]',
-          'leading-[40px]'
+          'leading-[45px]'
         ];
         node.properties.style = `background: ${ThemeColor.group1};`;
       }
@@ -298,6 +298,7 @@ function rehypeCustomTheme() {
           'font-medium',
           'text-[16px]',
           'text-[#767676]',
+          'leading-[18px]',
           'uppercase',
           'text-left',
         ];

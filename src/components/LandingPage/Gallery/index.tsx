@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import UpdateCard from "./UpdateCard";
-import greenTriangle from '../../../../assets/landing/green_triangle.svg';
 
 export interface GalleryUpdate {
   image: string;
@@ -30,56 +28,51 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   if (!config) return null;
   
   return (
-    <section className="flex flex-col items-stretch items-center px-[136px] pb-[10px] pt-[36px] max-md:px-5 max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
+    <section className="flex flex-col items-center px-3 sm:px-8 xl:px-[136px] pb-[10px] pt-[36px] max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
-        className="text-[rgba(52,93,133,1)] text-[32px] font-semibold leading-none ml-2.5"
+        className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] font-semibold leading-none text-right w-full"
       >
         {config.title}
       </h2>
-      <div className="w-full mt-[31px] max-md:max-w-full max-md:mt-10">
-        <div className="gap-5 flex max-md:flex-col max-md:items-stretch">
-          <div className="w-full max-md:w-full max-md:ml-0">
-            <div className="w-full max-md:max-w-full max-md:mt-8">
-              <div className="gap-[24px] flex max-md:flex-col max-md:items-stretch">
-                {config.updates.map((update: GalleryUpdate, idx: number) => (
-                  <div className="w-full max-md:w-full max-md:ml-0" key={idx}>
-                    <div className="bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.25)] border flex grow items-center gap-2.5 w-full rounded-[0px_28px_0px_28px] border-[rgba(222,234,237,1)] border-solid max-md:mt-3">
-                      <div className="self-stretch min-w-60  my-auto">
-                        <UpdateCard
-                          image={update.image}
-                          title={update.title}
-                          description={update.description}
-                          link={update.link}
-                        />
-                      </div>
-                    </div>
+      <div className="w-full mt-[31px] sm:mt-8 md:mt-[31px]">
+        <div className="w-full">
+          <div className="flex flex-wrap sm:flex-nowrap justify-center md:justify-end gap-4 lg:gap-[32px]">
+            {config.updates.map((update: GalleryUpdate, idx: number) => (
+              <div className="w-full sm:flex-1 sm:min-w-0 sm:max-w-[367px]" key={idx}>
+                <div className="flex items-center rounded-[0px_28px_0px_28px]">
+                  <div className="my-auto w-full">
+                    <UpdateCard
+                      image={update.image}
+                      title={update.title}
+                      description={update.description}
+                      link={update.link}
+                    />
                   </div>
-                ))}
+                </div>
               </div>
-              {/* Button below the cards */}
-              <div className="flex justify-end mt-[22px] w-full">
-                <a
-                  href={config.newsletterButtonLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-transparent border-none shadow-none px-0 py-0 rounded-none transition text-[14px] font-bold leading-4 uppercase relative flex flex-col items-end"
-                  style={{
-                    color: "#3E8283",
-                    fontFamily: "Lato, sans-serif",
-                    fontStyle: "normal",
-                    letterSpacing: "0.7px",
-                    textAlign: "right",
-                  }}
-                >
-                  <span className="relative inline-block border-b-1 border-b-[#3E8283] pb-[14px]">
-                    {config.newsletterButtonText}
-                    <Image src={greenTriangle} alt="green triangle" className="inline-block align-middle w-[10px] h-[10px] ml-[35px] -mt-[3px] relative" />
-                  </span>
-                </a>
-                {/* End button */}
-              </div>
-            </div>
+            ))}
+          </div>
+          {/* Button below the cards */}
+          <div className="flex justify-end mt-[22px] w-full">
+            <a
+              href={config.newsletterButtonLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-transparent border-none shadow-none px-0 py-0 rounded-none transition text-[14px] font-bold leading-4 uppercase relative flex flex-col items-center md:items-end"
+              style={{
+                color: "#3E8283",
+                fontFamily: "Lato, sans-serif",
+                fontStyle: "normal",
+                letterSpacing: "0.7px",
+                textAlign: "center",
+              }}
+            >
+              <span className="bg-[#06324E] text-white text-center [font-family:Poppins] text-[12px] font-semibold leading-[16px] tracking-[0.24px] uppercase flex h-[41px] py-[12px] px-[30px] justify-center items-center relative pb-[14px]">
+                {config.newsletterButtonText}
+              </span>
+            </a>
+            {/* End button */}
           </div>
         </div>
       </div>
