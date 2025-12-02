@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --minWorkers=2 --maxWorkers=2 --maxConcurrency=2",
+    "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --maxConcurrency=2",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
