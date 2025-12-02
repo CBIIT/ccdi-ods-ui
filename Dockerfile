@@ -11,6 +11,7 @@ RUN apk upgrade && apk --no-cache add git
 RUN apk upgrade openssl
 
 RUN apk add --no-cache libc6-compat
+#RUN npm install -g npm@latest
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -35,13 +36,13 @@ ARG NEXT_PUBLIC_GITHUB_TOKEN
 ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 # Create .env file with the GitHub token
 RUN echo "NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}" > .env
-
+#RUN npm install -g npm@latest
 RUN npm run build;
 
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
-
+RUN npm install -g npm@latest
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1

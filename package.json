@@ -1,6 +1,6 @@
 {
-  "name": "ods-docs",
-  "version": "0.1.0",
+  "name": "ccdi-ods-ui",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --minWorkers=2 --maxWorkers=2 --maxConcurrency=2",
+    "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --maxConcurrency=2",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
@@ -16,7 +16,7 @@
     "base-64": "^1.0.0",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
-    "next": "^15.4.3",
+    "next": "^15.4.7",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -44,7 +44,6 @@
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
-    "gh-pages": "^5.0.0",
     "jsdom": "^27.1.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5",
