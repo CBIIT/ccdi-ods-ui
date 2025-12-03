@@ -1,33 +1,35 @@
-name: Tests
+name: Test
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
-      - '*.*.*'
+      - "*.*.*"
+      - "main"
   pull_request:
-  workflow_dispatch:
+    branches: "*"
 
 permissions:
   contents: read
 
 jobs:
   test:
+    name: Test Changes
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "22.x"
+          cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Dependencies
+        run: npm install
 
-      - name: Run tests
+      - name: Run Vitest
         run: npm run test:ci
 
       - name: Coveralls GitHub Action
