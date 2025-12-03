@@ -1,6 +1,8 @@
 # NCI Data Sharing Hub 
 
 [![Coverage Status](https://coveralls.io/repos/github/CBIIT/ccdi-ods-ui/badge.svg)](https://coveralls.io/github/CBIIT/ccdi-ods-ui)
+[![ESLint](https://github.com/CBIIT/ccdi-ods-ui/actions/workflows/lint.yml/badge.svg)](https://github.com/CBIIT/ccdi-ods-ui/actions/workflows/lint.yml)
+[![Test](https://github.com/CBIIT/ccdi-ods-ui/actions/workflows/test.yml/badge.svg)](https://github.com/CBIIT/ccdi-ods-ui/actions/workflows/test.yml)
 
 The NCI Data Sharing Hub is a modern, user-friendly web application built to provide comprehensive documentation and resources for the Childhood Cancer Data Initiative (CCDI) Open Data Sharing (ODS) platform. This portal serves as a central hub for users to access documentation, guidance, and resources related to CCDI data sharing.
 
