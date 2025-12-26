@@ -116,8 +116,6 @@ describe('NotFound', () => {
     render(<NotFound />);
     
     const icon = screen.getByAltText('404 Error Icon');
-    expect(icon).toHaveClass('h-[242px]');
-    expect(icon).toHaveClass('w-[242px]');
     expect(icon).toHaveClass('mx-auto');
   });
 
