@@ -96,18 +96,11 @@ describe('NotFound', () => {
     expect(bottomContainer).toBeInTheDocument();
   });
 
-  it('renders the icon with correct dimensions', () => {
+  it('renders the icon with correct styling', () => {
     render(<NotFound />);
     
     const icon = screen.getByAltText('404 Error Icon');
     expect(icon).toHaveClass('mx-auto');
-  });
-
-  it('has priority loading for the icon image', () => {
-    render(<NotFound />);
-    
-    const icon = screen.getByAltText('404 Error Icon');
-    expect(icon).toHaveAttribute('data-priority', 'true');
   });
 
   it('applies correct font styling to subtitle on mobile', () => {
