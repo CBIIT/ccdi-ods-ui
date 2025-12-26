@@ -1,17 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import NotFound from './not-found';
+import type { ReactNode } from 'react';
 
 // Mock Next.js Image component
 vi.mock('next/image', () => ({
-  default: ({ src, alt, className, priority }: any) => (
+  default: ({ src, alt, className, priority }: { src: string; alt: string; className?: string; priority?: boolean }) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img src={src} alt={alt} className={className} data-priority={priority} />
   ),
 }));
 
 // Mock Next.js Link component
 vi.mock('next/link', () => ({
-  default: ({ href, children, className }: any) => (
+  default: ({ href, children, className }: { href: string; children: ReactNode; className?: string }) => (
     <a href={href} className={className}>
       {children}
     </a>
