@@ -24,7 +24,7 @@ describe('NotFound', () => {
   it('renders the 404 page component', () => {
     render(<NotFound />);
     
-    expect(screen.getByText('Page not found...')).toBeInTheDocument();
+    expect(screen.getByText('Page not found.')).toBeInTheDocument();
   });
 
   it('displays the 404 error icon with correct alt text', () => {
@@ -35,10 +35,10 @@ describe('NotFound', () => {
     expect(icon).toHaveAttribute('src', expect.stringContaining('404_Icon.svg'));
   });
 
-  it('displays the title text "Page not found..."', () => {
+  it('displays the title text "Page not found."', () => {
     render(<NotFound />);
     
-    const title = screen.getByText('Page not found...');
+    const title = screen.getByText('Page not found.');
     expect(title).toBeInTheDocument();
     expect(title).toHaveClass('font-[\'Poppins\']');
     expect(title).toHaveClass('text-[#FFFFFF]');
