@@ -16,7 +16,7 @@ export default function NotFound() {
         </div>
 
         <div className="font-['Poppins'] text-[#FFFFFF] font-medium text-[30px] mb-[15px] leading-[30px]">
-            Page not found...
+            Page not found.
         </div>
 
         <div className="font-['Poppins'] mx-auto mb-[18px] w-[200px] md:w-auto font-normal text-[16px] leading-[16px] md:leading-[25px] tracking-[0.02em] text-white">
