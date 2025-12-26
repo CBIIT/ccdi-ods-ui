@@ -355,7 +355,9 @@ export function extractHeadings(content: string): Heading[] {
   return headings;
 }
 
-export async function fetchContent(slug: string): Promise<{ metadata: PostMetadata; content: string }> {
+export async function fetchContent(
+  slug: string
+): Promise<{ metadata: PostMetadata; content: string } | null> {
   const response = await fetch(
     `${PAGES_URL}/${slug}.md`,
     {
@@ -365,10 +367,9 @@ export async function fetchContent(slug: string): Promise<{ metadata: PostMetada
     }
   );
 
-  if (!response.ok) {
-    console.log('Failed to fetch content');
-    return { metadata: {}, content: '' };
-  }
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`Failed to fetch content (${response.status})`);
+
   const content = await response.text();
   const { data: metadata, content: markdownContent } = matter(content);
   

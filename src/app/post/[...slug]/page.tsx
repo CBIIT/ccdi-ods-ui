@@ -1,8 +1,6 @@
-'use client';
-
 import { fetchContent, processMarkdown } from './serverUtils';
 import ClientPost from './ClientPost';
-import { useState, useEffect, use } from 'react';
+import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -12,34 +10,21 @@ interface Metadata {
   title?: string;
 }
 
-export default function Post({ params }: PageProps) {
-  const paramsData = use(params);
-  const { slug } = paramsData;
+export default async function Post({ params }: PageProps) {
+  const { slug } = await params;
+  const slugPath = slug.join("/");
 
-  const [metadata, setMetadata] = useState<Metadata | null>(null);
-  const [processedContent, setProcessedContent] = useState<string | null>(null);
+  const contentData = await fetchContent(slugPath);
+  if (!contentData) notFound();
 
-  useEffect(() => {
-    async function fetchData() {
-      const slugPath = slug.join('/');
-      const contentData = await fetchContent(slugPath);
-      const processedData = await processMarkdown(contentData.content, slugPath);
+  const processedContent = await processMarkdown(contentData.content, slugPath);
+  const metadata: Metadata = contentData.metadata ?? {};
 
-      setMetadata(contentData.metadata);
-      setProcessedContent(processedData);
-    }
-
-    fetchData();
-  }, [slug]);
-
-  if (!metadata || !processedContent) {
-    return <div>Loading...</div>;
-  }
-
-  const cleanTitle = metadata?.title?.replace(/^['"]|['"]$/g, '') || slug[1];
+  const cleanTitle =
+    metadata?.title?.replace(/^['"]|['"]$/g, "") || slug[1] || slugPath;
 
   return (
-    <ClientPost 
+    <ClientPost
       collection={slug[0]}
       page={cleanTitle}
       processedContent={processedContent}
