@@ -8,9 +8,11 @@ export default function NotFound() {
       <div className="mx-auto w-full max-w-[1440px] pt-[90px] text-center">
         <div className="mb-[38px]">
           <Image
-            className="mx-auto h-[242px] w-[242px]"
+            className="mx-auto"
             src={errIcon}
             alt="404 Error Icon"
+            width={242}
+            height={242}
             priority
           />
         </div>
