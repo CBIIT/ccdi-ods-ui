@@ -49,11 +49,7 @@ export default function Post({ params }: PageProps) {
     return <div>Loading...</div>;
   }
 
-  if (isNotFound) {
-    return <NotFound />;
-  }
-
-  if (!metadata || !processedContent) {
+  if (isNotFound || !metadata || !processedContent) {
     return <NotFound />;
   }
 
