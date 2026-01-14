@@ -31,12 +31,12 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
 
   return (
     <section 
-      className="bg-[#008577] flex flex-col items-center px-20 py-14 pb-[65px] max-md:px-5"
+      className="bg-[#008577] flex flex-col items-center px-20 py-14 pb-[45px] max-md:px-5"
       aria-labelledby="hero-title"
     >
       <h2
         id="hero-title"
-        className="text-white text-center [font-family:Poppins] text-[20px] font-normal leading-[28px] max-md:max-w-full pt-[61px]"
+        className="text-white text-center [font-family:Inter] text-[32px] font-norma font-[600] leading-[36px] max-md:max-w-full pt-[62px]"
       >
         {config.supportTitle}
       </h2>

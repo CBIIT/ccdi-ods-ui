@@ -31,7 +31,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
     <section className="flex flex-col items-center px-3 sm:px-8 xl:px-[136px] pb-[10px] pt-[36px] max-w-[1444px] mx-auto mb-[40px]" aria-labelledby="latest-updates-heading">
       <h2 
         id="latest-updates-heading"
-        className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] font-semibold leading-none text-right w-full"
+        className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] [font-family:Inter] font-semibold leading-[38px] w-full"
       >
         {config.title}
       </h2>
