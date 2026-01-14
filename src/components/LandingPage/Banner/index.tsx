@@ -36,7 +36,7 @@ const Banner: React.FC<BannerProps> = ({ data }) => {
     >
       <h2
         id="hero-title"
-        className="text-white text-center [font-family:Inter] text-[32px] font-norma font-[600] leading-[36px] max-md:max-w-full pt-[62px]"
+        className="text-white text-center [font-family:Inter] text-[32px] font-normal font-[600] leading-[36px] max-md:max-w-full pt-[62px]"
       >
         {config.supportTitle}
       </h2>
