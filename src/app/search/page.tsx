@@ -1,4 +1,5 @@
 'use client';
+
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -22,6 +23,10 @@ interface GithubPost {
   name: string;
   path: string;
   type: string;
+  /**
+   * The internal route for the post within the application
+   */
+  route: string;
   content?: string;
   metadata?: {
     title?: string;
@@ -85,6 +90,7 @@ function SearchContent() {
           acc[file.collectionName].posts?.push({
             name: file.name,
             path: file.path,
+            route: `/post/${file.path.replace('pages/', '').replace('.md', '')}`,
             type: 'file'
           });
           return acc;
@@ -246,10 +252,7 @@ function SearchContent() {
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
                   <h2 className="text-3xl font-bold mb-4">
-                    <div
-                      // href={`/collection/${collectionName}`}
-                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]"
-                    >
+                    <div className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]">
                       {sectionTitle}
                     </div>
                   </h2>
@@ -257,7 +260,7 @@ function SearchContent() {
                     {posts.map((post) => (
                       <li key={post.path}>
                         <Link
-                          href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
+                          href={post.route}
                           className="text-[#1C8278] text-lg underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
