@@ -1,17 +1,6 @@
 'use client';
-/**
- * ClientPost component
- * Handles rendering of a post page with responsive design and dynamic content.
- * 
- * @param {ClientPostProps} props - Component props
- * @param {string} props.collection - The collection name
- * @param {string} props.page - The page name
- * @param {string} props.processedContent - The processed markdown content
- * 
- * @returns {JSX.Element} The rendered post page.
- */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, JSX } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import { extractHeadings } from './serverUtils';
 
@@ -32,7 +21,17 @@ function extractH1Info(html: string) {
   };
 }
 
-export default function ClientPost({ collection, page, processedContent }: ClientPostProps) {
+/**
+ * ClientPost component
+ * Handles rendering of a post page with responsive design and dynamic content.
+ * 
+ * @param {ClientPostProps} props - Component props
+ * @param {string} props.collection - The collection name
+ * @param {string} props.page - The page name
+ * @param {string} props.processedContent - The processed markdown content as HTML
+ * @returns The rendered post page.
+ */
+export default function ClientPost({ collection, page, processedContent }: ClientPostProps): JSX.Element {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [h1Info, setH1Info] = useState<{ text: string; id: string } | null>(null);
