@@ -1,4 +1,5 @@
 'use client';
+
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -8,30 +9,42 @@ import { getGithubBranch } from '@/config/config';
 
 const branch = getGithubBranch();
 
-// ==========================
-// Interfaces
-// ==========================
-interface GithubCollection {
+type BaseGitHubItem<T extends 'file' | 'dir'> = {
   name: string;
   path: string;
-  type: string;
-  posts?: GithubPost[];
-}
+  type: T;
+};
 
-interface GithubPost {
-  name: string;
-  path: string;
-  type: string;
+type GitHubCollectionItem = BaseGitHubItem<'dir'> & {
+  /**
+   * The list of posts (files) within this collection.
+   */
+  posts?: GitHubPostItem[];
+};
+
+type GitHubPostItem = BaseGitHubItem<'file'> & {
+  /**
+   * The relative route to access this post in the application.
+   */
+  route: string;
+  /**
+   * The content of the post (markdown text).
+   */
   content?: string;
+  /**
+   * The metadata extracted from the front matter of the markdown file.
+   */
   metadata?: {
+    /**
+     * The title of the post, if specified in the front matter.
+     */
     title?: string;
   };
-}
+};
 
-interface PostWithCollection extends GithubPost {
+type GitHubPostWithCollection = GitHubPostItem & {
   collectionName: string;
-}
- 
+};
 
 // ==========================
 // SearchPage Component
@@ -39,7 +52,7 @@ interface PostWithCollection extends GithubPost {
 function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  const [collections, setCollections] = useState<GithubCollection[]>([]);
+  const [collections, setCollections] = useState<GitHubCollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState(query);
 
@@ -73,7 +86,7 @@ function SearchContent() {
           });
 
         // Group files by collection
-        const groupedFiles = pagesFiles.reduce((acc: { [key: string]: GithubCollection }, file: { path: string; name: string; collectionName: string }) => {
+        const groupedFiles = pagesFiles.reduce((acc: { [key: string]: GitHubCollectionItem }, file: { path: string; name: string; collectionName: string }) => {
           if (!acc[file.collectionName]) {
             acc[file.collectionName] = {
               name: file.collectionName,
@@ -85,6 +98,7 @@ function SearchContent() {
           acc[file.collectionName].posts?.push({
             name: file.name,
             path: file.path,
+            route: `/post/${file.path.replace('pages/', '').replace('.md', '')}`,
             type: 'file'
           });
           return acc;
@@ -92,7 +106,7 @@ function SearchContent() {
 
         // Fetch content for all files in parallel
         const collectionsWithContent = await Promise.all(
-          (Object.values(groupedFiles) as GithubCollection[]).map(async (collection) => ({
+          (Object.values(groupedFiles) as GitHubCollectionItem[]).map(async (collection) => ({
             ...collection,
             posts: await Promise.all(
               (collection.posts || []).map(async (post) => {
@@ -128,7 +142,7 @@ function SearchContent() {
   }, []);
 
   // Flatten posts and add collection context
-  const allPosts: PostWithCollection[] = collections.flatMap(collection =>
+  const allPosts: GitHubPostWithCollection[] = collections.flatMap(collection =>
     (collection.posts || []).map(post => ({
       ...post,
       collectionName: collection.name
@@ -154,7 +168,7 @@ function SearchContent() {
     }
     acc[post.collectionName].push(post);
     return acc;
-  }, {} as Record<string, PostWithCollection[]>);
+  }, {} as Record<string, GitHubPostWithCollection[]>);
 
   if (loading) {
     return <div className="max-w-4xl mx-auto p-6">Loading...</div>;
@@ -246,10 +260,7 @@ function SearchContent() {
               return (
                 <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
                   <h2 className="text-3xl font-bold mb-4">
-                    <div
-                      // href={`/collection/${collectionName}`}
-                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]"
-                    >
+                    <div className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]">
                       {sectionTitle}
                     </div>
                   </h2>
@@ -257,7 +268,7 @@ function SearchContent() {
                     {posts.map((post) => (
                       <li key={post.path}>
                         <Link
-                          href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
+                          href={post.route}
                           className="text-[#1C8278] text-lg underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
