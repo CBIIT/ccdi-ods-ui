@@ -3,7 +3,8 @@
 import { fetchContent, processMarkdown } from './serverUtils';
 import ClientPost from './ClientPost';
 import NotFound from '@/app/not-found';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, useMemo } from 'react';
+import { BreadcrumbSegment } from '@/components/Breadcrumbs';
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -21,6 +22,22 @@ export default function Post({ params }: PageProps) {
   const [processedContent, setProcessedContent] = useState<string | null>(null);
   const [isNotFound, setIsNotFound] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const breadcrumbs = useMemo<BreadcrumbSegment[]>(() => {
+    const segments: BreadcrumbSegment[] = [];
+    if (slug.length > 0) {
+      slug.slice(0, -1).forEach((part) => {
+        // TODO: Do we go to collection? Pending decision.
+        const href = '/collection/' + slug.slice(0, slug.indexOf(part) + 1).join('/');
+        // TODO: Need to get proper labels for breadcrumb parts
+        segments.push({ label: part, href });
+      });
+    }
+    
+    segments.push({ label: metadata?.title?.replace(/^['"]|['"]$/g, '') || "Untitled" });
+
+    return segments;
+  }, [slug, metadata]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,13 +70,7 @@ export default function Post({ params }: PageProps) {
     return <NotFound />;
   }
 
-  const cleanTitle = metadata?.title?.replace(/^['"]|['"]$/g, '') || slug[1];
-
   return (
-    <ClientPost 
-      collection={slug[0]}
-      page={cleanTitle}
-      processedContent={processedContent}
-    />
+    <ClientPost breadcrumbs={breadcrumbs} processedContent={processedContent} />
   );
 }

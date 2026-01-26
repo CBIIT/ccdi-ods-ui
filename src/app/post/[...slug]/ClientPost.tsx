@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect, JSX } from 'react';
-import Breadcrumb from '@/components/Breadcrumb';
+import { Breadcrumbs, BreadcrumbSegment } from '@/components/Breadcrumbs';
 import { extractHeadings } from './serverUtils';
 
 interface ClientPostProps {
-  collection: string;
-  page: string;
+  breadcrumbs: BreadcrumbSegment[];
   processedContent: string;
 }
 
@@ -26,12 +25,11 @@ function extractH1Info(html: string) {
  * Handles rendering of a post page with responsive design and dynamic content.
  * 
  * @param {ClientPostProps} props - Component props
- * @param {string} props.collection - The collection name
- * @param {string} props.page - The page name
+ * @param {BreadcrumbSegment[]} props.breadcrumbs - The breadcrumb segments
  * @param {string} props.processedContent - The processed markdown content as HTML
  * @returns The rendered post page.
  */
-export default function ClientPost({ collection, page, processedContent }: ClientPostProps): JSX.Element {
+export default function ClientPost({ breadcrumbs, processedContent }: ClientPostProps): JSX.Element {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [h1Info, setH1Info] = useState<{ text: string; id: string } | null>(null);
@@ -66,7 +64,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
 
   return (
     <div className="mx-auto max-w-[1400px] flex flex-col items-stretch px-4 xl:pl-[33px] xl:pr-8 pb-14 pt-3 min-h-screen">
-      <Breadcrumb collection={collection} page={page} />
+      <Breadcrumbs paths={breadcrumbs} />
       
       {/* Mobile Menu Toggle Button */}
       {isMobile && headings.length > 0 && (
