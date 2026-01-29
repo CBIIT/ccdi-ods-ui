@@ -21,13 +21,13 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
         />
       </div>
       {/* Tablet Image - shown only on tablet (md to lg) */}
-      <div className="hidden md:block lg:hidden relative w-full">
+      <div className="hidden md:block lg:hidden relative w-[380px] flex-shrink-0">
         <Image
           src="/hero_tablet.svg"
           alt={alt}
-          className="aspect-[1.28] object-contain h-[535px] w-full"
-          width={685}
-          height={535}
+          className="aspect-[1.28] object-contain h-[535px] w-[380px]"
+          width={380}
+          height={297}
         />
       </div>
       {/* Mobile Image - shown on mobile (below md) */}
