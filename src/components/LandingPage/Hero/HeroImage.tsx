@@ -31,7 +31,7 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
         />
       </div>
       {/* Mobile Image - shown on mobile (below md) */}
-      <div className="block md:hidden relative w-full flex justify-center">
+      <div className="flex md:hidden relative w-full justify-center">
         <Image
           src="/hero_mobile.svg"
           alt={alt}
