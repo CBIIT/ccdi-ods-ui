@@ -53,7 +53,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
               </div>
             </div>
             {/* Right Side: Hero Image */}
-            <div className="w-[645px] flex-shrink-0 relative flex max-md:w-full max-md:mt-6 md:w-[380px] md:flex-shrink-0 md:-mt-8 lg:w-auto lg:flex-1 lg:mt-0 xl:w-[645px] xl:flex-shrink-0">
+            <div className="w-[645px] flex-shrink-0 relative flex max-md:w-full max-md:mt-6 md:w-[380px] md:flex-shrink-0 md:-mt-8 lg:w-[clamp(460px,calc(460px+(100vw-1024px)*0.5429),675px)] lg:flex-shrink-0 lg:mt-0">
               <HeroImage 
                 src={config.image.src}
                 alt={config.image.alt}

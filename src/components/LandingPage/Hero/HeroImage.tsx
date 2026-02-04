@@ -15,7 +15,7 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
         <Image
           src={src}
           alt={alt}
-          className="aspect-[1.28] object-contain h-[535px] max-w-full"
+          className="aspect-[1.28] object-contain"
           width={685}
           height={535}
         />
