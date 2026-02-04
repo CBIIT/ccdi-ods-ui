@@ -25,7 +25,7 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
         <Image
           src="/hero_tablet.svg"
           alt={alt}
-          className="aspect-[1.28] object-contain h-[535px] w-[380px]"
+          className="aspect-[1.28] object-contain"
           width={380}
           height={297}
         />
