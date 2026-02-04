@@ -11,7 +11,7 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
   return (
     <>
       {/* Desktop Image - shown on lg and above */}
-      <div className="hidden lg:block absolute top-[0px] right-[0px] flex w-full">
+      <div className="hidden lg:flex absolute top-[0px] right-[0px] w-full">
         <Image
           src={src}
           alt={alt}
