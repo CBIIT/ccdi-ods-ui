@@ -140,7 +140,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script {...adobeDTM} />
-        <script src="/js/session.js" async></script>
+        <Script src="/js/session.js" strategy="beforeInteractive" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${poppins.variable} ${lato.variable} ${inter.variable} ${nunitoSans.variable} ${nunito.variable} ${publicSans.variable} ${rubik.variable} ${roboto.variable} antialiased bg-white min-h-screen`}

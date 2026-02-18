@@ -39,7 +39,11 @@ const OverlayWindow: React.FC = () => {
   ), []);
 
   useEffect(() => {
-    if (window?.sessionStorage?.getItem('overlayLoad') !== 'true') {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (window.sessionStorage?.getItem('overlayLoad') !== 'true') {
       setOpen(true);
     }
   }, []);
