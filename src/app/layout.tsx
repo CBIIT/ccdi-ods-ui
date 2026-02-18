@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Geist, Geist_Mono, Open_Sans, Poppins, Lato, Inter, Nunito_Sans, Nunito, Public_Sans, Rubik } from "next/font/google";
+import { Geist, Geist_Mono, Open_Sans, Poppins, Lato, Inter, Nunito_Sans, Nunito, Public_Sans, Rubik, Roboto } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import OverlayWindow from "@/components/OverlayWindow";
 import Script from "next/script";
 
 /**
@@ -66,6 +67,12 @@ const publicSans = Public_Sans({
 const rubik = Rubik({
   variable: "--font-rubik",
   subsets: ["latin"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
 });
 
 export const metadata: Metadata = {
@@ -132,11 +139,13 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script {...adobeDTM} />
+        <script src="/js/session.js" async></script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${poppins.variable} ${lato.variable} ${inter.variable} ${nunitoSans.variable} ${nunito.variable} ${publicSans.variable} ${rubik.variable} antialiased bg-white min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${poppins.variable} ${lato.variable} ${inter.variable} ${nunitoSans.variable} ${nunito.variable} ${publicSans.variable} ${rubik.variable} ${roboto.variable} antialiased bg-white min-h-screen`}
       >
         <Header />
+        <OverlayWindow />
         {children}
         <Footer />
       </body>
