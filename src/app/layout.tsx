@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Geist, Geist_Mono, Open_Sans, Poppins, Lato, Inter, Nunito_Sans, Nunito, Public_Sans, Rubik, Roboto } from "next/font/google";
 import Header from "@/components/Header";
@@ -115,13 +115,14 @@ export const metadata: Metadata = {
     "cgdp.domain": "datascience",
     "MobileOptimized": "width",
     "HandheldFriendly": "true"
-  },
-  viewport: {
-    width: "device-width",
-    userScalable: true,
-    initialScale: 1,
-    minimumScale: 1
   }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  userScalable: true,
+  initialScale: 1,
+  minimumScale: 1
 };
 
 // Add Adobe DTM script configuration
