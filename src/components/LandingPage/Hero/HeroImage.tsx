@@ -12,14 +12,21 @@ interface HeroImageProps {
 type ViewportSize = 'mobile' | 'tablet' | 'desktop';
 
 export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustration" }) => {
-  const [viewportSize, setViewportSize] = useState<ViewportSize>('mobile');
+  const mobileQuery = window.matchMedia('(max-width: 767px)');
+  const tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+  const desktopQuery = window.matchMedia('(min-width: 1024px)');
+
+  const [viewportSize, setViewportSize] = useState<ViewportSize>(() => {
+    if (desktopQuery.matches) {
+      return 'desktop';
+    } else if (tabletQuery.matches) {
+      return 'tablet';
+    } else {
+      return 'mobile';
+    }
+  });
 
   useEffect(() => {
-    // Match Tailwind breakpoints: md: 768px, lg: 1024px
-    const mobileQuery = window.matchMedia('(max-width: 767px)');
-    const tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
-    const desktopQuery = window.matchMedia('(min-width: 1024px)');
-
     const updateViewportSize = () => {
       if (desktopQuery.matches) {
         setViewportSize('desktop');
@@ -29,9 +36,6 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
         setViewportSize('mobile');
       }
     };
-
-    // Set initial size
-    updateViewportSize();
 
     // Listen for changes
     mobileQuery.addEventListener('change', updateViewportSize);
@@ -43,7 +47,7 @@ export const HeroImage: React.FC<HeroImageProps> = ({ src, alt = "Hero illustrat
       tabletQuery.removeEventListener('change', updateViewportSize);
       desktopQuery.removeEventListener('change', updateViewportSize);
     };
-  }, []);
+  }, [desktopQuery, mobileQuery, tabletQuery]);
 
   // Only render the image that matches the current viewport
   if (viewportSize === 'desktop') {
