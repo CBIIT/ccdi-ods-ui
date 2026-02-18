@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import OverlayWindow from "@/components/OverlayWindow";
 import Script from "next/script";
-import { Suspense } from "react";
 
 /**
  * Font configurations for the application using Next.js built-in font optimization
@@ -147,9 +146,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} ${poppins.variable} ${lato.variable} ${inter.variable} ${nunitoSans.variable} ${nunito.variable} ${publicSans.variable} ${rubik.variable} ${roboto.variable} antialiased bg-white min-h-screen`}
       >
         <Header />
-        <Suspense fallback={null}>
-          <OverlayWindow />
-        </Suspense>
+        <OverlayWindow />
         {children}
         <Footer />
       </body>
