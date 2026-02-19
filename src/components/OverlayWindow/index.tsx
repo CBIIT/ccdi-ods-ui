@@ -30,9 +30,9 @@ const OverlayWindow: React.FC = () => {
     OverlayText.list.map((item) => (
       <li
         key={item.substring(0, 30)}
-        className="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[8px]"
+        className="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[7.5px]"
         >
-        <span className="mt-[7px] mr-[11px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0" />
+        <span className="mt-[7px] mr-[11.5px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0" />
         <span>{item}</span>
       </li>
     )
