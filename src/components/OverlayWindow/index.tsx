@@ -68,9 +68,9 @@ const OverlayWindow: React.FC = () => {
             </h2>
           </div>
           <div className="h-px w-full bg-[#e0e0e0]" />
-          <div className="pt-[20px] text-[#000045] text-[14px] flex-1 overflow-auto tracking-[0.00938em]">
+          <div className="pt-[20px] text-black text-[14px] flex-1 overflow-auto tracking-[0.00938em]">
             {content}
-            <p className="text-[14px] text-black mb-[10px]">
+            <p className="text-[14px] text-[#000045] mb-[10px]">
               {'By using this system, you understand and consent to the following: '}
             </p>
             <ul className="mt-0 pt-0 text-[14px] pr-[6px]">
