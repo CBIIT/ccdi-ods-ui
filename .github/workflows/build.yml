@@ -1,0 +1,191 @@
+name: CCDI ODS UI - Build Pipeline
+
+# ─────────────────────────────────────────────
+# TRIGGER: Manual only — never runs automatically
+# ─────────────────────────────────────────────
+on:
+  workflow_dispatch:
+    inputs:
+      ui_repo_ref:
+        description: "Branch, tag, or commit SHA to build (e.g. main, v1.2.3)"
+        required: true
+        type: string
+
+      skip_security_scan:
+        description: "Skip security scanning? (not recommended for production)"
+        required: false
+        type: boolean
+        default: false
+
+# ─────────────────────────────────────────────
+# JOBS
+# ─────────────────────────────────────────────
+jobs:
+
+  # ── 1. BUILD ──────────────────────────────
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_uri: ${{ steps.build-image.outputs.image_uri }}
+      image_tag: ${{ steps.build-image.outputs.image_tag }}
+
+    steps:
+      - name: Checkout Repository @ ${{ inputs.ui_repo_ref }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ui_repo_ref }}
+          fetch-tags: true   # needed for tag collision detection below
+
+      - name: Authenticate to AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume:    ${{ secrets.ECR_REPO_ROLE_ARN }}
+          aws-region:        ${{ secrets.AWS_DEFAULT_REGION }}
+          role-session-name: ${{ github.actor }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and Push Docker Image
+        id: build-image
+        env:
+          ECR_REGISTRY:   ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ccdi-ods-ui
+        run: |
+          BRANCH_SAFE=$(echo "${{ inputs.ui_repo_ref }}" | tr '/' '-')
+          BUILD_NUM=${GITHUB_RUN_NUMBER}
+
+          # Increment build number until we find an unused tag
+          IMAGE_TAG="${BRANCH_SAFE}.${BUILD_NUM}"
+          while git tag -l "${IMAGE_TAG}" | grep -q "${IMAGE_TAG}"; do
+            echo "⚠️  Tag ${IMAGE_TAG} already exists — incrementing..."
+            BUILD_NUM=$((BUILD_NUM + 1))
+            IMAGE_TAG="${BRANCH_SAFE}.${BUILD_NUM}"
+          done
+
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          echo "✅ Tag: ${IMAGE_TAG}  |  Image: ${IMAGE_URI}"
+
+          docker build \
+            --build-arg NEXT_PUBLIC_GITHUB_TOKEN="${NEXT_PUBLIC_GITHUB_TOKEN}" \
+            -t "${IMAGE_URI}" .
+
+          docker push "${IMAGE_URI}"
+
+          {
+            echo "image_uri=${IMAGE_URI}"
+            echo "image_tag=${IMAGE_TAG}"
+            echo "build_number=${BUILD_NUM}"
+            echo "branch_name=${BRANCH_SAFE}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Tag Source Commit
+        run: |
+          IMAGE_TAG="${{ steps.build-image.outputs.image_tag }}"
+
+          git config user.name  "GitHub Actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git tag -a "${IMAGE_TAG}" \
+            -m "Build ${{ steps.build-image.outputs.build_number }} | \
+                Branch: ${{ steps.build-image.outputs.branch_name }} | \
+                Run: #${GITHUB_RUN_NUMBER} | \
+                Image: ${{ steps.build-image.outputs.image_uri }}"
+
+          git push origin "${IMAGE_TAG}"
+          echo "📌 Pushed tag: ${IMAGE_TAG}"
+
+      - name: Build Summary
+        run: |
+          {
+            echo "### ✅ Build Complete"
+            echo "| Key | Value |"
+            echo "|-----|-------|"
+            echo "| Image | \`${{ steps.build-image.outputs.image_uri }}\` |"
+            echo "| Tag   | \`${{ steps.build-image.outputs.image_tag }}\` |"
+            echo "| Run # | \`${GITHUB_RUN_NUMBER}\` |"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+
+  # ── 2. SECURITY SCAN ─────────────────────
+  security-scan:
+    name: Trivy Security Scan
+    runs-on: ubuntu-latest
+    needs: build
+    if: >
+      needs.build.result == 'success' &&
+      github.event.inputs.skip_security_scan != 'true'
+
+    steps:
+      - name: Authenticate to AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume:    ${{ secrets.ECR_REPO_ROLE_ARN }}
+          aws-region:        ${{ secrets.AWS_DEFAULT_REGION }}
+          role-session-name: ${{ github.actor }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Pull Image for Scanning
+        run: docker pull "${{ needs.build.outputs.image_uri }}"
+
+      - name: Trivy Scan — SARIF (Security tab)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ needs.build.outputs.image_uri }}
+          format:    sarif
+          output:    trivy-results.sarif
+          severity:  CRITICAL,HIGH
+          exit-code: "0"
+
+      - name: Trivy Scan — Table (Actions log)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ needs.build.outputs.image_uri }}
+          format:    table
+          severity:  CRITICAL,HIGH,MEDIUM,LOW
+          exit-code: "0"
+
+      - name: Evaluate Scan Results
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest image \
+              --format json \
+              --severity CRITICAL,HIGH \
+              "${{ needs.build.outputs.image_uri }}" > trivy-results.json
+
+          CRITICAL=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length' trivy-results.json)
+          HIGH=$(jq '[.Results[]?.Vulnerabilities[]?     | select(.Severity=="HIGH")]     | length' trivy-results.json)
+
+          {
+            echo "## 🔒 Security Scan Results"
+            echo "| Severity | Count |"
+            echo "|----------|-------|"
+            echo "| 🔴 CRITICAL | ${CRITICAL} |"
+            echo "| 🟠 HIGH     | ${HIGH} |"
+            echo ""
+            echo "**Image:** \`${{ needs.build.outputs.image_uri }}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          if [ "${CRITICAL}" -gt 0 ] || [ "${HIGH}" -gt 0 ]; then
+            echo "❌ Found ${CRITICAL} CRITICAL and ${HIGH} HIGH vulnerabilities. Review the Security tab." >> "${GITHUB_STEP_SUMMARY}"
+            exit 1
+          fi
+
+          echo "✅ No CRITICAL or HIGH vulnerabilities found." >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload Scan Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name:           trivy-scan-results
+          retention-days: 30
+          path: |
+            trivy-results.sarif
+            trivy-results.json
