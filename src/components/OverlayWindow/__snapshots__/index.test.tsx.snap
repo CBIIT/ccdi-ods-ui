@@ -1,0 +1,103 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`OverlayWindow > Design > should match the snapshot 1`] = `
+<div>
+  <div
+    aria-labelledby="government-usage-dialog-title"
+    aria-modal="true"
+    class="fixed inset-0 z-[1200] flex items-center justify-center font-['Roboto']"
+    role="dialog"
+  >
+    <div
+      class="absolute inset-0 bg-[#00000047] pointer-events-none"
+    />
+    <div
+      class="relative ml-[15px]"
+    >
+      <div
+        class="w-[770px] h-[620px] rounded-[5px] bg-white px-[20px] flex flex-col"
+      >
+        <div
+          class="py-[15px] pr-[15px] pl-0"
+        >
+          <h2
+            class="text-[22px] text-black font-medium leading-[1.6] tracking-[0.0075em]"
+            id="government-usage-dialog-title"
+          >
+            Warning
+          </h2>
+        </div>
+        <div
+          class="h-px w-full bg-[#e0e0e0]"
+        />
+        <div
+          class="pt-[20px] text-black text-[14px] flex-1 overflow-auto tracking-[0.00938em]"
+        >
+          <p
+            class="text-[14px] text-black mb-[10px] last:mb-0"
+          >
+            This warning banner provides privacy and security notices consistent with applicable federal laws, directives, and other federal guidance for accessing this Government system, which includes (1) this computer network, (2) all computers connected to this network, and (3) all devices and storage media attached to this network or to a computer on this network.
+          </p>
+          <p
+            class="text-[14px] text-black mb-[10px] last:mb-0"
+          >
+            This system is provided for Government-authorized use only.
+          </p>
+          <p
+            class="text-[14px] text-black mb-[10px] last:mb-0"
+          >
+            Unauthorized or improper use of this system is prohibited and may result in disciplinary action and/or civil and criminal penalties.
+          </p>
+          <p
+            class="text-[14px] text-black mb-[10px] last:mb-0"
+          >
+            Personal use of social media and networking sites on this system is limited as to not interfere with official work duties and is subject to monitoring.
+          </p>
+          <p
+            class="text-[14px] text-[#000045] mb-[10px] -mt-[0.5px] tracking-[0.14994px]"
+          >
+            By using this system, you understand and consent to the following: 
+          </p>
+          <ul
+            class="mt-0 pt-0 text-[14px] pr-[6px]"
+          >
+            <li
+              class="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[7.5px]"
+            >
+              <span
+                class="mt-[7px] mr-[11.5px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0"
+              />
+              <span>
+                The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.
+              </span>
+            </li>
+            <li
+              class="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[7.5px]"
+            >
+              <span
+                class="mt-[7px] mr-[11.5px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0"
+              />
+              <span>
+                Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose.
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="h-px w-full bg-[#e0e0e0]"
+        />
+        <div
+          class="h-[75px] flex justify-end items-center pr-[10px] pt-[30px] pb-[25px]"
+        >
+          <button
+            class="w-[133px] h-[35px] bg-[#337ab7] text-white normal-case hover:bg-[#2e6da4] rounded-[4px] font-medium font-['Roboto'] text-[0.875rem] leading-[1.6] tracking-[0.02857em]"
+            type="button"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
