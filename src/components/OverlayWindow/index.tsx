@@ -30,9 +30,9 @@ const OverlayWindow: React.FC = () => {
     OverlayText.list.map((item) => (
       <li
         key={item.substring(0, 30)}
-        className="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[8px]"
+        className="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[7.5px]"
         >
-        <span className="mt-[7px] mr-[11px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0" />
+        <span className="mt-[7px] mr-[11.5px] inline-block h-[5.5px] w-[5.5px] min-w-[5.5px] rounded-full bg-black flex-shrink-0" />
         <span>{item}</span>
       </li>
     )
@@ -68,9 +68,9 @@ const OverlayWindow: React.FC = () => {
             </h2>
           </div>
           <div className="h-px w-full bg-[#e0e0e0]" />
-          <div className="pt-[20px] text-[#000045] text-[14px] flex-1 overflow-auto tracking-[0.00938em]">
+          <div className="pt-[20px] text-black text-[14px] flex-1 overflow-auto tracking-[0.00938em]">
             {content}
-            <p className="text-[14px] text-black mb-[10px]">
+            <p className="text-[14px] text-[#000045] mb-[10px] -mt-[0.5px] tracking-[0.14994px]">
               {'By using this system, you understand and consent to the following: '}
             </p>
             <ul className="mt-0 pt-0 text-[14px] pr-[6px]">

@@ -238,4 +238,13 @@ describe('OverlayWindow', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     });
   });
+
+  describe("Design", () => {
+    it("should match the snapshot", () => {
+      (sessionStorageMock.getItem as Mock).mockReturnValue(null);
+
+      const { container } = render(<OverlayWindow />);
+      expect(container).toMatchSnapshot();
+    });
+  });
 });
