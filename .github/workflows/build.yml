@@ -5,7 +5,7 @@ name: CCDI ODS UI - Build Pipeline
 
 permissions: 
   contents: write
-  id-token: write
+  id-token: read
   actions: read
   security-events: write 
 
