@@ -9,6 +9,11 @@ permissions:
   actions: read
   security-events: write 
 
+env:
+    AWS_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+    NEXT_PUBLIC_GITHUB_TOKEN: ${{ secrets.NEXT_PUBLIC_GITHUB_TOKEN }}
+    ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
 on:
   workflow_dispatch:
     inputs:
@@ -60,6 +65,8 @@ jobs:
           ECR_REGISTRY:   ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ccdi-ods-ui
         run: |
+          set -euo pipefail
+
           BRANCH_SAFE=$(echo "${{ inputs.ui_repo_ref }}" | tr '/' '-')
           BUILD_NUM=${GITHUB_RUN_NUMBER}
 
@@ -80,6 +87,7 @@ jobs:
 
           docker push "${IMAGE_URI}"
 
+          # Write outputs immediately after push — before any step that could fail
           {
             echo "image_uri=${IMAGE_URI}"
             echo "image_tag=${IMAGE_TAG}"
@@ -87,8 +95,12 @@ jobs:
             echo "branch_name=${BRANCH_SAFE}"
           } >> "${GITHUB_OUTPUT}"
 
+          echo "📦 Outputs written: image_uri=${IMAGE_URI} | image_tag=${IMAGE_TAG}"
+
       - name: Tag Source Commit
         run: |
+          set -euo pipefail
+
           IMAGE_TAG="${{ steps.build-image.outputs.image_tag }}"
 
           git config user.name  "GitHub Actions"
@@ -115,6 +127,7 @@ jobs:
           } >> "${GITHUB_STEP_SUMMARY}"
 
 
+
   # ── 2. SECURITY SCAN ─────────────────────
   security-scan:
     name: Trivy Security Scan
@@ -122,9 +135,18 @@ jobs:
     needs: build
     if: >
       needs.build.result == 'success' &&
-      github.event.inputs.skip_security_scan != 'true'
+      inputs.skip_security_scan != true
 
     steps:
+      - name: Debug Build Outputs
+        run: |
+          echo "image_uri=${{ needs.build.outputs.image_uri }}"
+          echo "image_tag=${{ needs.build.outputs.image_tag }}"
+          if [ -z "${{ needs.build.outputs.image_uri }}" ]; then
+            echo "❌ image_uri is empty — aborting scan"
+            exit 1
+          fi
+
       - name: Authenticate to AWS (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -137,7 +159,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Pull Image for Scanning
-        run: docker pull "${{ needs.build.outputs.image_uri }}"
+        run: |
+          set -euo pipefail
+          echo "🔍 Pulling image: ${{ needs.build.outputs.image_uri }}"
+          docker pull "${{ needs.build.outputs.image_uri }}"
 
       - name: Trivy Scan — SARIF (Security tab)
         uses: aquasecurity/trivy-action@master
@@ -158,6 +183,8 @@ jobs:
 
       - name: Evaluate Scan Results
         run: |
+          set -euo pipefail
+
           docker run --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
             aquasec/trivy:latest image \
