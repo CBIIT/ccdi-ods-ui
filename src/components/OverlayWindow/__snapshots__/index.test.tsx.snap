@@ -5,17 +5,17 @@ exports[`OverlayWindow > Design > should match the snapshot 1`] = `
   <div
     aria-labelledby="government-usage-dialog-title"
     aria-modal="true"
-    class="fixed inset-0 z-[1200] flex items-center justify-center font-['Roboto']"
+    class="fixed inset-0 z-[1200] flex items-center justify-center p-[32px] font-['Roboto']"
     role="dialog"
   >
     <div
       class="absolute inset-0 bg-[#00000047] pointer-events-none"
     />
     <div
-      class="relative ml-[15px]"
+      class="relative w-full max-w-[770px]"
     >
       <div
-        class="w-[770px] h-[620px] rounded-[5px] bg-white px-[20px] flex flex-col"
+        class="w-full h-[620px] max-h-[calc(100vh-64px)] rounded-[5px] bg-white px-[20px] flex flex-col overflow-hidden"
       >
         <div
           class="py-[15px] pr-[15px] pl-0"
@@ -31,7 +31,7 @@ exports[`OverlayWindow > Design > should match the snapshot 1`] = `
           class="h-px w-full bg-[#e0e0e0]"
         />
         <div
-          class="pt-[20px] text-black text-[14px] flex-1 overflow-auto tracking-[0.00938em]"
+          class="pt-[20px] pb-[12px] text-black text-[14px] flex-1 min-h-0 overflow-auto tracking-[0.00938em]"
         >
           <p
             class="text-[14px] text-black mb-[10px] last:mb-0"
@@ -59,7 +59,7 @@ exports[`OverlayWindow > Design > should match the snapshot 1`] = `
             By using this system, you understand and consent to the following: 
           </p>
           <ul
-            class="mt-0 pt-0 text-[14px] pr-[6px]"
+            class="mt-0 pt-0 text-[14px] pr-[8px]"
           >
             <li
               class="text-[14px] pt-[3px] pl-[26px] flex items-start mt-[7px] first:-mt-[7.5px]"

@@ -54,26 +54,26 @@ const OverlayWindow: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[1200] flex items-center justify-center font-['Roboto']"
+      className="fixed inset-0 z-[1200] flex items-center justify-center p-[32px] font-['Roboto']"
       role="dialog"
       aria-labelledby="government-usage-dialog-title"
       aria-modal="true"
     >
       <div className="absolute inset-0 bg-[#00000047] pointer-events-none" />
-      <div className="relative ml-[15px]">
-        <div className="w-[770px] h-[620px] rounded-[5px] bg-white px-[20px] flex flex-col">
+      <div className="relative w-full max-w-[770px]">
+        <div className="w-full h-[620px] max-h-[calc(100vh-64px)] rounded-[5px] bg-white px-[20px] flex flex-col overflow-hidden">
           <div className="py-[15px] pr-[15px] pl-0">
             <h2 id="government-usage-dialog-title" className="text-[22px] text-black font-medium leading-[1.6] tracking-[0.0075em]">
               Warning
             </h2>
           </div>
           <div className="h-px w-full bg-[#e0e0e0]" />
-          <div className="pt-[20px] text-black text-[14px] flex-1 overflow-auto tracking-[0.00938em]">
+          <div className="pt-[20px] pb-[12px] text-black text-[14px] flex-1 min-h-0 overflow-auto tracking-[0.00938em]">
             {content}
             <p className="text-[14px] text-[#000045] mb-[10px] -mt-[0.5px] tracking-[0.14994px]">
               {'By using this system, you understand and consent to the following: '}
             </p>
-            <ul className="mt-0 pt-0 text-[14px] pr-[6px]">
+            <ul className="mt-0 pt-0 text-[14px] pr-[8px]">
               {list}
             </ul>
           </div>
