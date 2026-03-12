@@ -127,16 +127,17 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
 
   return (
     <section
-      className="flex flex-col items-center px-4 pt-[24px] pb-[45px] sm:px-8 sm:pt-[36px] sm:pb-[10px] md:pt-[30px] md:pb-[10px] max-w-[1444px] mx-auto mb-[40px]"
+      className="flex flex-col items-center px-4 pt-[24px] pb-[45px] sm:pt-[36px] sm:pb-[10px] md:pt-[30px] md:pb-[10px] lg:px-0 max-w-[1440px] mx-auto mb-[40px]"
       aria-labelledby="latest-updates-heading"
     >
-      <h2
-        id="latest-updates-heading"
-        className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] [font-family:Inter] font-semibold leading-[38px] w-full"
-      >
-        {config.title}
-      </h2>
-      <div className="w-full mt-6 sm:mt-8 md:mt-[24px] lg:mt-[31px]">
+      <div className="w-full lg:max-w-[1165px] lg:mx-auto">
+        <h2
+          id="latest-updates-heading"
+          className="text-[#345D85] text-[24px] sm:text-[28px] md:text-[32px] [font-family:Inter] font-semibold leading-[38px] w-full"
+        >
+          {config.title}
+        </h2>
+        <div className="w-full mt-6 sm:mt-8 md:mt-[24px] lg:mt-[31px]">
         <div className="w-full flex flex-col">
           {/* Mobile: 6-item sliding track; viewport shows 3 cards; smooth slide then reset for infinite */}
           <div className="md:hidden w-full overflow-hidden">
@@ -202,8 +203,8 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
             </div>
           </div>
 
-          {/* Tablet + Desktop: row of cards (no carousel) */}
-          <div className="hidden md:flex flex-wrap sm:flex-nowrap justify-center md:justify-center gap-4 md:gap-[33px] lg:gap-[32px]">
+          {/* Tablet + Desktop: row of cards; desktop only title and cards left-aligned */}
+          <div className="hidden md:flex flex-wrap sm:flex-nowrap justify-center md:justify-center lg:justify-start gap-4 md:gap-[33px] lg:gap-[32px]">
             {config.updates.map((update: GalleryUpdate, idx: number) => (
               <div
                 className="w-full sm:flex-1 sm:min-w-0 sm:max-w-[367px] md:w-[215px] md:min-w-0 md:max-w-[215px] md:shrink-0 lg:flex-1 lg:max-w-[367px]"
@@ -243,6 +244,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
               </span>
             </a>
           </div>
+        </div>
         </div>
       </div>
     </section>
