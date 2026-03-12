@@ -6,18 +6,6 @@ import pauseIcon from '../../../../assets/icons/Pause_Icon.svg'
 
 const AUTO_ROTATE_INTERVAL_MS = 5000;
 
-/** Figma mobile pagination: light gray arrow, 39.158px circle, thin teal border #4BBFC6 */
-const CarouselLeftArrow = () => (
-  <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" aria-hidden>
-    <path d="M8 13L2 7L8 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-const CarouselRightArrow = () => (
-  <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0" aria-hidden>
-    <path d="M1 1L7 7L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 /** Pause icon (two vertical bars) */
 const CarouselPauseIcon = () => (
   <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 text-current" aria-hidden>
@@ -184,7 +172,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 aria-label="Previous slide"
                 className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
-                <CarouselLeftArrow />
+                <div
+                  className="mr-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[11px] border-b-[#C9C9C9] border-t-0 border-t-transparent -rotate-90"
+                  aria-hidden
+                />
               </button>
               <button
                 type="button"
@@ -200,7 +191,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 aria-label="Next slide"
                 className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
-                <CarouselRightArrow />
+                <div
+                  className="ml-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[11px] border-t-[#C9C9C9] border-b-0 border-b-transparent -rotate-90"
+                  aria-hidden
+                />
               </button>
             </div>
           </div>
