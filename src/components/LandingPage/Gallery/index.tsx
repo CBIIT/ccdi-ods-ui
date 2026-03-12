@@ -38,14 +38,25 @@ function buildMobileRotatingList(updates: GalleryUpdate[] | undefined): GalleryU
   return [c, a, b, c, a, b];
 }
 
+const MOBILE_MEDIA_QUERY = "(max-width: 767px)";
+
 const Gallery: React.FC<GalleryProps> = ({ data }) => {
   const config = data?.gallery;
   const [rotatingList, setRotatingList] = useState<GalleryUpdate[]>([]);
   const [isPaused, setIsPaused] = useState(false);
   const [slideOffset, setSlideOffset] = useState(MOBILE_VIEWPORT_OFFSET);
   const [slideTransitionEnabled, setSlideTransitionEnabled] = useState(true);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const slideDirectionRef = useRef<"next" | "prev" | null>(null);
   const slideTrackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mql = window.matchMedia(MOBILE_MEDIA_QUERY);
+    const update = () => setIsMobileViewport(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (config?.updates && config.updates.length >= 3) {
@@ -85,10 +96,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   }, [rotatingList.length]);
 
   useEffect(() => {
-    if (rotatingList.length !== 6 || isPaused) return;
+    if (!isMobileViewport || rotatingList.length !== 6 || isPaused) return;
     const id = setInterval(goToNext, AUTO_ROTATE_INTERVAL_MS);
     return () => clearInterval(id);
-  }, [rotatingList.length, isPaused, goToNext]);
+  }, [isMobileViewport, rotatingList.length, isPaused, goToNext]);
 
   if (!config) return null;
 
