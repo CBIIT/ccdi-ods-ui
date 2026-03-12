@@ -15,7 +15,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   link,
 }) => {
   return (
-    <div className="relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] lg:h-[476px] lg:w-[367px] lg:max-w-[367px] lg:shrink-0">
+    <div className="group relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] lg:h-[476px] lg:w-[367px] lg:max-w-[367px] lg:shrink-0">
       <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full">
         <div className="h-[181px] md:h-[181px] lg:h-[310px] relative shrink-0 w-full rounded-tr-[20px] overflow-hidden lg:w-full">
           <Image
@@ -52,6 +52,25 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
               Read More &gt;
             </a>
           </div>
+        </div>
+        {/* Tablet/mobile only: hover overlay per Figma 2174-9260 — dark overlay, centered text, teal Read More */}
+        <div
+          className="absolute inset-0 rounded-[inherit] bg-black/70 flex flex-col justify-center p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 z-[1] lg:hidden"
+          aria-hidden
+        >
+          <p className="font-inter font-normal text-white text-[14px] leading-[20px] line-clamp-5 mb-3 text-left">
+            {description.length > 100
+              ? `${description.slice(0, 100)}...`
+              : description}
+          </p>
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-inter font-normal text-[14px] leading-[22px] text-[#4BBFC6] underline decoration-[#4BBFC6] hover:text-[#72f9fb] hover:decoration-[#72f9fb] cursor-pointer w-fit text-left"
+          >
+            Read More &gt;
+          </a>
         </div>
       </div>
     </div>
