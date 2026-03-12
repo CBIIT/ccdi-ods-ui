@@ -16,7 +16,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
 }) => {
   return (
     <div className="group relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] lg:h-[476px] lg:w-[367px] lg:max-w-[367px] lg:shrink-0">
-      <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full">
+      <div className="flex flex-col gap-0 items-start overflow-hidden relative rounded-[inherit] w-full h-full">
         <div className="h-[181px] md:h-[181px] lg:h-[310px] relative shrink-0 w-full rounded-tr-[20px] overflow-hidden lg:w-full">
           <Image
             src={image}
@@ -26,7 +26,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
             className="absolute inset-0 object-cover object-center pointer-events-none w-full h-full rounded-tr-[20px]"
           />
         </div>
-        <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[14px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[14px] md:px-[14px] lg:px-6 lg:pt-[14px] lg:pb-5">
+        <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[8px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[8px] md:px-[14px] lg:px-6 lg:pt-[14px] lg:pb-5">
           <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] text-white w-full lg:mb-2 lg:min-h-0">
             <a
               href={link}
@@ -38,7 +38,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
             </a>
           </p>
           <div className="hidden lg:block">
-            <p className="font-inter font-normal not-italic text-white w-[326px] text-[16px] leading-[22px] mb-2">
+            <p className="[font-family:Inter] font-normal text-white w-[326px] text-[16px] leading-[22px] mb-2">
               {description.length > 100
                 ? `${description.slice(0, 100)}...`
                 : description}

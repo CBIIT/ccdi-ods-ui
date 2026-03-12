@@ -137,9 +137,9 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         {config.title}
       </h2>
       <div className="w-full mt-6 sm:mt-8 md:mt-[24px] lg:mt-[31px]">
-        <div className="w-full flex flex-col gap-[24px] md:gap-[24px]">
+        <div className="w-full flex flex-col">
           {/* Mobile: 6-item sliding track; viewport shows 3 cards; smooth slide then reset for infinite */}
-          <div className="md:hidden w-full overflow-hidden px-4">
+          <div className="md:hidden w-full overflow-hidden">
             <div
               className="overflow-hidden mx-auto"
               style={{ width: 3 * CARD_WIDTH_MOBILE + 2 * CARD_GAP_MOBILE }}
@@ -224,7 +224,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
           </div>
 
           {/* Button: centered on mobile, right-aligned on tablet+ (Figma) */}
-          <div className="flex justify-center mt-[22px] w-full md:justify-end">
+          <div className="flex justify-center mt-[24px] w-full md:justify-end">
             <a
               href={config.newsletterButtonLink}
               target="_blank"
