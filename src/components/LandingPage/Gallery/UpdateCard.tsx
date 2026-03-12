@@ -27,7 +27,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
           />
         </div>
         <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[8px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[8px] md:px-[14px] gallery-lg:px-6 gallery-lg:pt-[14px] gallery-lg:pb-5">
-          <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] text-white w-full gallery-lg:mb-2 gallery-lg:min-h-0">
+          <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] w-full gallery-lg:mb-2 gallery-lg:min-h-0">
             <a
               href={link}
               target="_blank"
