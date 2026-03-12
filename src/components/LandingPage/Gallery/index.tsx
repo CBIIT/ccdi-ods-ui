@@ -180,7 +180,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={goToPrev}
                 aria-label="Previous slide"
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation"
+                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
                 <CarouselLeftArrow />
               </button>
@@ -188,7 +188,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={() => setIsPaused((p) => !p)}
                 aria-label={isPaused ? "Play carousel" : "Pause carousel"}
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation"
+                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
                 {isPaused ? <CarouselPlayIcon /> : <CarouselPauseIcon />}
               </button>
@@ -196,7 +196,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={goToNext}
                 aria-label="Next slide"
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation"
+                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
                 <CarouselRightArrow />
               </button>
