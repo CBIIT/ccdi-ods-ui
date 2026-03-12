@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import UpdateCard from "./UpdateCard";
 import startIcon from '../../../../assets/icons/Start_Icon.svg'
 import pauseIcon from '../../../../assets/icons/Pause_Icon.svg'
@@ -171,7 +172,13 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 aria-label={isPaused ? "Play carousel" : "Pause carousel"}
                 className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer shadow-[0px_2.49px_9.32px_0px_#00000073]"
               >
-                <img src={isPaused ? startIcon.src : pauseIcon.src} alt="Pause" className={isPaused ? "w-[20px] h-[22px] pl-[4px]" : "w-[18px] h-[18px]"} />
+                <Image
+                  src={isPaused ? startIcon : pauseIcon}
+                  alt={isPaused ? "Play carousel" : "Pause carousel"}
+                  width={isPaused ? 20 : 18}
+                  height={isPaused ? 22 : 18}
+                  className={isPaused ? "w-[20px] h-[22px] pl-[4px]" : "w-[18px] h-[18px]"}
+                />
               </button>
               <button
                 type="button"
