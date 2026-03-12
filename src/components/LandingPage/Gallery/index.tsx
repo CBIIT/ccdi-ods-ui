@@ -170,10 +170,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={goToPrev}
                 aria-label="Previous slide"
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
+                className="group flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
                 <div
-                  className="mr-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[11px] border-b-[#C9C9C9] border-t-0 border-t-transparent -rotate-90"
+                  className="mr-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[11px] border-b-[#C9C9C9] group-hover:border-b-[#8D9096] border-t-0 border-t-transparent -rotate-90"
                   aria-hidden
                 />
               </button>
@@ -189,10 +189,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={goToNext}
                 aria-label="Next slide"
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
+                className="group flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
               >
                 <div
-                  className="ml-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[11px] border-t-[#C9C9C9] border-b-0 border-b-transparent -rotate-90"
+                  className="ml-[3px] w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[11px] border-t-[#C9C9C9] group-hover:border-t-[#8D9096] border-b-0 border-b-transparent -rotate-90"
                   aria-hidden
                 />
               </button>
