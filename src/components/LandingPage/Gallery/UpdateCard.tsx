@@ -15,9 +15,9 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   link,
 }) => {
   return (
-    <div className="group relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] lg:h-[476px] lg:w-[367px] lg:max-w-[367px] lg:shrink-0">
+    <div className="group relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] gallery-lg:h-[476px] gallery-lg:w-[367px] gallery-lg:max-w-[367px] gallery-lg:shrink-0">
       <div className="flex flex-col gap-0 items-start overflow-hidden relative rounded-[inherit] w-full h-full">
-        <div className="h-[181px] md:h-[181px] lg:h-[310px] relative shrink-0 w-full rounded-tr-[20px] overflow-hidden lg:w-full">
+        <div className="h-[181px] md:h-[181px] gallery-lg:h-[310px] relative shrink-0 w-full rounded-tr-[20px] overflow-hidden gallery-lg:w-full">
           <Image
             src={image}
             alt={title}
@@ -26,18 +26,18 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
             className="absolute inset-0 object-cover object-center pointer-events-none w-full h-full rounded-tr-[20px]"
           />
         </div>
-        <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[8px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[8px] md:px-[14px] lg:px-6 lg:pt-[14px] lg:pb-5">
-          <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] text-white w-full lg:mb-2 lg:min-h-0">
+        <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[8px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[8px] md:px-[14px] gallery-lg:px-6 gallery-lg:pt-[14px] gallery-lg:pb-5">
+          <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] text-white w-full gallery-lg:mb-2 gallery-lg:min-h-0">
             <a
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-poppins text-[14px] font-semibold not-italic leading-[16px] text-[#72F9FB] hover:text-[#F6CB0E] cursor-pointer md:hover:text-[#72f9fb] lg:hover:text-[#72f9fb]"
+              className="font-poppins text-[14px] font-semibold not-italic leading-[16px] text-[#72F9FB] hover:text-[#F6CB0E] cursor-pointer md:hover:text-[#72f9fb] gallery-lg:hover:text-[#72f9fb]"
             >
               {title}
             </a>
           </p>
-          <div className="hidden lg:block">
+          <div className="hidden gallery-lg:block">
             <p className="[font-family:Inter] font-normal text-white w-[326px] text-[16px] leading-[22px] mb-2">
               {description.length > 100
                 ? `${description.slice(0, 100)}...`
@@ -55,7 +55,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         </div>
         {/* Tablet/mobile only: hover overlay per Figma 2174-9260 — dark overlay, centered text, teal Read More */}
         <div
-          className="absolute inset-0 rounded-[inherit] bg-black/70 flex flex-col justify-center p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 z-[1] lg:hidden"
+          className="absolute inset-0 rounded-[inherit] bg-black/70 flex flex-col justify-center p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 z-[1] gallery-lg:hidden"
           aria-hidden
         >
           <p className="font-inter font-normal text-white text-[14px] leading-[20px] line-clamp-5 mb-3 text-left">
