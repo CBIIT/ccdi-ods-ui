@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import UpdateCard from "./UpdateCard";
+import startIcon from '../../../../assets/icons/Start_Icon.svg'
+import pauseIcon from '../../../../assets/icons/Pause_Icon.svg'
 
 const AUTO_ROTATE_INTERVAL_MS = 5000;
 
@@ -140,7 +142,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
         <div className="w-full mt-6 sm:mt-8 md:mt-[24px] gallery-lg:mt-[31px]">
         <div className="w-full flex flex-col">
           {/* Mobile: 6-item sliding track; viewport shows 3 cards; smooth slide then reset for infinite */}
-          <div className="md:hidden w-full overflow-hidden">
+          <div className="md:hidden w-full">
             <div
               className="overflow-hidden mx-auto"
               style={{ width: 3 * CARD_WIDTH_MOBILE + 2 * CARD_GAP_MOBILE }}
@@ -188,9 +190,9 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 type="button"
                 onClick={() => setIsPaused((p) => !p)}
                 aria-label={isPaused ? "Play carousel" : "Pause carousel"}
-                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer"
+                className="flex items-center justify-center rounded-full border border-[#4BBFC6] bg-transparent w-[39.158px] h-[39.158px] text-[#6B7280] touch-manipulation cursor-pointer shadow-[0px_2.49px_9.32px_0px_#00000073]"
               >
-                {isPaused ? <CarouselPlayIcon /> : <CarouselPauseIcon />}
+                <img src={isPaused ? startIcon.src : pauseIcon.src} alt="Pause" className={isPaused ? "w-[20px] h-[22px] pl-[4px]" : "w-[18px] h-[18px]"} />
               </button>
               <button
                 type="button"
