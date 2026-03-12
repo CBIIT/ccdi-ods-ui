@@ -6,21 +6,6 @@ import pauseIcon from '../../../../assets/icons/Pause_Icon.svg'
 
 const AUTO_ROTATE_INTERVAL_MS = 5000;
 
-/** Pause icon (two vertical bars) */
-const CarouselPauseIcon = () => (
-  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 text-current" aria-hidden>
-    <rect x="1" y="0" width="3" height="14" rx="1" fill="currentColor" />
-    <rect x="8" y="0" width="3" height="14" rx="1" fill="currentColor" />
-  </svg>
-);
-
-/** Play icon (triangle) for when carousel is paused */
-const CarouselPlayIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 text-current ml-0.5" aria-hidden>
-    <path d="M2 1v12l10-6L2 1z" fill="currentColor" />
-  </svg>
-);
-
 export interface GalleryUpdate {
   image: string;
   title: string;
@@ -61,7 +46,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   const [slideTransitionEnabled, setSlideTransitionEnabled] = useState(true);
   const slideDirectionRef = useRef<"next" | "prev" | null>(null);
   const slideTrackRef = useRef<HTMLDivElement>(null);
-  const itemCount = config?.updates?.length ?? 0;
 
   useEffect(() => {
     if (config?.updates && config.updates.length >= 3) {
@@ -105,13 +89,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
     const id = setInterval(goToNext, AUTO_ROTATE_INTERVAL_MS);
     return () => clearInterval(id);
   }, [rotatingList.length, isPaused, goToNext]);
-
-  const activeIndex =
-    config && itemCount >= 3 && rotatingList.length === 6
-      ? config.updates.findIndex(
-          (u) => u.title === rotatingList[2].title && u.link === rotatingList[2].link
-        )
-      : 0;
 
   if (!config) return null;
 
@@ -220,9 +197,10 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
             ))}
           </div>
 
-          {/* Button: centered on mobile, right-aligned on tablet+ (Figma) */}
-          <div className="flex justify-center mt-[24px] w-full md:justify-end">
-            <a
+          {/* Button: centered on mobile; on tablet align right with rightmost card (711px); on desktop in 1165px container */}
+          <div className="w-full md:max-w-[711px] md:mx-auto gallery-lg:max-w-full gallery-lg:mx-0">
+            <div className="flex justify-center mt-[24px] w-full md:justify-end">
+              <a
               href={config.newsletterButtonLink}
               target="_blank"
               rel="noopener noreferrer"
@@ -239,6 +217,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
                 {config.newsletterButtonText}
               </span>
             </a>
+            </div>
           </div>
         </div>
         </div>
