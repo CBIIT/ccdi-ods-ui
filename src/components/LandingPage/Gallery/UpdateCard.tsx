@@ -55,6 +55,7 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
         </div>
         {/* Tablet/mobile only: hover overlay per Figma 2174-9260 — dark overlay, centered text, teal Read More. Hidden overlay uses pointer-events-none + invisible so the link is not focusable; revealed on hover or keyboard focus (focus-within). */}
         <div
+          className="absolute inset-0 rounded-[inherit] bg-black/70 flex flex-col justify-center p-4 opacity-0 invisible pointer-events-none transition-opacity duration-200 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto z-[1] gallery-lg:hidden"
         >
           <p className="font-inter font-normal text-white text-[14px] leading-[20px] line-clamp-5 mb-3 text-left">
             {description.length > 100
