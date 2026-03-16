@@ -18,6 +18,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Latest Updates (Gallery) desktop breakpoint: >=1167px */
+  --breakpoint-gallery-lg: 72.9375rem; /* 1167px */
 }
 
 /* @media (prefers-color-scheme: dark) {
