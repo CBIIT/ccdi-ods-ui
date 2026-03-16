@@ -124,7 +124,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
               style={{ width: 3 * CARD_WIDTH_MOBILE + 2 * CARD_GAP_MOBILE }}
             >
               <div
-                ref={slideTrackRef}
                 className="flex gap-[28px] py-1"
                 style={{
                   width: 6 * CARD_WIDTH_MOBILE + 5 * CARD_GAP_MOBILE,
