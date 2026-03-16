@@ -49,7 +49,6 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => {
   const [slideTransitionEnabled, setSlideTransitionEnabled] = useState(true);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const slideDirectionRef = useRef<"next" | "prev" | null>(null);
-  const slideTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mql = window.matchMedia(MOBILE_MEDIA_QUERY);
