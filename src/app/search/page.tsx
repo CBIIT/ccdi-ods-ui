@@ -201,7 +201,7 @@ function SearchContent() {
         </Link>
       </div>
       </div>
-      <main className="max-w-7xl mx-auto p-[16px] pb-[60px] lg:p-[32px] bg-white min-h-screen">
+      <main className="max-w-7xl mx-auto p-[16px] pb-[60px] lg:p-[32px] lg:pb-[60px] bg-white min-h-screen">
         <form action="/search" method="GET" className="mb-[34px] flex justify-center">
           <div className="flex w-full max-w-[711px] border-1 border-[#345D85] rounded-md overflow-hidden">
             <div className="flex-1 relative">
@@ -239,7 +239,7 @@ function SearchContent() {
             </div>
             <button
               type="submit"
-              className="[font-family:Lato] text-[14px] px-[25px] py-0 bg-[#3E8283] text-white text-base font-bold hover:bg-[#27605c] transition-colors"
+              className="[font-family:Lato] text-[14px] px-[25px] py-0 bg-[#3E8283] text-white font-bold hover:bg-[#27605c] transition-colors"
             >
               SUBMIT
             </button>
@@ -269,7 +269,7 @@ function SearchContent() {
                       <li key={post.path}>
                         <Link
                           href={post.route}
-                          className="[font-family:Nunito] text-[#1C8278] text-lg hover:underline"
+                          className="[font-family:Nunito] text-[#1C8278] text-lg hover:underline focus-visible:underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                         </Link>
