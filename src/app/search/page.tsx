@@ -176,7 +176,7 @@ function SearchContent() {
 
   return (
     <>
-      <div className="mx-auto px-8 max-w-[1400px] flex pt-[11px] pb-[1px] md:px-4 xl:pl-[33px]">
+      <div className="mx-auto px-4 max-w-[1400px] flex pt-[11px] pb-[1px] xl:pl-[33px]">
      <div className="mb-8">
         <Link 
           href="/" 
@@ -201,7 +201,7 @@ function SearchContent() {
         </Link>
       </div>
       </div>
-      <main className="max-w-7xl mx-auto p-8 pt-[16px] bg-white min-h-screen">
+      <main className="max-w-7xl mx-auto p-[16px] pb-[60px] lg:p-[32px] lg:pb-[60px] bg-white min-h-screen">
         <form action="/search" method="GET" className="mb-[34px] flex justify-center">
           <div className="flex w-full max-w-[711px] border-1 border-[#345D85] rounded-md overflow-hidden">
             <div className="flex-1 relative">
@@ -211,7 +211,7 @@ function SearchContent() {
                 placeholder="Search..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-full px-6 h-[41px] text-lg text-gray-700 bg-white focus:outline-none placeholder-gray-400"
+                className="w-full px-[20px] h-[41px] [font-family:Inter] text-lg text-gray-700 bg-white focus:outline-none placeholder-gray-400"
                 style={{ fontWeight: 300 }}
               />
               {/* Right icon: Search icon when empty, Clear icon when has value */}
@@ -239,15 +239,15 @@ function SearchContent() {
             </div>
             <button
               type="submit"
-              className="px-[25px] py-0 bg-[#3E8283] text-white text-base font-semibold hover:bg-[#27605c] transition-colors"
+              className="[font-family:Lato] text-[14px] px-[25px] py-0 bg-[#3E8283] text-white font-bold hover:bg-[#27605c] transition-colors"
             >
               SUBMIT
             </button>
           </div>
         </form>
 
-        <h1 className="[font-family:Inter] text-5xl font-bold mb-4 text-[#408B88] tracking-[0.045px]">Search Results</h1>
-        <p className="mb-8 text-xl text-gray-600">Showing results for: “{query}”</p>
+        <h1 className="[font-family:Inter] text-[36px] leading-[36px] md:text-[45px] md:leading-[40px] font-bold mb-4 text-[#408B88] tracking-[0.045px]">Search Results</h1>
+        <p className="[font-family:Nunito] mb-8 text-lg text-gray-600">Showing results for: “{query}”</p>
 
         {Object.keys(groupedResults).length === 0 ? (
           <p className="text-2xl text-gray-300 mt-16">No results found.</p>
@@ -258,7 +258,7 @@ function SearchContent() {
               const sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
               return (
-                <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
+                <section key={collectionName} className="border border-[#345D85] rounded-xl p-[26px] bg-white">
                   <h2 className="text-3xl font-bold mb-4">
                     <div className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]">
                       {sectionTitle}
@@ -269,7 +269,7 @@ function SearchContent() {
                       <li key={post.path}>
                         <Link
                           href={post.route}
-                          className="text-[#1C8278] text-lg underline"
+                          className="[font-family:Nunito] text-[#1C8278] text-lg hover:underline focus-visible:underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                         </Link>
