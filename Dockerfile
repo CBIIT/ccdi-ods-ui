@@ -11,7 +11,6 @@ RUN apk upgrade && apk --no-cache add git bash
 # Update OpenSSL to fix CVE-2025-4575
 RUN apk upgrade openssl
 
-RUN apk add --no-cache libc6-compat
 #RUN npm install -g npm@latest
 WORKDIR /app
 
