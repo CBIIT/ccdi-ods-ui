@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM cgr.dev/chainguard/node:25.8.2-dev AS base
+FROM cgr.dev/chainguard/node:25-dev AS base
 
 # Install dependencies only when needed
 FROM base AS deps
