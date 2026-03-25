@@ -1,16 +1,17 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM cgr.dev/chainguard/node:latest-dev AS base
+FROM cgr.dev/chainguard/node:25.8.2-dev AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-# libc6-compat equivalent is already handled by Wolfi/glibc — not needed
-# apk is available in the -dev variant
-RUN apk upgrade && apk add --no-cache git
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk upgrade && apk --no-cache add git bash
 
 # Update OpenSSL to fix CVE-2025-4575
 RUN apk upgrade openssl
 
+RUN apk add --no-cache libc6-compat
+#RUN npm install -g npm@latest
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
@@ -27,42 +28,47 @@ COPY src ./src
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
+
 
 ARG NEXT_PUBLIC_GITHUB_TOKEN
 ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 # Create .env file with the GitHub token
 RUN echo "NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}" > .env
+#RUN npm install -g npm@latest
+RUN npm run build;
 
-RUN npm run build
-
-
-# Production image — use minimal distroless runtime (no shell, no apk)
-FROM cgr.dev/chainguard/node:latest AS runner
+# Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
-
+RUN npm install -g npm@latest
 ENV NODE_ENV=production
+# Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Chainguard node:latest already runs as a non-root user (uid 65532 / "nonroot")
-# No need to create nodejs/nextjs users — just use the built-in nonroot user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=nonroot:nonroot /app/.next/standalone ./
-COPY --from=builder --chown=nonroot:nonroot /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nonroot
+USER nextjs
 
 EXPOSE 3000
 
 ENV PORT=3000
 
+
 ARG NEXT_PUBLIC_GITHUB_TOKEN
 ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
 
