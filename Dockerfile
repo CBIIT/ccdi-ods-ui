@@ -11,7 +11,9 @@ RUN apk upgrade && apk --no-cache add git bash
 # Update OpenSSL to fix CVE-2025-4575
 RUN apk upgrade openssl
 
-#RUN npm install -g npm@latest
+# Upgrade picomatch to fix CVE GHSA-c2c7-rcm5-vvqj
+RUN npm install -g picomatch@4.0.4
+
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
