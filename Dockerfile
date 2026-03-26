@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM cgr.dev/chainguard/node:latest AS base
+FROM node:25.8-alpine3.23 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
