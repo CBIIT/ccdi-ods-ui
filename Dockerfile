@@ -2,18 +2,22 @@
 
 FROM node:25-alpine3.23 AS base
 
+#
+# Patch CVEs in this layer
+#
+
+# zlib: CVE-2026-27171
+RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0
+
+# OpenSSL: CVE-2025-4575
+RUN apk upgrade openssl
+
 # Install dependencies only when needed
 FROM base AS deps
 USER root
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk upgrade && apk --no-cache add git bash
-
-# zlib: CVE-2026-27171
-RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0
-
-# picomatch: CVE-2026-33672, CVE-2026-33671; brace-expansion: CVE-2026-33750
-RUN npm install -g picomatch@4.0.4 brace-expansion@5.0.5
 
 WORKDIR /app
 
