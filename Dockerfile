@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM cgr.dev/chainguard/node:latest-dev AS base
+FROM node:25-alpine3.23 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -8,16 +8,11 @@ USER root
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk upgrade && apk --no-cache add git bash
 
-# Update OpenSSL to fix CVE-2025-4575
-RUN apk upgrade openssl
-
-#RUN npm install -g npm@latest
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN npm install --frozen-lockfile
-
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -43,7 +38,6 @@ RUN npm run build;
 FROM base AS runner
 USER root
 WORKDIR /app
-RUN npm install -g npm@latest
 ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -72,6 +66,3 @@ ENV NEXT_PUBLIC_GITHUB_TOKEN=${NEXT_PUBLIC_GITHUB_TOKEN}
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
 CMD ["node", "server.js"]
-
-
-# docker build --build-arg NEXT_PUBLIC_GITHUB_TOKEN=<your_token_here> -t ccdi-ods-ui .
