@@ -6,11 +6,8 @@ FROM node:25-alpine3.23 AS base
 # Patch CVEs in this layer
 #
 
-# zlib: CVE-2026-27171
-RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0
-
-# OpenSSL: CVE-2025-4575
-RUN apk upgrade openssl
+# zlib: CVE-2026-27171, OpenSSL: CVE-2025-4575
+RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0 openssl
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -46,6 +43,12 @@ RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
+
+# Remove npm from production layer
+RUN rm -rf /usr/local/lib/node_modules/npm \
+  && rm -f /usr/local/bin/npm \
+  && rm -f /usr/local/bin/npx
+
 USER root
 WORKDIR /app
 ENV NODE_ENV=production
