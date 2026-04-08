@@ -78,7 +78,7 @@ const FooterTablet = () => {
                   Enter your email address
                   <div className={errorClass}>
                     {errorClass !== "" ? <div className="font-['Open_Sans'] font-normal text-base leading-[22px] text-white mb-2.5">Enter a valid email address</div> : null}
-                    <input id="email" type="email" name="email" className="w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" value={emailContent} onChange={(e) => handleChange(e)} />
+                    <input id="email_tablet" type="email" name="email" className="w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" value={emailContent} onChange={(e) => handleChange(e)} />
                   </div>
                 </label>
               </div>

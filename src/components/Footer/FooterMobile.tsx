@@ -97,7 +97,7 @@ const FooterMobile = () => {
                   Enter your email address
                   <div className={errorClass ? "bg-[#e41154] py-2.5 px-1.5" : ""}>
                     {errorClass !== "" && <div className="text-white">Enter a valid email address</div>}
-                    <input id="email" 
+                    <input id="email_mobile"
                       type="email" 
                       name="email" 
                       className="w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" 

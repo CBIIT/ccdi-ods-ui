@@ -83,7 +83,7 @@ const FooterDesktop = () => {
                   }`}>
                     {errorClass !== "" ? <div className="text-white">Enter a valid email address</div> : null}
                     <input 
-                      id="email" 
+                      id="email_desktop" 
                       type="email" 
                       name="email" 
                       className={`w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[0.25rem] focus:outline-[#2491ff] ${
