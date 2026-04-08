@@ -29,7 +29,7 @@ const FooterDesktop = () => {
 
   return (
     <>
-      <footer className="bg-[#1B496E] border-t border-[#6C727B] bottom-0 w-full z-10 relative" role="contentinfo">
+      <footer className="bg-[#1F4571] border-t border-[#6C727B] bottom-0 w-full z-10 relative" role="contentinfo">
         <div className="p-8 max-w-[1400px] mx-auto flex justify-between">
           <div className="w-[66.7%] grid grid-cols-3">
             {FooterData.link_sections.map((linkItem, linkidx) => {
@@ -86,7 +86,7 @@ const FooterDesktop = () => {
                       id="email" 
                       type="email" 
                       name="email" 
-                      className={`w-full h-[47px] text-[25px] pl-2 mt-2 bg-white focus:outline-[0.25rem] focus:outline-[#2491ff] ${
+                      className={`w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[0.25rem] focus:outline-[#2491ff] ${
                         errorClass !== "" ? 'outline outline-[0.25rem] outline-[#2491ff] outline-offset-[5px]' : ''
                       }`}
                       value={emailContent} 
@@ -105,7 +105,7 @@ const FooterDesktop = () => {
           </form>
         </div>
 
-        <div className="bg-[#14315C]">
+        <div className="bg-[#122F4B]">
           <div className="flex flex-wrap justify-between max-w-[1400px] mx-auto h-fit py-5 px-8">
             <div id="bottom-footer-header">
               <a className="no-underline" href="https://www.cancer.gov" target="_blank" rel="noopener noreferrer">
