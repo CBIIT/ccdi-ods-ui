@@ -417,7 +417,7 @@ function rehypeWrapH2Sections() {
       }
       const bodyId = `${h2Id}-body`;
 
-      h2.properties['aria-expanded'] = 'true';
+      h2.properties['aria-expanded'] = 'false';
       h2.properties['aria-controls'] = bodyId;
 
       h2.children = [
@@ -501,6 +501,7 @@ function rehypeWrapH2Sections() {
           className: [
             'group/post-h2',
             'post-h2-section',
+            'post-h2-section--collapsed',
             'max-md:block',
             'md:contents',
           ],
@@ -512,7 +513,7 @@ function rehypeWrapH2Sections() {
             type: 'element',
             tagName: 'div',
             properties: {
-              className: ['post-h2-section-body', 'max-md:px-3', 'max-md:block', 'md:contents'],
+              className: ['post-h2-section-body', 'max-md:px-3', 'max-md:hidden', 'md:contents'],
               id: bodyId,
             },
             children: sectionBody,
