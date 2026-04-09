@@ -48,7 +48,7 @@ const FooterMobile = () => {
 
   return (
     <>
-      <footer role="contentinfo" className="bg-[#1B496E] bottom-0 w-full z-10 relative">
+      <footer role="contentinfo" className="bg-[#1F4571] bottom-0 w-full z-10 relative">
         <div className="max-w-[1420px] mx-auto flex justify-between flex-col">
           <div className="flex flex-col">
             {FooterData.link_sections.map((linkItem, linkidx) => {
@@ -56,7 +56,7 @@ const FooterMobile = () => {
               return (
                 <div className="relative inline-block border-b border-black" key={linkkey}>
                   <button type="button" onClick={() => handleDropdown(linkkey)} 
-                    className="flex flex-row items-center w-full bg-[#1B496E] font-['Open_Sans'] font-bold text-base text-white p-4 cursor-pointer">
+                    className="flex flex-row items-center w-full bg-[#1F4571] font-['Open_Sans'] font-bold text-base text-white p-4 cursor-pointer">
                     <svg id={`${linkkey}Arrow`} className="mr-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                       <path fill="currentColor" d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
                     </svg>
@@ -66,7 +66,7 @@ const FooterMobile = () => {
                     {linkItem.items.map((item, itemidx) => {
                       const itemkey = `item_${itemidx}`;
                       return (
-                        <a className="text-white pb-4 pl-4 block w-fit font-['Open_Sans'] hover:underline" 
+                        <a className="text-white pb-4 px-6 block w-fit font-['Open_Sans'] hover:underline" 
                           key={itemkey} 
                           href={item.link}
                           {...(item.link.includes('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
@@ -87,20 +87,26 @@ const FooterMobile = () => {
             id="signup" 
             className="px-4 pb-8"
             noValidate>
-            <input type="hidden" name="topic_id" id="topic_id" value="USNIHNCI_223" />
+            <input
+              type="hidden"
+              name="topic_id"
+              id="topic_id"
+              value="USNIHNCI_223"
+              aria-label="Email subscription list topic"
+            />
             <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4 mt-4">
               Sign up for email updates
             </div>
             <div className={errorClass !== "" ? 'border-l-4 border-[#e41154] pl-4 -left-5 relative' : undefined}>
               <div className="font-['Open_Sans'] text-base leading-[22px] text-white mb-2.5">
-                <label htmlFor="email">
+                <label htmlFor="email_mobile">
                   Enter your email address
                   <div className={errorClass ? "bg-[#e41154] py-2.5 px-1.5" : ""}>
                     {errorClass !== "" && <div className="text-white">Enter a valid email address</div>}
-                    <input id="email" 
+                    <input id="email_mobile"
                       type="email" 
                       name="email" 
-                      className="w-full h-[47px] text-[25px] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" 
+                      className="w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" 
                       value={emailContent} 
                       onChange={(e) => handleChange(e)} />
                   </div>
@@ -108,7 +114,7 @@ const FooterMobile = () => {
               </div>
             </div>
             <button type="submit" 
-              className="w-full bg-[#FACE00] rounded-lg border-0 py-2.5 px-4 font-['Open_Sans'] font-bold text-base text-[#14315C] mt-[18px] hover:cursor-pointer">
+              className="w-full bg-[#FACE00] rounded-lg border-0 py-2.5 px-4 font-['Open_Sans'] font-bold text-base text-[#122F4B] mt-[18px] hover:cursor-pointer">
               Sign up
             </button>
           </form>
