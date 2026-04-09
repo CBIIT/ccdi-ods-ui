@@ -10,7 +10,7 @@ import { visitParents } from 'unist-util-visit-parents';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
-import type { Element } from 'hast';
+import type { Element, ElementContent, Root, RootContent } from 'hast';
 import externalLinkIcon from '../../../../assets/icons/external_link_icon_info.svg';
 
 const branch = getGithubBranch();
@@ -332,6 +332,144 @@ function rehypeCustomTheme() {
 }
 
 /**
+ * Wraps each h2 with following siblings until the next h2 in a section so mobile can
+ * collapse/expand "h2 to next h2" blocks. Desktop uses display:contents so layout is unchanged.
+ */
+function rehypeWrapH2Sections() {
+  return (tree: Node) => {
+    const root = tree as Root;
+    if (!root.children?.length) return;
+
+    const children = root.children as Element[];
+    const newChildren: RootContent[] = [];
+    let sectionIndex = 0;
+
+    let i = 0;
+    while (i < children.length) {
+      const node = children[i];
+      if (node.type !== 'element' || node.tagName !== 'h2') {
+        newChildren.push(node as RootContent);
+        i++;
+        continue;
+      }
+
+      const h2 = node;
+      i++;
+      const sectionBody: ElementContent[] = [];
+      while (i < children.length) {
+        const next = children[i];
+        if (next.type === 'element' && (next as Element).tagName === 'h2') break;
+        sectionBody.push(next as ElementContent);
+        i++;
+      }
+
+      h2.properties = h2.properties || {};
+      const cls = h2.properties.className;
+      const classArr = Array.isArray(cls) ? [...cls] : cls ? [String(cls)] : [];
+      h2.properties.className = [
+        ...classArr,
+        'post-h2-toggle',
+        'max-md:flex',
+        'max-md:items-center',
+        'max-md:justify-between',
+        'max-md:gap-2',
+        'max-md:cursor-pointer',
+        'md:cursor-default',
+        'select-none',
+      ];
+
+      const existingChildren =
+        h2.children && h2.children.length ? [...h2.children] : [];
+      const h2Id =
+        h2.properties.id != null ? String(h2.properties.id) : `h2-section-${sectionIndex}`;
+      if (h2.properties.id == null) {
+        h2.properties.id = h2Id;
+      }
+      const bodyId = `${h2Id}-body`;
+
+      h2.properties['aria-expanded'] = 'true';
+      h2.properties['aria-controls'] = bodyId;
+
+      h2.children = [
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['min-w-0', 'flex-1'] },
+          children: existingChildren as ElementContent[],
+        },
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: {
+            className: [
+              'post-h2-chevron',
+              'inline-flex',
+              'shrink-0',
+              'md:hidden',
+              'pointer-events-none',
+              'transition-transform',
+              'duration-200',
+            ],
+            'aria-hidden': 'true',
+          },
+          children: [
+            {
+              type: 'element',
+              tagName: 'svg',
+              properties: {
+                className: ['w-[17px]', 'h-[11px]'],
+                viewBox: '0 0 17 11',
+                fill: 'none',
+                xmlns: 'http://www.w3.org/2000/svg',
+              },
+              children: [
+                {
+                  type: 'element',
+                  tagName: 'path',
+                  properties: {
+                    d: 'M16 1L8.5 9.5L1 1',
+                    stroke: 'currentColor',
+                    strokeWidth: 2,
+                    strokeLinecap: 'round',
+                  },
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      const section: Element = {
+        type: 'element',
+        tagName: 'section',
+        properties: {
+          className: ['post-h2-section', 'max-md:block', 'md:contents'],
+          'data-h2-section': '',
+        },
+        children: [
+          h2,
+          {
+            type: 'element',
+            tagName: 'div',
+            properties: {
+              className: ['post-h2-section-body', 'max-md:block', 'md:contents'],
+              id: bodyId,
+            },
+            children: sectionBody,
+          },
+        ],
+      };
+
+      newChildren.push(section);
+      sectionIndex++;
+    }
+
+    root.children = newChildren;
+  };
+}
+
+/**
  * Extracts headings from markdown content.
  * 
  * @param {string} markdown - The markdown content
@@ -396,6 +534,7 @@ export async function processMarkdown(content: string, slug: string) {
     .use(theme)
     .use(sanitizeIframe)
     .use(rehypeSlug)
+    .use(rehypeWrapH2Sections)
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);

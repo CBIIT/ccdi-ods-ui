@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, JSX } from 'react';
+import { useState, useEffect, useRef, JSX } from 'react';
 import Breadcrumb from '@/components/Breadcrumb';
 import { extractHeadings } from './serverUtils';
 
@@ -35,6 +35,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [h1Info, setH1Info] = useState<{ text: string; id: string } | null>(null);
+  const articleRef = useRef<HTMLDivElement>(null);
   const headings = extractHeadings(processedContent);
 
   useEffect(() => {
@@ -63,6 +64,54 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   useEffect(() => {
     setH1Info(extractH1Info(processedContent));
   }, [processedContent]);
+
+  useEffect(() => {
+    const container = articleRef.current;
+    if (!container || !isMobile) return;
+
+    const sections = container.querySelectorAll<HTMLElement>('[data-h2-section]');
+    const cleanups: (() => void)[] = [];
+
+    sections.forEach((section) => {
+      const h2 = section.querySelector<HTMLElement>('h2.post-h2-toggle');
+      const body = section.querySelector<HTMLElement>('.post-h2-section-body');
+      if (!h2 || !body) return;
+
+      const chevron = h2.querySelector<HTMLElement>('.post-h2-chevron');
+
+      const syncChevron = (collapsed: boolean) => {
+        chevron?.classList.toggle('rotate-180', collapsed);
+      };
+
+      const toggle = () => {
+        const isHidden = body.classList.toggle('max-md:hidden');
+        h2.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+        section.classList.toggle('post-h2-section--collapsed', isHidden);
+        syncChevron(isHidden);
+      };
+
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      };
+
+      h2.setAttribute('tabindex', '0');
+      h2.addEventListener('click', toggle);
+      h2.addEventListener('keydown', onKeyDown);
+
+      cleanups.push(() => {
+        h2.removeEventListener('click', toggle);
+        h2.removeEventListener('keydown', onKeyDown);
+        h2.removeAttribute('tabindex');
+      });
+    });
+
+    return () => {
+      cleanups.forEach((c) => c());
+    };
+  }, [isMobile, processedContent]);
 
   return (
     <div className="mx-auto max-w-[1400px] flex flex-col items-stretch px-4 xl:pl-[33px] xl:pr-8 pb-14 pt-3 min-h-screen">
@@ -183,6 +232,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         {/* Main Content */}
         <main className="flex-1 w-full max-w-[977px] p-0 lg:p-6">
           <div 
+            ref={articleRef}
             className="prose prose-sm md:prose lg:prose-xl max-w-none"
             dangerouslySetInnerHTML={{ __html: processedContent }}
           />
