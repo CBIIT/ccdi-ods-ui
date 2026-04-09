@@ -223,10 +223,10 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         )}
 
         {/* Main Content */}
-        <main className="flex-1 w-full max-w-[977px] p-0 lg:p-6">
+        <main className="flex-1 min-w-0 w-full max-w-[977px] p-0 lg:p-6">
           <div 
             ref={articleRef}
-            className="prose prose-sm md:prose lg:prose-xl max-w-none"
+            className="prose prose-sm md:prose lg:prose-xl max-w-none min-w-0"
             dangerouslySetInnerHTML={{ __html: processedContent }}
           />
         </main>

@@ -61,6 +61,32 @@ export interface Heading {
   children: Heading[];
 }
 
+/**
+ * Wraps each <table> in a div so overflow-x applies (unreliable on <table> alone)
+ * and so layout can use table-layout: fixed via .post-md-table-wrap in globals.css.
+ */
+function rehypeWrapMarkdownTables() {
+  return (tree: Node) => {
+    visit(tree, 'element', (node: Element, index: number | undefined, parent: Element | undefined) => {
+      if (node.tagName !== 'table' || parent == null || index === undefined) return;
+
+      const cls = parent.properties?.className;
+      const classes = Array.isArray(cls) ? cls.map(String) : cls ? [String(cls)] : [];
+      if (classes.some((c) => c.includes('post-md-table-wrap'))) return;
+
+      const wrapper: Element = {
+        type: 'element',
+        tagName: 'div',
+        properties: {
+          className: ['post-md-table-wrap'],
+        },
+        children: [node],
+      };
+      (parent.children as ElementContent[])[index] = wrapper;
+    });
+  };
+}
+
 function sanitizeIframe() {
   return (tree: Node) => {
     visit(tree, 'element', (node: Element) => {
@@ -286,12 +312,9 @@ function rehypeCustomTheme() {
       if (node.tagName === 'table') {
         node.properties = node.properties || {};
         node.properties.className = [
-          'min-w-full',
+          'table',
           'border-collapse',
           'my-4',
-          'block',
-          'md:table',
-          'overflow-x-auto',
         ];
         node.properties.style = `border-top: 2px solid ${FontColor};`;
       }
@@ -300,6 +323,9 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'px-4',
           'py-2',
+          'align-top',
+          'whitespace-normal',
+          'break-words',
           '[font-family:Inter]',
           'font-medium',
           'text-[16px]',
@@ -321,7 +347,9 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'px-4',
           'py-2',
+          'align-top',
           'whitespace-normal',
+          'break-words',
           '[font-family:Inter]',
           'text-[16px]',
           'text-[#000000]',
@@ -563,6 +591,7 @@ export async function processMarkdown(content: string, slug: string) {
       footnoteBackLabel: 'Back to content',
     })
     .use(theme)
+    .use(rehypeWrapMarkdownTables)
     .use(sanitizeIframe)
     .use(rehypeSlug)
     .use(rehypeWrapH2Sections)
