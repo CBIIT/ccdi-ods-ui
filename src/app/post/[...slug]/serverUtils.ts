@@ -107,6 +107,7 @@ function rehypeCustomTheme() {
           'text-[45px]',
           'my-[20px] md:my-[20px]',
           'ml-[-20px]',
+          'mr-[-20px] md:mr-0',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
           'p-[20px]',
@@ -123,21 +124,24 @@ function rehypeCustomTheme() {
           'font-semibold',
           'my-4 md:my-5',
           'mt-[35px] md:mt-[35px]',
+          'px-[10px] md:px-0',
+          'py-[14px] md:py-0',
           '[font-family:Inter]',
-          'text-[32px]',
+          'text-[24px] md:text-[32px]',
           'font-[600]',
-          'leading-[35px]'
+          'leading-[24px] md:leading-[35px]',
+          'text-white md:text-[#345D85]',
+          'bg-[#187C85] md:bg-transparent'
         ];
-        node.properties.style = `color: ${FontColor}`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
         node.properties.className = [
           'my-3 md:my-4',
           'scroll-mt-20',
-          'text-[28px]',
+          'text-[22px] md:text-[28px]',
           'font-[400]',
-          'leading-[30px]',
+          'leading-[24px] md:leading-[30px]',
           '[font-family:Inter]',
         ];
         node.properties.style = `color: ${FontColor};`;

@@ -102,7 +102,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         </button>
       )}
 
-      <div className="flex flex-col md:flex-row gap-8 relative">
+      <div className="flex flex-col md:flex-row gap-5 lg:gap-8 relative">
         {/* Side Navigation */}
         {headings.length > 0 && (
           <nav 
@@ -110,7 +110,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
               ${isMobile ? 
                 `fixed inset-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
                  transition-transform duration-300 ease-in-out bg-white shadow-lg w-3/4 h-full overflow-y-auto` 
-                : 'mt-10 mr-[20px] w-[337px] flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
+                : 'mt-10 mr-[20px] w-[250px] lg:w-[337px] flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
             `}
             aria-label="Table of contents"
           >
@@ -181,7 +181,7 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         )}
 
         {/* Main Content */}
-        <main className="flex-1 w-full max-w-[977px] p-2 md:p-6">
+        <main className="flex-1 w-full max-w-[977px] p-0 lg:p-6">
           <div 
             className="prose prose-sm md:prose lg:prose-xl max-w-none"
             dangerouslySetInnerHTML={{ __html: processedContent }}
