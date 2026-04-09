@@ -87,13 +87,19 @@ const FooterMobile = () => {
             id="signup" 
             className="px-4 pb-8"
             noValidate>
-            <input type="hidden" name="topic_id" id="topic_id" value="USNIHNCI_223" />
+            <input
+              type="hidden"
+              name="topic_id"
+              id="topic_id"
+              value="USNIHNCI_223"
+              aria-label="Email subscription list topic"
+            />
             <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4 mt-4">
               Sign up for email updates
             </div>
             <div className={errorClass !== "" ? 'border-l-4 border-[#e41154] pl-4 -left-5 relative' : undefined}>
               <div className="font-['Open_Sans'] text-base leading-[22px] text-white mb-2.5">
-                <label htmlFor="email">
+                <label htmlFor="email_mobile">
                   Enter your email address
                   <div className={errorClass ? "bg-[#e41154] py-2.5 px-1.5" : ""}>
                     {errorClass !== "" && <div className="text-white">Enter a valid email address</div>}

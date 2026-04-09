@@ -68,13 +68,19 @@ const FooterTablet = () => {
             id="signup"
             noValidate
           >
-            <input type="hidden" name="topic_id" id="topic_id" value="USNIHNCI_223" />
+            <input
+              type="hidden"
+              name="topic_id"
+              id="topic_id"
+              value="USNIHNCI_223"
+              aria-label="Email subscription list topic"
+            />
             <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4">
               Sign up for email updates
             </div>
             <div className={errorClass !== "" ? 'border-l-4 border-[#e41154] pl-4 -ml-5' : undefined}>
               <div className="font-['Open_Sans'] font-normal text-base leading-[22px] text-white mb-2.5">
-                <label htmlFor="email">
+                <label htmlFor="email_tablet">
                   Enter your email address
                   <div className={errorClass}>
                     {errorClass !== "" ? <div className="font-['Open_Sans'] font-normal text-base leading-[22px] text-white mb-2.5">Enter a valid email address</div> : null}
