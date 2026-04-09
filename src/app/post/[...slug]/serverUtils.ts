@@ -12,6 +12,8 @@ import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
 import type { Element, ElementContent, Root, RootContent } from 'hast';
 import externalLinkIcon from '../../../../assets/icons/external_link_icon_info.svg';
+import h2AccordionChevron from '../../../../assets/icons/h2_accordion_chevron.svg';
+import h2AccordionMinus from '../../../../assets/icons/h2_accordion_minus.svg';
 
 const branch = getGithubBranch();
 const PAGES_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/pages/`;
@@ -402,39 +404,63 @@ function rehypeWrapH2Sections() {
           tagName: 'span',
           properties: {
             className: [
-              'post-h2-chevron',
+              'post-h2-toggle-icons',
+              'relative',
               'inline-flex',
               'shrink-0',
+              'items-center',
+              'justify-center',
               'md:hidden',
               'pointer-events-none',
-              'transition-transform',
-              'duration-200',
+              'w-[18px]',
+              'h-[11px]',
             ],
             'aria-hidden': 'true',
           },
           children: [
             {
               type: 'element',
-              tagName: 'svg',
+              tagName: 'img',
               properties: {
-                className: ['w-[17px]', 'h-[11px]'],
-                viewBox: '0 0 17 11',
-                fill: 'none',
-                xmlns: 'http://www.w3.org/2000/svg',
+                src: h2AccordionMinus.src,
+                alt: '',
+                className: [
+                  'post-h2-icon-minus',
+                  'absolute',
+                  'left-1/2',
+                  'top-1/2',
+                  'max-h-none',
+                  'w-[18px]',
+                  'h-[2.571px]',
+                  '-translate-x-1/2',
+                  '-translate-y-1/2',
+                  'max-md:block',
+                  'max-md:group-[.post-h2-section--collapsed]/post-h2:hidden',
+                ],
               },
-              children: [
-                {
-                  type: 'element',
-                  tagName: 'path',
-                  properties: {
-                    d: 'M16 1L8.5 9.5L1 1',
-                    stroke: 'currentColor',
-                    strokeWidth: 2,
-                    strokeLinecap: 'round',
-                  },
-                  children: [],
-                },
-              ],
+              children: [],
+            },
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: h2AccordionChevron.src,
+                alt: '',
+                className: [
+                  'post-h2-icon-chevron',
+                  'absolute',
+                  'left-1/2',
+                  'top-1/2',
+                  'max-h-none',
+                  'w-[17px]',
+                  'h-[9.273px]',
+                  '-translate-x-1/2',
+                  '-translate-y-1/2',
+                  'max-md:hidden',
+                  'max-md:group-[.post-h2-section--collapsed]/post-h2:block',
+                ],
+              },
+              children: [],
             },
           ],
         },
@@ -444,7 +470,12 @@ function rehypeWrapH2Sections() {
         type: 'element',
         tagName: 'section',
         properties: {
-          className: ['post-h2-section', 'max-md:block', 'md:contents'],
+          className: [
+            'group/post-h2',
+            'post-h2-section',
+            'max-md:block',
+            'md:contents',
+          ],
           'data-h2-section': '',
         },
         children: [

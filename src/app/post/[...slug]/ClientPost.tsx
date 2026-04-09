@@ -77,17 +77,10 @@ export default function ClientPost({ collection, page, processedContent }: Clien
       const body = section.querySelector<HTMLElement>('.post-h2-section-body');
       if (!h2 || !body) return;
 
-      const chevron = h2.querySelector<HTMLElement>('.post-h2-chevron');
-
-      const syncChevron = (collapsed: boolean) => {
-        chevron?.classList.toggle('rotate-180', collapsed);
-      };
-
       const toggle = () => {
         const isHidden = body.classList.toggle('max-md:hidden');
         h2.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
         section.classList.toggle('post-h2-section--collapsed', isHidden);
-        syncChevron(isHidden);
       };
 
       const onKeyDown = (e: KeyboardEvent) => {
