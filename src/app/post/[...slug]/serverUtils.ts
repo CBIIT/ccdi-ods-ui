@@ -484,7 +484,7 @@ function rehypeWrapH2Sections() {
             type: 'element',
             tagName: 'div',
             properties: {
-              className: ['post-h2-section-body', 'max-md:block', 'md:contents'],
+              className: ['post-h2-section-body', 'max-md:px-3', 'max-md:block', 'md:contents'],
               id: bodyId,
             },
             children: sectionBody,
