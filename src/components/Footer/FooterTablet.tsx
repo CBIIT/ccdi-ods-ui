@@ -29,7 +29,7 @@ const FooterTablet = () => {
 
   return (
     <>
-      <footer className="bg-[#1B496E] border-t border-[#6C727B] bottom-0 w-full z-10 relative" role="contentinfo">
+      <footer className="bg-[#1F4571] border-t border-[#6C727B] bottom-0 w-full z-10 relative" role="contentinfo">
         <div className="px-4 pt-8 pb-0 max-w-[1420px] mx-auto flex justify-between">
           <div className="w-[66.7%] grid grid-cols-2 gap-[4%]">
             {FooterData.link_sections.map((linkItem, linkidx) => {
@@ -68,22 +68,28 @@ const FooterTablet = () => {
             id="signup"
             noValidate
           >
-            <input type="hidden" name="topic_id" id="topic_id" value="USNIHNCI_223" />
+            <input
+              type="hidden"
+              name="topic_id"
+              id="topic_id"
+              value="USNIHNCI_223"
+              aria-label="Email subscription list topic"
+            />
             <div className="font-['Poppins'] font-bold text-[22.88px] leading-[34px] text-white mb-4">
               Sign up for email updates
             </div>
             <div className={errorClass !== "" ? 'border-l-4 border-[#e41154] pl-4 -ml-5' : undefined}>
               <div className="font-['Open_Sans'] font-normal text-base leading-[22px] text-white mb-2.5">
-                <label htmlFor="email">
+                <label htmlFor="email_tablet">
                   Enter your email address
                   <div className={errorClass}>
                     {errorClass !== "" ? <div className="font-['Open_Sans'] font-normal text-base leading-[22px] text-white mb-2.5">Enter a valid email address</div> : null}
-                    <input id="email" type="email" name="email" className="w-full h-[47px] text-[25px] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" value={emailContent} onChange={(e) => handleChange(e)} />
+                    <input id="email_tablet" type="email" name="email" className="w-full h-[47px] text-[25px] text-[#000000] pl-2 mt-2 bg-white focus:outline-[#2491ff] focus:outline-[0.25rem]" value={emailContent} onChange={(e) => handleChange(e)} />
                   </div>
                 </label>
               </div>
             </div>
-            <button type="submit" className="bg-[#FACE00] rounded-lg border-0 py-2 px-4 font-['Open_Sans'] font-bold text-base leading-[22px] text-[#14315C] mt-4 hover:cursor-pointer">
+            <button type="submit" className="bg-[#FACE00] rounded-lg border-0 py-2 px-4 font-['Open_Sans'] font-bold text-base leading-[22px] text-[#122F4B] mt-4 hover:cursor-pointer">
               Sign up
             </button>
           </form>
