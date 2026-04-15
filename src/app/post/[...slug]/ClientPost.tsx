@@ -73,13 +73,13 @@ export default function ClientPost({ collection, page, processedContent }: Clien
     const cleanups: (() => void)[] = [];
 
     sections.forEach((section) => {
-      const h2 = section.querySelector<HTMLElement>('h2.post-h2-toggle');
+      const h2Toggle = section.querySelector<HTMLElement>('h2.post-h2-toggle');
       const body = section.querySelector<HTMLElement>('.post-h2-section-body');
-      if (!h2 || !body) return;
+      if (!h2Toggle || !body) return;
 
       const toggle = () => {
         const isHidden = body.classList.toggle('max-md:hidden');
-        h2.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+        h2Toggle.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
         section.classList.toggle('post-h2-section--collapsed', isHidden);
       };
 
@@ -90,14 +90,14 @@ export default function ClientPost({ collection, page, processedContent }: Clien
         }
       };
 
-      h2.setAttribute('tabindex', '0');
-      h2.addEventListener('click', toggle);
-      h2.addEventListener('keydown', onKeyDown);
+      h2Toggle.setAttribute('tabindex', '0');
+      h2Toggle.addEventListener('click', toggle);
+      h2Toggle.addEventListener('keydown', onKeyDown);
 
       cleanups.push(() => {
-        h2.removeEventListener('click', toggle);
-        h2.removeEventListener('keydown', onKeyDown);
-        h2.removeAttribute('tabindex');
+        h2Toggle.removeEventListener('click', toggle);
+        h2Toggle.removeEventListener('keydown', onKeyDown);
+        h2Toggle.removeAttribute('tabindex');
       });
     });
 

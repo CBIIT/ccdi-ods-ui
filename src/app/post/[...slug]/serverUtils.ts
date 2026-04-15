@@ -63,7 +63,7 @@ export interface Heading {
 
 /**
  * Wraps each <table> in a div so overflow-x applies (unreliable on <table> alone)
- * and so layout can use table-layout: fixed via .post-md-table-wrap in globals.css.
+ * and so layout can size the table via .post-md-table-wrap in globals.css (table-layout: auto).
  */
 function rehypeWrapMarkdownTables() {
   return (tree: Node) => {
@@ -370,20 +370,20 @@ function rehypeWrapH2Sections() {
     const root = tree as Root;
     if (!root.children?.length) return;
 
-    const children = root.children as Element[];
+    const children = root.children as RootContent[];
     const newChildren: RootContent[] = [];
     let sectionIndex = 0;
 
     let i = 0;
     while (i < children.length) {
       const node = children[i];
-      if (node.type !== 'element' || node.tagName !== 'h2') {
-        newChildren.push(node as RootContent);
+      if (node.type !== 'element' || (node as Element).tagName !== 'h2') {
+        newChildren.push(node);
         i++;
         continue;
       }
 
-      const h2 = node;
+      const h2 = node as Element;
       i++;
       const sectionBody: ElementContent[] = [];
       while (i < children.length) {
@@ -396,6 +396,16 @@ function rehypeWrapH2Sections() {
       h2.properties = h2.properties || {};
       const cls = h2.properties.className;
       const classArr = Array.isArray(cls) ? [...cls] : cls ? [String(cls)] : [];
+
+      const existingChildren =
+        h2.children && h2.children.length ? [...h2.children] : [];
+      const h2Id =
+        h2.properties.id != null ? String(h2.properties.id) : `h2-section-${sectionIndex}`;
+      if (h2.properties.id == null) {
+        h2.properties.id = h2Id;
+      }
+      const bodyId = `${h2Id}-body`;
+
       h2.properties.className = [
         ...classArr,
         'post-h2-toggle',
@@ -407,16 +417,7 @@ function rehypeWrapH2Sections() {
         'md:cursor-default',
         'select-none',
       ];
-
-      const existingChildren =
-        h2.children && h2.children.length ? [...h2.children] : [];
-      const h2Id =
-        h2.properties.id != null ? String(h2.properties.id) : `h2-section-${sectionIndex}`;
-      if (h2.properties.id == null) {
-        h2.properties.id = h2Id;
-      }
-      const bodyId = `${h2Id}-body`;
-
+      h2.properties.role = 'button';
       h2.properties['aria-expanded'] = 'false';
       h2.properties['aria-controls'] = bodyId;
 
