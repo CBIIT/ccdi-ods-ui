@@ -32,7 +32,6 @@ function extractH1Info(html: string) {
  * @returns The rendered post page.
  */
 export default function ClientPost({ collection, page, processedContent }: ClientPostProps): JSX.Element {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [h1Info, setH1Info] = useState<{ text: string; id: string } | null>(null);
   const articleRef = useRef<HTMLDivElement>(null);
@@ -48,18 +47,6 @@ export default function ClientPost({ collection, page, processedContent }: Clien
 
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
-
-  // Close mobile menu when clicking anchor links
-  useEffect(() => {
-    const handleHashChange = () => {
-      if (isMobile && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, [isMobile, isMobileMenuOpen]);
 
   useEffect(() => {
     setH1Info(extractH1Info(processedContent));
@@ -109,95 +96,42 @@ export default function ClientPost({ collection, page, processedContent }: Clien
   return (
     <div className="mx-auto max-w-[1400px] flex flex-col items-stretch px-4 xl:pl-[33px] xl:pr-8 pb-14 pt-3 min-h-screen">
       <Breadcrumb collection={collection} page={page} />
-      
-      {/* Mobile Menu Toggle Button */}
-      {isMobile && headings.length > 0 && (
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="fixed bottom-4 right-4 z-50 bg-[#49B5B1] text-white p-3 rounded-full shadow-lg hover:bg-[#3a8f8c] focus:outline-none focus:ring-2 focus:ring-[#49B5B1] focus:ring-offset-2"
-          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isMobileMenuOpen}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            {isMobileMenuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
-      )}
 
       <div className="flex flex-col md:flex-row gap-5 lg:gap-8 relative">
-        {/* Side Navigation */}
+        {/* Side navigation: tablet/desktop only (no mobile TOC drawer or FAB) */}
         {headings.length > 0 && (
-          <nav 
-            className={`
-              ${isMobile ? 
-                `fixed inset-0 z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} 
-                 transition-transform duration-300 ease-in-out bg-white shadow-lg w-3/4 h-full overflow-y-auto` 
-                : 'mt-10 mr-[20px] w-[250px] lg:w-[337px] flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto'}
-            `}
+          <nav
+            className="hidden md:block mt-10 mr-[20px] w-[250px] lg:w-[337px] flex-shrink-0 sticky top-10 max-h-[calc(100vh-8rem)] overflow-y-auto"
             aria-label="Table of contents"
           >
-           <div className="pt-0">
-              {isMobile && (
-                <div className="flex justify-between items-center mb-4 px-2">
-                  <h2 className="text-lg font-semibold text-gray-800">Contents</h2>
-                  <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100"
-                  aria-label="Close menu"
-                >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
+            <div className="pt-0">
               <ul className="space-y-3" role="list">
-               <li className="mb-[10px]">
-                <a
-                  href={h1Info ? `#${h1Info.id}` : "#"}
-                  className="text-[#000000] tracking-[0.36px] leading-[20px] border-b-[1.5px] border-[#E3E3E3] [font-family:Poppins] font-semibold pt-0 block transition-colors font-normal py-[16px] text-[18px] hover:text-[#257E7A] hover:font-semibold"
-                  onClick={() => isMobile && setIsMobileMenuOpen(false)}
-                >
-                  {h1Info ? h1Info.text : ""}
-                </a>
-              </li>
+                <li className="mb-[10px]">
+                  <a
+                    href={h1Info ? `#${h1Info.id}` : '#'}
+                    className="text-[#000000] tracking-[0.36px] leading-[20px] border-b-[1.5px] border-[#E3E3E3] [font-family:Poppins] font-semibold pt-0 block transition-colors font-normal py-[16px] text-[18px] hover:text-[#257E7A] hover:font-semibold"
+                  >
+                    {h1Info ? h1Info.text : ''}
+                  </a>
+                </li>
                 {headings.map((h2) => (
                   <li className="mb-[10px]" key={h2.id}>
                     <a
                       href={`#${h2.id}`}
                       className="text-[#000000] pl-[20px] tracking-[0.16px] leading-[19px] border-b-[1.5px] border-[#E3E3E3] [font-family:Inter] text-sm block transition-colors font-normal pb-[10px] text-[16px] hover:text-[#257E7A] hover:font-semibold"
-                      onClick={() => isMobile && setIsMobileMenuOpen(false)}
                     >
                       {h2.text}
                     </a>
                     {h2.children.length > 0 && (
                       <ul className="mt-2 space-y-2" role="list">
                         {h2.children.map((h3) => (
-                          <li className="pl-[40px] border-b-[1.5px] border-[#E3E3E3]" key={h3.id}>
+                          <li
+                            className="pl-[40px] border-b-[1.5px] border-[#E3E3E3]"
+                            key={h3.id}
+                          >
                             <a
                               href={`#${h3.id}`}
                               className="text-[#000000] tracking-[0.14px] leading-[16px] [font-family:Inter] font-normal block transition-colors pb-[10px] text-[14px] hover:text-[#257E7A] hover:font-semibold"
-                              onClick={() => isMobile && setIsMobileMenuOpen(false)}
                             >
                               {h3.text}
                             </a>
@@ -210,16 +144,6 @@ export default function ClientPost({ collection, page, processedContent }: Clien
               </ul>
             </div>
           </nav>
-        )}
-    
-
-        {/* Overlay for mobile menu */}
-        {isMobile && isMobileMenuOpen && headings.length > 0 && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity"
-            onClick={() => setIsMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
         )}
 
         {/* Main Content */}
