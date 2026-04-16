@@ -23,7 +23,7 @@ interface BreadcrumbProps {
  */
 export default function Breadcrumb({ collection, page }: BreadcrumbProps) {
   return (
-    <div className="text-sm flex text-gray-600 mb-[49px]">
+    <div className="text-sm flex text-gray-600 mb-0 md:mb-[49px]">
       <Link 
         href="/" 
         className="text-[#005EA2] text-[16px] font-normal [font-family:'Public Sans'] underline"
