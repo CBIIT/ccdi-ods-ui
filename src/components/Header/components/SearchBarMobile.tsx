@@ -29,8 +29,8 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex w-full justify-end mr-[16px]">
-      <div className="ml-auto w-[303px] h-[43px] border border-[#71767A] max-[512px]:w-[calc(100vw-210px)]">
+    <div className="ml-auto flex shrink-0 items-center mr-[16px]">
+      <div className="w-[303px] h-[43px] border border-[#71767A] max-[512px]:w-[calc(100vw-210px)]">
         <label aria-label='site search mobile'>
           <input
             id="header-search-bar"

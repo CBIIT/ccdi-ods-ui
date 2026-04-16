@@ -29,7 +29,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="flex w-full justify-end mr-[16px]">
+    <div className="ml-auto flex shrink-0 items-center mr-[16px]">
       <div className="w-[303px] h-[43px] border border-[#71767A]">
         <label aria-label="site search tablet">
           <input
