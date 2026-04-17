@@ -20,6 +20,8 @@
   --font-mono: var(--font-geist-mono);
   /* Latest Updates (Gallery) desktop breakpoint: >=1167px */
   --breakpoint-gallery-lg: 72.9375rem; /* 1167px */
+  /* Site header: desktop layout at >=1360px (below = tablet + mobile bands) */
+  --breakpoint-header-xl: 85rem; /* 1360px */
 }
 
 /* @media (prefers-color-scheme: dark) {
