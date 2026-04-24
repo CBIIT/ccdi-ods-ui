@@ -1,6 +1,13 @@
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vitest/config";
+import { defineConfig, configDefaults } from "vitest/config";
 import viteTsConfigPaths from "vite-tsconfig-paths";
+
+const testExcludes: string[] = [
+  "conf/**",
+  "public/**",
+  "src/setupTests.ts",
+  "src/**/*.d.ts",
+];
 
 export default defineConfig({
   plugins: [
@@ -11,13 +18,12 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./src/setupTests.ts"],
-    // globalSetup: "./src/vitest.global-setup.ts",
-    // exclude: [...configDefaults.exclude, ...testExcludes],
+    exclude: [...configDefaults.exclude, ...testExcludes],
     coverage: {
       provider: "v8",
       reporter: ["lcov", "json", "html"],
       enabled: true,
-      // exclude: [...configDefaults.coverage.exclude, ...testExcludes],
+      include: ["src/**/*.{ts,tsx}"],
     },
     testTimeout: 10_000,
   },
