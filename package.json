@@ -14,7 +14,7 @@
   "dependencies": {
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
-    "next": "^15.5.15",
+    "next": "^15.5.16",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rehype-highlight": "^7.0.2",
@@ -38,7 +38,7 @@
     "@vitejs/plugin-react": "^5.1.0",
     "@vitest/coverage-v8": "^4.0.7",
     "eslint": "^9",
-    "eslint-config-next": "^15.5.15",
+    "eslint-config-next": "^15.5.16",
     "jsdom": "^27.1.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5",
