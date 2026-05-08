@@ -12,7 +12,6 @@
     "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --maxConcurrency=2"
   },
   "dependencies": {
-    "base-64": "^1.0.0",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
     "next": "^15.5.15",
