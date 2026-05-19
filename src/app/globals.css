@@ -18,6 +18,10 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Latest Updates (Gallery) desktop breakpoint: >=1167px */
+  --breakpoint-gallery-lg: 72.9375rem; /* 1167px */
+  /* Site header: desktop layout at >=1360px (below = tablet + mobile bands) */
+  --breakpoint-header-xl: 85rem; /* 1360px */
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -32,4 +36,61 @@ body {
   background: #fff !important;
   color: var(--foreground);
   font-family: var(--font-open-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Post markdown tables — DSH Figma (node 1529:13543): horizontal scroll + styled scrollbar */
+.post-md-table-wrap {
+  --post-table-scrollbar-track: #d9d9d9;
+  --post-table-scrollbar-thumb: #528084;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--post-table-scrollbar-thumb) var(--post-table-scrollbar-track);
+}
+
+.post-md-table-wrap::-webkit-scrollbar {
+  height: 15px;
+}
+
+.post-md-table-wrap::-webkit-scrollbar-track {
+  background: var(--post-table-scrollbar-track);
+  border-radius: 7px;
+}
+
+.post-md-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--post-table-scrollbar-thumb);
+  border-radius: 15px;
+  border: 3px solid var(--post-table-scrollbar-track);
+}
+
+.post-md-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: #467a7e;
+}
+
+/* Table at least full width of container; grows when column mins / content need it → horizontal scroll */
+.post-md-table-wrap > table {
+  display: table;
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+  table-layout: auto;
+  border-collapse: collapse;
+}
+
+.post-md-table-wrap th,
+.post-md-table-wrap td {
+  min-width: 100px;
+  max-width: 22rem;
+  box-sizing: border-box;
+  vertical-align: top;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+  word-break: break-word;
 }

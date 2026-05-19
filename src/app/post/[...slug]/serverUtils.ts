@@ -10,8 +10,10 @@ import { visitParents } from 'unist-util-visit-parents';
 import matter from 'gray-matter';
 import { getGithubBranch } from '@/config/config';
 import type { Node } from 'unist';
-import type { Element } from 'hast';
+import type { Element, ElementContent, Root, RootContent } from 'hast';
 import externalLinkIcon from '../../../../assets/icons/external_link_icon_info.svg';
+import h2AccordionChevron from '../../../../assets/icons/h2_accordion_chevron.svg';
+import h2AccordionMinus from '../../../../assets/icons/h2_accordion_minus.svg';
 
 const branch = getGithubBranch();
 const PAGES_URL = `https://raw.githubusercontent.com/CBIIT/ccdi-ods-content/refs/heads/${branch}/pages/`;
@@ -57,6 +59,32 @@ export interface Heading {
   text: string;
   level: number;
   children: Heading[];
+}
+
+/**
+ * Wraps each <table> in a div so overflow-x applies (unreliable on <table> alone)
+ * and so layout can size the table via .post-md-table-wrap in globals.css (table-layout: auto).
+ */
+function rehypeWrapMarkdownTables() {
+  return (tree: Node) => {
+    visit(tree, 'element', (node: Element, index: number | undefined, parent: Element | undefined) => {
+      if (node.tagName !== 'table' || parent == null || index === undefined) return;
+
+      const cls = parent.properties?.className;
+      const classes = Array.isArray(cls) ? cls.map(String) : cls ? [String(cls)] : [];
+      if (classes.some((c) => c.includes('post-md-table-wrap'))) return;
+
+      const wrapper: Element = {
+        type: 'element',
+        tagName: 'div',
+        properties: {
+          className: ['post-md-table-wrap'],
+        },
+        children: [node],
+      };
+      (parent.children as ElementContent[])[index] = wrapper;
+    });
+  };
 }
 
 function sanitizeIframe() {
@@ -107,6 +135,7 @@ function rehypeCustomTheme() {
           'text-[45px]',
           'my-[20px] md:my-[20px]',
           'ml-[-20px]',
+          'mr-[-20px] md:mr-0',
           'text-[#FFFFFF]',
           '[font-family:Inter]',
           'p-[20px]',
@@ -123,21 +152,24 @@ function rehypeCustomTheme() {
           'font-semibold',
           'my-4 md:my-5',
           'mt-[35px] md:mt-[35px]',
+          'px-[10px] md:px-0',
+          'py-[14px] md:py-0',
           '[font-family:Inter]',
-          'text-[32px]',
+          'text-[24px] md:text-[32px]',
           'font-[600]',
-          'leading-[35px]'
+          'leading-[24px] md:leading-[35px]',
+          'text-white md:text-[#345D85]',
+          'bg-[#187C85] md:bg-transparent'
         ];
-        node.properties.style = `color: ${FontColor}`;
       }
       if (node.tagName === 'h3') {
         node.properties = node.properties || {};
         node.properties.className = [
           'my-3 md:my-4',
           'scroll-mt-20',
-          'text-[28px]',
+          'text-[22px] md:text-[28px]',
           'font-[400]',
-          'leading-[30px]',
+          'leading-[24px] md:leading-[30px]',
           '[font-family:Inter]',
         ];
         node.properties.style = `color: ${FontColor};`;
@@ -280,12 +312,9 @@ function rehypeCustomTheme() {
       if (node.tagName === 'table') {
         node.properties = node.properties || {};
         node.properties.className = [
-          'min-w-full',
+          'table',
           'border-collapse',
           'my-4',
-          'block',
-          'md:table',
-          'overflow-x-auto',
         ];
         node.properties.style = `border-top: 2px solid ${FontColor};`;
       }
@@ -294,6 +323,9 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'px-4',
           'py-2',
+          'align-top',
+          'whitespace-normal',
+          'break-words',
           '[font-family:Inter]',
           'font-medium',
           'text-[16px]',
@@ -315,7 +347,9 @@ function rehypeCustomTheme() {
         node.properties.className = [
           'px-4',
           'py-2',
+          'align-top',
           'whitespace-normal',
+          'break-words',
           '[font-family:Inter]',
           'text-[16px]',
           'text-[#000000]',
@@ -324,6 +358,175 @@ function rehypeCustomTheme() {
         node.properties.style = 'border-bottom: 1px solid #B8B8B8';
       }
     });
+  };
+}
+
+/**
+ * Wraps each h2 with following siblings until the next h2 in a section so mobile can
+ * collapse/expand "h2 to next h2" blocks. Desktop uses display:contents so layout is unchanged.
+ */
+function rehypeWrapH2Sections() {
+  return (tree: Node) => {
+    const root = tree as Root;
+    if (!root.children?.length) return;
+
+    const children = root.children as RootContent[];
+    const newChildren: RootContent[] = [];
+    let sectionIndex = 0;
+
+    let i = 0;
+    while (i < children.length) {
+      const node = children[i];
+      if (node.type !== 'element' || (node as Element).tagName !== 'h2') {
+        newChildren.push(node);
+        i++;
+        continue;
+      }
+
+      const h2 = node as Element;
+      i++;
+      const sectionBody: ElementContent[] = [];
+      while (i < children.length) {
+        const next = children[i];
+        if (next.type === 'element' && (next as Element).tagName === 'h2') break;
+        sectionBody.push(next as ElementContent);
+        i++;
+      }
+
+      h2.properties = h2.properties || {};
+      const cls = h2.properties.className;
+      const classArr = Array.isArray(cls) ? [...cls] : cls ? [String(cls)] : [];
+
+      const existingChildren =
+        h2.children && h2.children.length ? [...h2.children] : [];
+      const h2Id =
+        h2.properties.id != null ? String(h2.properties.id) : `h2-section-${sectionIndex}`;
+      if (h2.properties.id == null) {
+        h2.properties.id = h2Id;
+      }
+      const bodyId = `${h2Id}-body`;
+
+      h2.properties.className = [
+        ...classArr,
+        'post-h2-toggle',
+        'max-md:flex',
+        'max-md:items-center',
+        'max-md:justify-between',
+        'max-md:gap-2',
+        'max-md:cursor-pointer',
+        'md:cursor-default',
+        'select-none',
+      ];
+      h2.properties.role = 'button';
+      h2.properties['aria-expanded'] = 'false';
+      h2.properties['aria-controls'] = bodyId;
+
+      h2.children = [
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: { className: ['min-w-0', 'flex-1'] },
+          children: existingChildren as ElementContent[],
+        },
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: {
+            className: [
+              'post-h2-toggle-icons',
+              'relative',
+              'inline-flex',
+              'shrink-0',
+              'items-center',
+              'justify-center',
+              'md:hidden',
+              'pointer-events-none',
+              'w-[18px]',
+              'h-[11px]',
+            ],
+            'aria-hidden': 'true',
+          },
+          children: [
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: h2AccordionMinus.src,
+                alt: '',
+                className: [
+                  'post-h2-icon-minus',
+                  'absolute',
+                  'left-1/2',
+                  'top-1/2',
+                  'max-h-none',
+                  'w-[18px]',
+                  'h-[2.571px]',
+                  '-translate-x-1/2',
+                  '-translate-y-1/2',
+                  'max-md:block',
+                  'max-md:group-[.post-h2-section--collapsed]/post-h2:hidden',
+                ],
+              },
+              children: [],
+            },
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: h2AccordionChevron.src,
+                alt: '',
+                className: [
+                  'post-h2-icon-chevron',
+                  'absolute',
+                  'left-1/2',
+                  'top-1/2',
+                  'max-h-none',
+                  'w-[17px]',
+                  'h-[9.273px]',
+                  '-translate-x-1/2',
+                  '-translate-y-1/2',
+                  'max-md:hidden',
+                  'max-md:group-[.post-h2-section--collapsed]/post-h2:block',
+                ],
+              },
+              children: [],
+            },
+          ],
+        },
+      ];
+
+      const section: Element = {
+        type: 'element',
+        tagName: 'section',
+        properties: {
+          className: [
+            'group/post-h2',
+            'post-h2-section',
+            'post-h2-section--collapsed',
+            'max-md:block',
+            'md:contents',
+          ],
+          'data-h2-section': '',
+        },
+        children: [
+          h2,
+          {
+            type: 'element',
+            tagName: 'div',
+            properties: {
+              className: ['post-h2-section-body', 'max-md:px-3', 'max-md:hidden', 'md:contents'],
+              id: bodyId,
+            },
+            children: sectionBody,
+          },
+        ],
+      };
+
+      newChildren.push(section);
+      sectionIndex++;
+    }
+
+    root.children = newChildren;
   };
 }
 
@@ -355,7 +558,9 @@ export function extractHeadings(content: string): Heading[] {
   return headings;
 }
 
-export async function fetchContent(slug: string): Promise<{ metadata: PostMetadata; content: string }> {
+export async function fetchContent(
+  slug: string
+): Promise<{ metadata: PostMetadata; content: string } | null> {
   const response = await fetch(
     `${PAGES_URL}/${slug}.md`,
     {
@@ -365,10 +570,9 @@ export async function fetchContent(slug: string): Promise<{ metadata: PostMetada
     }
   );
 
-  if (!response.ok) {
-    console.log('Failed to fetch content');
-    return { metadata: {}, content: '' };
-  }
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`Failed to fetch content (${response.status})`);
+
   const content = await response.text();
   const { data: metadata, content: markdownContent } = matter(content);
   
@@ -389,8 +593,10 @@ export async function processMarkdown(content: string, slug: string) {
       footnoteBackLabel: 'Back to content',
     })
     .use(theme)
+    .use(rehypeWrapMarkdownTables)
     .use(sanitizeIframe)
     .use(rehypeSlug)
+    .use(rehypeWrapH2Sections)
     .use(rehypeHighlight)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);

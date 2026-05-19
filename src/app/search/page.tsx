@@ -1,4 +1,5 @@
 'use client';
+
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
@@ -8,30 +9,42 @@ import { getGithubBranch } from '@/config/config';
 
 const branch = getGithubBranch();
 
-// ==========================
-// Interfaces
-// ==========================
-interface GithubCollection {
+type BaseGitHubItem<T extends 'file' | 'dir'> = {
   name: string;
   path: string;
-  type: string;
-  posts?: GithubPost[];
-}
+  type: T;
+};
 
-interface GithubPost {
-  name: string;
-  path: string;
-  type: string;
+type GitHubCollectionItem = BaseGitHubItem<'dir'> & {
+  /**
+   * The list of posts (files) within this collection.
+   */
+  posts?: GitHubPostItem[];
+};
+
+type GitHubPostItem = BaseGitHubItem<'file'> & {
+  /**
+   * The relative route to access this post in the application.
+   */
+  route: string;
+  /**
+   * The content of the post (markdown text).
+   */
   content?: string;
+  /**
+   * The metadata extracted from the front matter of the markdown file.
+   */
   metadata?: {
+    /**
+     * The title of the post, if specified in the front matter.
+     */
     title?: string;
   };
-}
+};
 
-interface PostWithCollection extends GithubPost {
+type GitHubPostWithCollection = GitHubPostItem & {
   collectionName: string;
-}
- 
+};
 
 // ==========================
 // SearchPage Component
@@ -39,7 +52,7 @@ interface PostWithCollection extends GithubPost {
 function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  const [collections, setCollections] = useState<GithubCollection[]>([]);
+  const [collections, setCollections] = useState<GitHubCollectionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState(query);
 
@@ -73,7 +86,7 @@ function SearchContent() {
           });
 
         // Group files by collection
-        const groupedFiles = pagesFiles.reduce((acc: { [key: string]: GithubCollection }, file: { path: string; name: string; collectionName: string }) => {
+        const groupedFiles = pagesFiles.reduce((acc: { [key: string]: GitHubCollectionItem }, file: { path: string; name: string; collectionName: string }) => {
           if (!acc[file.collectionName]) {
             acc[file.collectionName] = {
               name: file.collectionName,
@@ -85,6 +98,7 @@ function SearchContent() {
           acc[file.collectionName].posts?.push({
             name: file.name,
             path: file.path,
+            route: `/post/${file.path.replace('pages/', '').replace('.md', '')}`,
             type: 'file'
           });
           return acc;
@@ -92,7 +106,7 @@ function SearchContent() {
 
         // Fetch content for all files in parallel
         const collectionsWithContent = await Promise.all(
-          (Object.values(groupedFiles) as GithubCollection[]).map(async (collection) => ({
+          (Object.values(groupedFiles) as GitHubCollectionItem[]).map(async (collection) => ({
             ...collection,
             posts: await Promise.all(
               (collection.posts || []).map(async (post) => {
@@ -128,7 +142,7 @@ function SearchContent() {
   }, []);
 
   // Flatten posts and add collection context
-  const allPosts: PostWithCollection[] = collections.flatMap(collection =>
+  const allPosts: GitHubPostWithCollection[] = collections.flatMap(collection =>
     (collection.posts || []).map(post => ({
       ...post,
       collectionName: collection.name
@@ -154,7 +168,7 @@ function SearchContent() {
     }
     acc[post.collectionName].push(post);
     return acc;
-  }, {} as Record<string, PostWithCollection[]>);
+  }, {} as Record<string, GitHubPostWithCollection[]>);
 
   if (loading) {
     return <div className="max-w-4xl mx-auto p-6">Loading...</div>;
@@ -162,7 +176,7 @@ function SearchContent() {
 
   return (
     <>
-      <div className="mx-auto px-8 max-w-[1400px] flex pt-[11px] pb-[1px] md:px-4 xl:pl-[33px]">
+      <div className="mx-auto px-4 max-w-[1400px] flex pt-[11px] pb-[1px] xl:pl-[33px]">
      <div className="mb-8">
         <Link 
           href="/" 
@@ -187,7 +201,7 @@ function SearchContent() {
         </Link>
       </div>
       </div>
-      <main className="max-w-7xl mx-auto p-8 pt-[16px] bg-white min-h-screen">
+      <main className="max-w-7xl mx-auto p-[16px] pb-[60px] lg:p-[32px] lg:pb-[60px] bg-white min-h-screen">
         <form action="/search" method="GET" className="mb-[34px] flex justify-center">
           <div className="flex w-full max-w-[711px] border-1 border-[#345D85] rounded-md overflow-hidden">
             <div className="flex-1 relative">
@@ -197,7 +211,7 @@ function SearchContent() {
                 placeholder="Search..."
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                className="w-full px-6 h-[41px] text-lg text-gray-700 bg-white focus:outline-none placeholder-gray-400"
+                className="w-full px-[20px] h-[41px] [font-family:Inter] text-lg text-gray-700 bg-white focus:outline-none placeholder-gray-400"
                 style={{ fontWeight: 300 }}
               />
               {/* Right icon: Search icon when empty, Clear icon when has value */}
@@ -225,15 +239,15 @@ function SearchContent() {
             </div>
             <button
               type="submit"
-              className="px-[25px] py-0 bg-[#3E8283] text-white text-base font-semibold hover:bg-[#27605c] transition-colors"
+              className="[font-family:Lato] text-[14px] px-[25px] py-0 bg-[#3E8283] text-white font-bold hover:bg-[#27605c] transition-colors"
             >
               SUBMIT
             </button>
           </div>
         </form>
 
-        <h1 className="[font-family:Inter] text-5xl font-bold mb-4 text-[#408B88] tracking-[0.045px]">Search Results</h1>
-        <p className="mb-8 text-xl text-gray-600">Showing results for: “{query}”</p>
+        <h1 className="[font-family:Inter] text-[36px] leading-[36px] md:text-[45px] md:leading-[40px] font-bold mb-4 text-[#408B88] tracking-[0.045px]">Search Results</h1>
+        <p className="[font-family:Nunito] mb-8 text-lg text-gray-600">Showing results for: “{query}”</p>
 
         {Object.keys(groupedResults).length === 0 ? (
           <p className="text-2xl text-gray-300 mt-16">No results found.</p>
@@ -244,12 +258,9 @@ function SearchContent() {
               const sectionTitle = collectionName.charAt(0).toUpperCase() + collectionName.slice(1);
 
               return (
-                <section key={collectionName} className="border border-[#345D85] rounded-xl p-8 bg-white">
+                <section key={collectionName} className="border border-[#345D85] rounded-xl p-[26px] bg-white">
                   <h2 className="text-3xl font-bold mb-4">
-                    <div
-                      // href={`/collection/${collectionName}`}
-                      className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]"
-                    >
+                    <div className="text-[#345D85] [font-family:Inter] text-[32px] font-semibold leading-[35px]">
                       {sectionTitle}
                     </div>
                   </h2>
@@ -257,8 +268,8 @@ function SearchContent() {
                     {posts.map((post) => (
                       <li key={post.path}>
                         <Link
-                          href={`/post/${collectionName}/${post.name.replace('.md', '')}`}
-                          className="text-[#1C8278] text-lg underline"
+                          href={post.route}
+                          className="[font-family:Nunito] text-[#1C8278] text-lg hover:underline focus-visible:underline"
                         >
                           {post.metadata?.title || post.name.replace('.md', '').replace(/-/g, ' ')}
                         </Link>

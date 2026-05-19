@@ -46,8 +46,9 @@ const HeaderContainer = styled.div`
 
     .headerLowerContainer {
         display: flex;
-        margin: 16px 0 4px 0;
-        height: 51px;
+        align-items: center;
+        margin: 0px 0 4px 0;
+        height: 77px;
     }
 
     .menuButton {
@@ -55,7 +56,7 @@ const HeaderContainer = styled.div`
         height: 45px;
         background: #1F4671;
         border-radius: 5px;
-        font-family: var(--font-open-sans);
+        font-family: 'Open Sans';
         font-weight: 700;
         font-size: 20px;
         line-height: 45px;
@@ -122,7 +123,7 @@ const MenuArea = styled.div`
         line-height: 16px;
         color: #007BBD;
         padding-left: 16px;
-        background: url(${leftArrowIcon}) left no-repeat;
+        background: url(${leftArrowIcon.src}) left no-repeat;
     }
 
     .backButton:hover {
@@ -175,7 +176,7 @@ const MenuArea = styled.div`
     }
 
     .clickable {
-        background: url(${rightArrowIcon}) 90% no-repeat;
+        background: url(${rightArrowIcon.src}) 90% no-repeat;
     }
 
     .clickable {

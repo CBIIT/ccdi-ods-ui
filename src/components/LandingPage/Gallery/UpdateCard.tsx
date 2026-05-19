@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import externalLinkIcon from "../../../../assets/icons/external_link_icon.svg";
 
 interface UpdateCardProps {
   image: string;
@@ -16,48 +15,61 @@ const UpdateCard: React.FC<UpdateCardProps> = ({
   link,
 }) => {
   return (
-    <div className="relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[496px] sm:max-w-[367px]">
-      <div className="flex flex-col gap-px items-start overflow-hidden relative rounded-[inherit] w-full h-full">
-        <div className="aspect-[367/310] max-h-[310px] relative shrink-0 w-full sm:max-w-[367px]">
+    <div className="group relative rounded-bl-[20px] rounded-tr-[20px] w-full h-[278px] max-w-[215px] md:h-[278px] md:max-w-[215px] gallery-lg:h-[476px] gallery-lg:w-[367px] gallery-lg:max-w-[367px] gallery-lg:shrink-0">
+      <div className="flex flex-col gap-0 items-start overflow-hidden relative rounded-[inherit] w-full h-full">
+        <div className="h-[181px] md:h-[181px] gallery-lg:h-[310px] relative shrink-0 w-full rounded-tr-[20px] overflow-hidden gallery-lg:w-full">
           <Image
             src={image}
             alt={title}
             width={367}
             height={310}
-            className="absolute inset-0 object-cover object-center pointer-events-none w-full h-full"
+            className="absolute inset-0 object-cover object-center pointer-events-none w-full h-full rounded-tr-[20px]"
           />
         </div>
-        <div className="bg-[#323032] box-border flex flex-col flex-1 items-start overflow-hidden pb-[15px] pt-[11px] px-[18px] relative shrink-0 w-full">
-          <p className="[font-family:Nunito] font-bold leading-[20px] relative shrink-0 text-[16px] sm:text-[17px] md:text-[18px] text-white w-full mb-[5px] min-h-[40px]">
+        <div className="bg-[#044249] box-border flex flex-col flex-1 items-start overflow-hidden pb-[14px] pt-[8px] px-[14px] relative shrink-0 w-full md:pb-[14px] md:pt-[8px] md:px-[14px] gallery-lg:px-6 gallery-lg:pt-[14px] gallery-lg:pb-5">
+          <p className="font-poppins font-semibold leading-[16px] text-[14px] uppercase tracking-[-0.105px] md:tracking-[0.28px] text-[#72f9fb] w-full gallery-lg:mb-2 gallery-lg:min-h-0">
             <a
               href={link}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#F6CB0E] cursor-pointer"
+              className="font-poppins text-[14px] font-semibold not-italic leading-[16px] text-[#72F9FB] hover:text-[#F6CB0E] cursor-pointer md:hover:text-[#72f9fb] gallery-lg:hover:text-[#72f9fb]"
             >
               {title}
             </a>
           </p>
-          <div className="[font-family:Nunito] font-normal leading-[24px] sm:leading-[26px] md:leading-[28px] text-[16px] sm:text-[17px] md:text-[18px] text-white">
-            <span>
+          <div className="hidden gallery-lg:block">
+            <p className="[font-family:Inter] font-normal text-white w-[326px] text-[16px] leading-[22px] mb-2">
               {description.length > 100
                 ? `${description.slice(0, 100)}...`
                 : description}
-            </span>
-            <span className="gap-[8px] items-center ml-1 inline-flex">
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid [font-family:Nunito] font-medium leading-[28px] text-[#76e7dd] text-[14px] underline uppercase cursor-pointer whitespace-nowrap"
-              >
-                Read More
-              </a>
-              <div className="h-[11.915px] relative shrink-0 w-[11.295px]">
-                <Image src={externalLinkIcon} alt="external link" className="block max-w-none w-full h-full" width={12} height={12} />
-              </div>
-            </span>
+            </p>
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-inter font-normal not-italic text-[14px] leading-[22px] text-[#aff1ff] underline cursor-pointer hover:text-[#5ef2ff] inline-block mt-auto text-right w-full"
+            >
+              Read More &gt;
+            </a>
           </div>
+        </div>
+        {/* Tablet/mobile only: hover overlay per Figma 2174-9260 — dark overlay, centered text, teal Read More. Hidden overlay uses pointer-events-none + invisible so the link is not focusable; revealed on hover or keyboard focus (focus-within). */}
+        <div
+          className="absolute inset-0 rounded-[inherit] bg-black/70 flex flex-col justify-center p-4 opacity-0 invisible pointer-events-none transition-opacity duration-200 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto z-[1] gallery-lg:hidden"
+        >
+          <p className="font-inter font-normal text-white text-[14px] leading-[20px] line-clamp-5 mb-3 text-left">
+            {description.length > 100
+              ? `${description.slice(0, 100)}...`
+              : description}
+          </p>
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-inter font-normal text-[14px] leading-[22px] text-[#4BBFC6] underline decoration-[#4BBFC6] hover:text-[#72f9fb] hover:decoration-[#72f9fb] cursor-pointer w-fit text-left"
+          >
+            Read More &gt;
+          </a>
         </div>
       </div>
     </div>

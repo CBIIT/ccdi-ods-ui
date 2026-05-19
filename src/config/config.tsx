@@ -12,7 +12,7 @@
  * This allows for different content versions between environments
  * while maintaining a clean separation between development and production content.
  */
-export function getGithubBranch() {
+export function getGithubBranch(): string {
   if (typeof window !== 'undefined') {
     const host = window.location.hostname;
     if (
