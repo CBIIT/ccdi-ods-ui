@@ -78,30 +78,28 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "NCI Data Sharing Hub",
   description: "Explore the NCIs data sharing and data access policies, guidelines, and resources to support cancer research and open science.",
-  metadataBase: new URL("https://datascience.cancer.gov"),
+  metadataBase: new URL("https://datasharing.cancer.gov"),
   alternates: {
-    canonical: "/data-sharing"
+    canonical: "/"
   },
   openGraph: {
-    title: "Data Sharing - NCI Data Science",
+    title: "NCI Data Sharing Hub",
     description: "Explore the NCIs data sharing and data access policies, guidelines, and resources to support cancer research and open science.",
-    url: "https://datascience.cancer.gov/data-sharing",
-    siteName: "NCI Data Science",
-    type: "website",
-    images: [{
-      url: "https://datascience.cancer.gov/sites/default/files/styles/cgov_social_media/public/2023-01/data-sharing-header.jpg"
-    }]
+    url: "https://datasharing.cancer.gov/",
+    siteName: "NCI Data Sharing Hub",
+    type: "website"
   },
   twitter: {
     card: "summary",
-    title: "Data Sharing - NCI Data Science",
+    title: "NCI Data Sharing Hub",
     description: "Explore the NCIs data sharing and data access policies, guidelines, and resources to support cancer research and open science."
   },
   icons: {
     icon: [
       {
-        url: "https://raw.githubusercontent.com/CBIIT/ccdi-ods-ui/refs/heads/dev2/public/favicon.ico",
-        sizes: "32x32"
+        url: "/favicon.ico",
+        type: "image/x-icon",
+        sizes: "48x48"
       }
     ]
   },
@@ -111,8 +109,8 @@ export const metadata: Metadata = {
     "dcterms.subject": "NCI Data Sharing",
     "dcterms.type": "DataSharingLanding",
     "dcterms.coverage": "nciglobal,ncienterprise",
-    "dcterms.isPartOf": "NCI Data Science",
-    "cgdp.domain": "datascience",
+    "dcterms.isPartOf": "NCI Data Sharing Hub",
+    "cgdp.domain": "datasharing",
     "MobileOptimized": "width",
     "HandheldFriendly": "true"
   }
