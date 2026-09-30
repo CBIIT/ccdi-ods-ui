@@ -79,13 +79,9 @@ export const metadata: Metadata = {
   title: "NCI Data Sharing Hub",
   description: "Explore the NCIs data sharing and data access policies, guidelines, and resources to support cancer research and open science.",
   metadataBase: new URL("https://datasharing.cancer.gov"),
-  alternates: {
-    canonical: "/"
-  },
   openGraph: {
     title: "NCI Data Sharing Hub",
     description: "Explore the NCIs data sharing and data access policies, guidelines, and resources to support cancer research and open science.",
-    url: "https://datasharing.cancer.gov/",
     siteName: "NCI Data Sharing Hub",
     type: "website"
   },
