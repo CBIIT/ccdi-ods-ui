@@ -6,8 +6,8 @@ FROM node:25-alpine3.23 AS base
 # Patch CVEs in this layer
 #
 
-# zlib: CVE-2026-27171, OpenSSL: CVE-2025-4575
-RUN apk update && apk add --no-cache --upgrade zlib=1.3.2-r0 openssl
+# Upgrade all OS packages (incl. zlib, libssl3, libcrypto3)
+RUN apk upgrade --no-cache
 
 # Install dependencies only when needed
 FROM base AS deps
