@@ -12,7 +12,7 @@
     "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --maxConcurrency=2"
   },
   "engines": {
-    "node": ">=25.0.0 <26.0.0",
+    "node": ">=26.0.0 <27.0.0",
     "npm": ">=11.0.0"
   },
   "dependencies": {

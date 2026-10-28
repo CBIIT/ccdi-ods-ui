@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-FROM node:25-alpine3.23 AS base
+FROM node:26-alpine3.23 AS base
 
 #
 # Patch CVEs in this layer
