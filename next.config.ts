@@ -12,6 +12,17 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        // Retired Tools and Resources page -> INS resources hash route, 301 for SEO (DATASHARE-285).
+        // Done here rather than on the ALB because ALB redirects can't include a "#" fragment.
+        source: "/post/Data/cancer-data-resources/",
+        destination: "https://studycatalog.cancer.gov/#/resources",
+        statusCode: 301,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
