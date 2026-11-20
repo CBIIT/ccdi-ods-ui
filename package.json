@@ -1,6 +1,6 @@
 {
   "name": "ccdi-ods-ui",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -12,13 +12,13 @@
     "test:ci": "TZ=UTC CI=true vitest --reporter verbose --coverage --maxConcurrency=2"
   },
   "engines": {
-    "node": ">=25.0.0 <26.0.0",
+    "node": ">=26.0.0 <27.0.0",
     "npm": ">=11.0.0"
   },
   "dependencies": {
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",
-    "next": "^15.5.26",
+    "next": "^15.5.29",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rehype-highlight": "^7.0.2",
@@ -42,7 +42,7 @@
     "@vitejs/plugin-react": "^5.1.0",
     "@vitest/coverage-v8": "^4.0.7",
     "eslint": "^9",
-    "eslint-config-next": "^15.5.26",
+    "eslint-config-next": "^15.5.29",
     "jsdom": "^27.1.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5",
